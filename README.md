@@ -28,7 +28,7 @@
 ## 설치 안내 (Installation Process)
 
 ```bash
-$ git clone git주소
+$ git clone git 주소
 $ yarn or npm install
 $ yarn start or npm run start
 ```
