@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="{{ url_for('static', filename='index_script.js') }}"></script>
+  <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='index_style.css') }}">
+  <title>Firebase & Flask</title>
+</head>
+<body class="full-screen flex-center">
+  <h1 class="text-xl">Flask + Firebase</h1>  
+  <h2>Last 10 visits</h2>
+  {% for time in times %}
+    <p>{{ time }}</p>
+  {% endfor %}
+  <br>
+  <h3> Made w/ ❤️ by TAPA team </h3>
+</body>
+</html>
