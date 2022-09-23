@@ -10,6 +10,9 @@
 	},
 	"dependencies": {
 		"@emotion/native": "^11.10.0",
+		"@react-navigation/bottom-tabs": "^6.4.0",
+		"@react-navigation/native": "^6.0.13",
+		"@react-navigation/stack": "^6.3.1",
 		"dotenv": "^16.0.2",
 		"expo": "~46.0.9",
 		"expo-status-bar": "~1.4.0",
