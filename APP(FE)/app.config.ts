@@ -3,8 +3,8 @@ import 'dotenv/config'
 import { ExpoConfig } from '@expo/config-types'
 
 const config: ExpoConfig = {
-	slug: 'tapa',
 	name: 'TAPA',
+	slug: 'tapa',
 	version: '1.0.0',
 	orientation: 'portrait',
 	icon: './assets/icon.png',
@@ -14,19 +14,34 @@ const config: ExpoConfig = {
 		resizeMode: 'contain',
 		backgroundColor: '#ffffff',
 	},
+	updates: {
+		fallbackToCacheTimeout: 0,
+	},
+	assetBundlePatterns: ['**/*'],
 	ios: {
-		bundleIdentifier: 'com.team-ip.tapa',
-		buildNumber: '1.0.0',
+		supportsTablet: true,
 	},
 	android: {
 		adaptiveIcon: {
 			foregroundImage: './assets/adaptive-icon.png',
 			backgroundColor: '#FFFFFF',
 		},
-		package: 'com.team-ip.tapa',
+	},
+	web: {
+		favicon: './assets/favicon.png',
 	},
 	extra: {
 		backendBaseURL: process.env.BACKEND_BASE_URL ?? 'https://api.tip-tapa.kr',
+		firebase: {
+			apiKey: process.env.FIREBASE_API_KEY,
+			appId: process.env.FIREBASE_APP_ID,
+			authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+			databaseURL: process.env.FIREBASE_DATABASE_URL,
+			measurementId: process.env.FIREBASE_MEASUREMENT_ID,
+			messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
+			projectId: process.env.FIREBASE_PROJECT_ID,
+			storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
+		},
 	},
 }
 

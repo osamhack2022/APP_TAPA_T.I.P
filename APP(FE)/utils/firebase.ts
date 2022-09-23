@@ -3,15 +3,10 @@ import { FirebaseOptions, initializeApp } from 'firebase/app'
 import { initializeAuth, ReactNativeAsyncStorage } from 'firebase/auth'
 import { getReactNativePersistence } from 'firebase/auth/react-native'
 
+import extra from './extra'
+
 const firebaseConfig: FirebaseOptions = {
-	apiKey: '',
-	appId: '',
-	authDomain: '',
-	databaseURL: '',
-	measurementId: '',
-	messagingSenderId: '',
-	projectId: '',
-	storageBucket: '',
+	...extra.firebase,
 }
 
 /**
