@@ -1,5 +1,5 @@
 import firebase from '@utils/firebase'
-import { onAuthStateChanged, User } from 'firebase/auth'
+import { User } from 'firebase/auth'
 import { useEffect } from 'react'
 
 type Props = {
@@ -11,7 +11,7 @@ const AuthProvider: React.FC<React.PropsWithChildren<Props>> = ({
 	children,
 }) => {
 	useEffect(() => {
-		const unsubscribe = onAuthStateChanged(firebase.auth, user => {
+		const unsubscribe = firebase.auth.onAuthStateChanged(user => {
 			// set global user object here
 			// 사용자가 onboarding을 완료하지 않은 상태에서 user가 falsy 값이면
 			onChange?.(user)
