@@ -15,6 +15,7 @@
 		"@react-navigation/stack": "^6.3.1",
 		"dotenv": "^16.0.2",
 		"expo": "~46.0.9",
+		"expo-secure-store": "~11.3.0",
 		"expo-status-bar": "~1.4.0",
 		"firebase": "^9.10.0",
 		"luxon": "^3.0.3",
