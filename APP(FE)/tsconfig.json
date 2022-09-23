@@ -7,8 +7,8 @@
 			"@components/*": ["./components/*"],
 			"@hooks/*": ["./hooks/*"],
 			"@screens/*": ["./screens/*"],
-      "@store/*": ["./store/*"],
-      "@utils/*": ["./utils/*"],
+			"@store/*": ["./store/*"],
+			"@utils/*": ["./utils/*"],
 			"@/*": ["./*"]
 		}
 	}
