@@ -11,14 +11,14 @@ jobs:
 
       - name: Check out Git repository
         uses: actions/checkout@v3
-        
+
       - name: Install node modules
         run: yarn
-        working-directory: ${{ env.working-directory }}/APP(FE)
+        working-directory: ./APP(FE)
 
       - name: Run ESLint
         run: yarn lint
-        working-directory: ${{ env.working-directory }}/APP(FE)
+        working-directory: ./APP(FE)
 
       - run: echo "🎉 Done!"
 
