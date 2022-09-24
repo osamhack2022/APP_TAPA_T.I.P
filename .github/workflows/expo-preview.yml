@@ -36,7 +36,7 @@ jobs:
           channel: pr-${{ github.event.number }}
           message: >
             This pull request was automatically deployed using [Expo GitHub Actions](https://github.com/expo/expo-github-action/tree/main/preview-comment)!
-            \n- Project: **@{projectOwner}/{projectSlug}**
-            \n- Channel: **{channel}**
+            <br/> - Project: **@{projectOwner}/{projectSlug}**
+            <br/> - Channel: **{channel}**
             <a href="{projectQR}"><img src="{projectQR}" height="200px" width="200px"></a>
-            \nCan't access QR Code? Click [me]({projectLink}) or visit the following link to preview this build: {projectLink}
+            <br/> Can't access QR Code? Click [me]({projectLink}) or visit the following link to preview this build: {projectLink}
