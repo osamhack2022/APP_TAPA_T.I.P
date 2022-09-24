@@ -1,0 +1,25 @@
+name: Lint
+on: ["push"]
+jobs:
+  frontend-run-lint:
+    name: Run ESLint
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
+      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
+
+      - name: Check out Git repository
+        uses: actions/checkout@v3
+
+      - name: Install node modules
+        run: yarn
+        working-directory: ./APP(FE)
+
+      - name: Run ESLint
+        run: yarn lint
+        working-directory: ./APP(FE)
+
+      - run: echo "🎉 Done!"
+
+      
