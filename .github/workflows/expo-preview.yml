@@ -33,10 +33,10 @@ jobs:
         uses: expo/expo-github-action/preview-comment@v7
         with:
           project: ./APP(FE)
-          channel: pr-${{ github.event.number }}projectLink
+          channel: pr-${{ github.event.number }}
           message: >
             This pull request was automatically deployed using [Expo GitHub Actions](https://github.com/expo/expo-github-action/tree/main/preview-comment)!
-            - Project: **@{projectOwner}/{projectSlug}**
-            - Channel: **{channel}**
+            \n- Project: **@{projectOwner}/{projectSlug}**
+            \n- Channel: **{channel}**
             <a href="{projectQR}"><img src="{projectQR}" height="200px" width="200px"></a>
-            Can't access QR Code? Click [me]({projectLink}) or visit the following link to preview this build: {projectLink}
+            \nCan't access QR Code? Click [me]({projectLink}) or visit the following link to preview this build: {projectLink}
