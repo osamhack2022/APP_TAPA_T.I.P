@@ -5,32 +5,30 @@ jobs:
     name: Create Expo Preview
     runs-on: ubuntu-latest
     steps:
-      - name: Set up repository
+      - name: 🏗 Setup repo
         uses: actions/checkout@v3
-      - name: Set up Expo
+
+      - name: 🏗 Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
+          cache: yarn
+
+      - name: 🏗 Setup Expo
         uses: expo/expo-github-action@v7
         with:
           expo-version: latest
           token: ${{ secrets.EXPO_TOKEN }}
-      - name: Install dependencies
-        run: yarn install
+
+      - name: 📦 Install dependencies
         working-directory: ./APP(FE)
-      - name: Publish to Expo & create a QR code
-        uses: expo/expo-preview-action@v1
+        run: yarn install
+
+      - name: 🚀 Publish preview
+        working-directory: ./APP(FE)
+        run: expo publish --release-channel=pr-${{ github.event.number }} --non-interactive
+
+      - name: 💬 Comment preview
+        uses: expo/expo-github-action/preview-comment@v7
         with:
           channel: pr-${{ github.event.number }}
-          project-flavor: expo-go
-          project-root: ./APP(FE)
-        id: preview
-      - name: Comment deployment link
-        uses: unsplash/comment-on-pr@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.COMMENT_TOKEN }}
-        with:
-          msg: >
-            You can [preview the PR here](${{ steps.preview.outputs.EXPO_QR_CODE_URL }}).<br><br>
-            <a href="${{ steps.publish.outputs.EXPO_QR_CODE_URL }}"><img src="${{ steps.preview.outputs.EXPO_QR_CODE_URL }}" height="512px" width="512px"></a>
-            <br><br>
-            QR code not working or need a different client? Try the QR code or deep link from the [project page](${{steps.preview.outputs.EXPO_PROJECT_URL}}).
-            <br><br>
-            ${{ steps.publish.outputs.EXPO_NEW_BUILD_IS_REQUIRED_MESSAGE }}
