@@ -12,6 +12,9 @@ jobs:
       - name: Check out Git repository
         uses: actions/checkout@v3
 
+      - name: cd APP(FE)
+        run: cd 'APP(FE)'
+
       - name: Install node modules
         run: yarn
 
