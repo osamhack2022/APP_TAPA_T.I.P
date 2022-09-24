@@ -38,5 +38,5 @@ jobs:
             This pull request was automatically deployed using [Expo GitHub Actions](https://github.com/expo/expo-github-action/tree/main/preview-comment)!
             <br/> - Project: **@{projectOwner}/{projectSlug}**
             <br/> - Channel: **{channel}**
-            <a href="{projectQR}"><img src="{projectQR}" height="200px" width="200px"></a>
+            <br/> <a href="{projectQR}"><img src="{projectQR}" height="200px" width="200px"></a>
             <br/> Can't access QR Code? Click [me]({projectLink}) or visit the following link to preview this build: {projectLink}
