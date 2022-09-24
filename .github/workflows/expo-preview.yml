@@ -1,0 +1,42 @@
+name: Create Expo Preview
+on: [pull_request]
+jobs:
+  preview:
+    name: Create Expo Preview
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🏗 Setup repo
+        uses: actions/checkout@v3
+
+      - name: 🏗 Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
+          cache: yarn
+          cache-dependency-path: ./APP(FE)/yarn.lock
+
+      - name: 🏗 Setup Expo
+        uses: expo/expo-github-action@v7
+        with:
+          expo-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+
+      - name: 📦 Install dependencies
+        working-directory: ./APP(FE)
+        run: yarn install
+
+      - name: 🚀 Publish preview
+        working-directory: ./APP(FE)
+        run: expo publish --release-channel=pr-${{ github.event.number }} --non-interactive
+
+      - name: 💬 Comment preview
+        uses: expo/expo-github-action/preview-comment@v7
+        with:
+          project: ./APP(FE)
+          channel: pr-${{ github.event.number }}
+          message: >
+            This pull request was automatically deployed using [Expo GitHub Actions](https://github.com/expo/expo-github-action/tree/main/preview-comment)!
+            <br/> - Project: **@{projectOwner}/{projectSlug}**
+            <br/> - Channel: **{channel}**
+            <br/> <a href="{projectQR}"><img src="{projectQR}" height="200px" width="200px"></a>
+            <br/> Can't access QR Code? Click [me]({projectLink}) or visit the following link to preview this build: {projectLink}

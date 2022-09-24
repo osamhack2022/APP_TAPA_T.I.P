@@ -5,21 +5,23 @@ jobs:
     name: Run ESLint
     runs-on: ubuntu-latest
     steps:
-      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
-      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
-      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
 
-      - name: Check out Git repository
+      - name: 🏗 Setup repo
         uses: actions/checkout@v3
 
-      - name: Install node modules
-        run: yarn
-        working-directory: ./APP(FE)
+      - name: 🏗 Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
+          cache: yarn
+          cache-dependency-path: ./APP(FE)/yarn.lock
 
-      - name: Run ESLint
+      - name: 📦 Install dependencies
+        working-directory: ./APP(FE)
+        run: yarn install
+
+      - name: 🤞 Run ESLint
         run: yarn lint
         working-directory: ./APP(FE)
-
-      - run: echo "🎉 Done!"
 
       
