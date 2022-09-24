@@ -17,6 +17,8 @@ jobs:
         working-directory: ./APP(FE)
       - name: Publish to Expo & create a QR code
         uses: expo/expo-preview-action@v1
+        project-flavor: expo-go
+        project-root: ./APP(FE)
         with:
           channel: pr-${{ github.event.number }}
         id: preview
