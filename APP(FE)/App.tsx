@@ -1,11 +1,31 @@
-import { StatusBar } from 'expo-status-bar'
-import { Text, View } from 'react-native'
+import AuthProvider from '@components/AuthProvider'
+import MultiProvider from '@components/MultiProvider'
+import RootStackNavigator, {
+	RootStackParamList,
+} from '@navigators/RootStackNavigator'
+import { NavigationContainer } from '@react-navigation/native'
 
-export default function App() {
+import 'react-native-gesture-handler'
+
+const App: React.FC = () => {
 	return (
-		<View>
-			<Text>Open up App.tsx to start working on your app!</Text>
-			<StatusBar style="auto" />
-		</View>
+		<MultiProvider providers={[<AuthProvider />]}>
+			<NavigationContainer<RootStackParamList>
+				initialState={{
+					routes: [
+						{
+							name: 'Tab',
+						},
+						{
+							name: 'OnBoarding',
+						},
+					],
+				}}
+			>
+				<RootStackNavigator />
+			</NavigationContainer>
+		</MultiProvider>
 	)
 }
+
+export default App
