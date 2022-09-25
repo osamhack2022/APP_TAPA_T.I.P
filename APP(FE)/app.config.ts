@@ -6,6 +6,9 @@ const config: ExpoConfig = {
 	name: 'TAPA',
 	slug: 'tapa',
 	owner: 'osam-tapa-tip',
+	runtimeVersion: {
+		policy: 'sdkVersion',
+	},
 	version: '1.0.0',
 	orientation: 'portrait',
 	icon: './assets/icon.png',
@@ -17,6 +20,7 @@ const config: ExpoConfig = {
 	},
 	updates: {
 		fallbackToCacheTimeout: 0,
+		url: 'https://u.expo.dev/01b385eb-fe27-4b40-99d3-ee09484347b0',
 	},
 	assetBundlePatterns: ['**/*'],
 	ios: {
