@@ -1,11 +1,16 @@
-import { StatusBar } from 'expo-status-bar'
-import { Text, View } from 'react-native'
+import AuthProvider from '@components/AuthProvider'
+import MultiProvider from '@components/MultiProvider'
+import TabNavigator from '@navigators/TabNavigator'
+import { NavigationContainer } from '@react-navigation/native'
 
-export default function App() {
+const App: React.FC = () => {
 	return (
-		<View>
-			<Text>Open up App.tsx to start working on your app!</Text>
-			<StatusBar style="auto" />
-		</View>
+		<MultiProvider providers={[<AuthProvider />]}>
+			<NavigationContainer>
+				<TabNavigator />
+			</NavigationContainer>
+		</MultiProvider>
 	)
 }
+
+export default App
