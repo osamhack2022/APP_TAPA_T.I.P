@@ -20,7 +20,6 @@ const config: ExpoConfig = {
 	},
 	updates: {
 		fallbackToCacheTimeout: 0,
-		url: 'https://u.expo.dev/01b385eb-fe27-4b40-99d3-ee09484347b0',
 	},
 	assetBundlePatterns: ['**/*'],
 	ios: {
