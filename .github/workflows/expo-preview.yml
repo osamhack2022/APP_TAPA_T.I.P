@@ -25,6 +25,14 @@ jobs:
         working-directory: ./APP(FE)
         run: yarn install
 
+      - name: ⚙️ Import environment variables from secrets
+        id: import-env
+        shell: bash
+        run: |
+          while read line; do
+            echo "$line" >> $GITHUB_ENV
+          done < ${{ env.ENV_FILE }}
+
       - name: 🚀 Publish preview
         working-directory: ./APP(FE)
         run: expo publish --release-channel=pr-${{ github.event.number }} --non-interactive
