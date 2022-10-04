@@ -4,7 +4,7 @@ import { API_BASE_URL } from '../../constant'
 import TokenHeader from '../TokenHeader'
 
 export const GetRequest = <T = any>(url: string, params?: object) =>
-	axios.get<T>(`${API_BASE_URL}${url}`, TokenHeader.getHeader(params))
+	axios.get<T>(`${API_BASE_URL}${url}`, TokenHeader.getHeader())
 export const PostRequest = <T = any>(url: string, body?: object) =>
 	axios.post<T>(`${API_BASE_URL}${url}`, body, TokenHeader.getHeader())
 export const PutRequest = <T = any>(
