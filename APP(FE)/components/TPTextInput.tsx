@@ -96,7 +96,7 @@ const TPTextInput = <T extends any = string>({
 					`,
 					passProps.style,
 				]}
-				placeholderTextColor="#aaa"
+				placeholderTextColor={COLOR.GRAY.NORMAL(5)}
 			/>
 			{helper && (
 				<Text
