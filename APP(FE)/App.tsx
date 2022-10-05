@@ -1,21 +1,46 @@
 import MultiProvider from '@components/MultiProvider'
 import { TAPASquareIcon } from '@components/TPIcon'
 import { css } from '@emotion/native'
-import useAuth from '@hooks/auth'
+import useAuthListener from '@hooks/auth'
 import { RootStackParamList } from '@navigators/RootStack'
 import RootStackNavigator from '@navigators/RootStackNavigator'
-import { NavigationContainer } from '@react-navigation/native'
+import {
+	NavigationContainer,
+	useNavigationContainerRef,
+} from '@react-navigation/native'
+import { userAtom } from '@store/atoms'
 import { useFonts } from 'expo-font'
-import { Provider as JotaiProvider } from 'jotai'
+import { Provider as JotaiProvider, useAtomValue } from 'jotai'
 import { useEffect } from 'react'
 import { View } from 'react-native'
 import { setCustomText, setCustomTextInput } from 'react-native-global-props'
 
 import 'react-native-gesture-handler'
 
-const App: React.FC = () => {
-	const firebaseUser = useAuth()
+const RootNavigationContainer: React.FC = () => {
+	useAuthListener()
+	const navigationContainerRef = useNavigationContainerRef<RootStackParamList>()
+	const firebaseUser = useAtomValue(userAtom)
+	return (
+		<NavigationContainer<RootStackParamList>
+			ref={navigationContainerRef}
+			initialState={{
+				routes: [
+					{
+						name: 'Tab',
+					},
+					{
+						name: 'OnBoarding',
+					},
+				],
+			}}
+		>
+			<RootStackNavigator key={firebaseUser?.uid ?? 'RootStackNavigator'} />
+		</NavigationContainer>
+	)
+}
 
+const App: React.FC = () => {
 	const [fontsLoaded] = useFonts({
 		Pretendard: require('./assets/fonts/Pretendard/PretendardStd-Regular.otf'),
 		PretendardBold: require('./assets/fonts/Pretendard/PretendardStd-Bold.otf'),
@@ -49,23 +74,9 @@ const App: React.FC = () => {
 			</View>
 		)
 	}
-
 	return (
 		<MultiProvider providers={[<JotaiProvider />]}>
-			<NavigationContainer<RootStackParamList>
-				initialState={{
-					routes: [
-						{
-							name: 'Tab',
-						},
-						{
-							name: 'OnBoarding',
-						},
-					],
-				}}
-			>
-				<RootStackNavigator />
-			</NavigationContainer>
+			<RootNavigationContainer />
 		</MultiProvider>
 	)
 }

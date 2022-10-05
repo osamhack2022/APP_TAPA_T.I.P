@@ -122,8 +122,9 @@ const TPModalInput = <T,>({
 					{children({
 						value,
 						setValue: v => {
-							setValue(v)
 							setOpen(false)
+							setValue(v)
+							onChange?.(v)
 						},
 						cancel: () => {
 							setOpen(false)
@@ -141,8 +142,8 @@ const TextInputLikeView = styled.View`
 	border-radius: 12px;
 	border-width: 2px;
 
-	background-color: #e8e8e8;
-	border-color: #e8e8e8;
+	background-color: #f5f5f5;
+	border-color: #f5f5f5;
 `
 
 export default TPModalInput

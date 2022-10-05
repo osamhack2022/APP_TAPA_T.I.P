@@ -38,12 +38,12 @@ const TPTextInput = <T extends any = string>({
 	const [backgroundColor, foregroundColor, borderColor, labelColor] =
 		useMemo(() => {
 			if (focused) {
-				return ['#fff', '#444', '#e8e8e8', '#0059ff']
+				return ['#fff', '#444', '#f5f5f5', '#0059ff']
 			}
 			if (value) {
-				return ['#e8e8e8', '#444', '#e8e8e8', '#0059ff']
+				return ['#f5f5f5', '#444', '#f5f5f5', '#0059ff']
 			}
-			return ['#e8e8e8', '#444', '#e8e8e8', '#888']
+			return ['#f5f5f5', '#444', '#f5f5f5', '#888']
 		}, [value, focused, error?.length])
 
 	return (

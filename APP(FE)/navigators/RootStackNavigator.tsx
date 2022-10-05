@@ -1,4 +1,5 @@
 import OnBoarding from '@screens/onboarding'
+import SigninScreen from '@screens/SigninScreen'
 import SignupScreen from '@screens/SignupScreen'
 
 import { RootStack } from './RootStack'
@@ -16,7 +17,26 @@ const RootStackNavigator: React.FC = () => {
 				<RootStack.Screen
 					name="SignUp"
 					component={SignupScreen}
-					options={{ title: '회원가입', headerShown: false }}
+					options={{
+						title: '회원가입',
+						headerShadowVisible: false,
+						headerTitle: '',
+						cardStyle: {
+							backgroundColor: '#fff',
+						},
+					}}
+				/>
+				<RootStack.Screen
+					name="SignIn"
+					component={SigninScreen}
+					options={{
+						title: '로그인',
+						headerShadowVisible: false,
+						headerTitle: '',
+						cardStyle: {
+							backgroundColor: '#fff',
+						},
+					}}
 				/>
 			</RootStack.Group>
 			<RootStack.Group key="main-group">

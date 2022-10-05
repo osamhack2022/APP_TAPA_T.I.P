@@ -21,7 +21,11 @@ const TPButton: React.FC<Props> = ({
 	style,
 	...passProps
 }) => {
-	const color = variant === 'primary' ? '#0059ff' : '#343434'
+	const color = disabled
+		? '#888'
+		: variant === 'primary'
+		? '#0059ff'
+		: '#343434'
 	const pressedColor = tinycolor(color).darken(10).toHexString()
 	const [padding, fontSize] =
 		size === 'small'
@@ -34,6 +38,7 @@ const TPButton: React.FC<Props> = ({
 	return (
 		<Pressable
 			{...passProps}
+			disabled={disabled}
 			style={({ pressed }) => [
 				css`
 					border-radius: 12px;
