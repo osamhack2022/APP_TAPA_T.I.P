@@ -10,6 +10,8 @@ import {
 } from 'react-native'
 import Modal from 'react-native-modal'
 
+import { FONT } from '@/constants/font'
+
 export type ModalChildProps<T> = {
 	value?: T
 	setValue: (value?: T) => void
@@ -53,7 +55,7 @@ const TPModalInput = <T,>({
 				{label && (
 					<Text
 						style={css`
-							font-weight: 700;
+							font-family: ${FONT.Pretendard.BOLD};
 							color: ${value ? '#0059ff' : '#888'};
 							margin-left: 8px;
 							margin-bottom: 4px;

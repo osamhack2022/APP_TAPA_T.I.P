@@ -5,6 +5,8 @@ import { useRootStackNavigation } from '@navigators/RootStack'
 import React from 'react'
 import { Pressable, Text, View } from 'react-native'
 
+import { FONT } from '@/constants/font'
+
 const Button: React.FC<
 	React.ComponentProps<typeof Pressable> & {
 		children: string
@@ -30,7 +32,7 @@ const Button: React.FC<
 	>
 		<Text
 			style={css`
-				font-weight: 700;
+				font-family: ${FONT.Pretendard.BOLD};
 				text-align: center;
 				color: #fff;
 			`}
