@@ -1,29 +1,24 @@
-import { useNavigation } from '@react-navigation/native'
-import {
-	createStackNavigator,
-	StackNavigationProp,
-	StackScreenProps,
-} from '@react-navigation/stack'
 import OnBoarding from '@screens/onboarding'
+import SignupScreen from '@screens/SignupScreen'
 
+import { RootStack } from './RootStack'
 import TabNavigator from './TabNavigator'
-
-export type RootStackParamList = {
-	Tab: undefined
-	OnBoarding: undefined
-}
-export type RootStackScreenProps<T extends keyof RootStackParamList> =
-	StackScreenProps<RootStackParamList, T>
-
-export const RootStack = createStackNavigator<RootStackParamList>()
-
-export const useRootStackNavigation = useNavigation<
-	StackNavigationProp<RootStackParamList>
->
 
 const RootStackNavigator: React.FC = () => {
 	return (
 		<RootStack.Navigator initialRouteName="Tab" detachInactiveScreens>
+			<RootStack.Group
+				key="modal-group"
+				screenOptions={{
+					presentation: 'modal',
+				}}
+			>
+				<RootStack.Screen
+					name="SignUp"
+					component={SignupScreen}
+					options={{ title: '회원가입', headerShown: false }}
+				/>
+			</RootStack.Group>
 			<RootStack.Group key="main-group">
 				<RootStack.Screen
 					name="Tab"
