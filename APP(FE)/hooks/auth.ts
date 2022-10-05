@@ -1,16 +1,14 @@
+import { userAtom } from '@store/atoms'
 import firebase from '@utils/firebase'
-import { User } from 'firebase/auth'
-import { useEffect, useState } from 'react'
+import { useSetAtom } from 'jotai'
+import { useEffect } from 'react'
 
-const useAuth = () => {
-	const [user, setUser] = useState<User | null>(firebase.auth.currentUser)
+const useAuthListener = () => {
+	const setUser = useSetAtom(userAtom)
 	useEffect(() => {
-		const unsubscribe = firebase.auth.onAuthStateChanged(user => {
-			if (user !== null) setUser(user)
-		})
+		const unsubscribe = firebase.auth.onAuthStateChanged(user => setUser(user))
 		return () => unsubscribe()
 	}, [])
-	return user
 }
 
-export default useAuth
+export default useAuthListener

@@ -4,12 +4,28 @@ import TPButton from '@components/TPButton'
 import TPModalSelect from '@components/TPModalSelect'
 import { css } from '@emotion/native'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { RootStackScreenProps } from '@navigators/RootStack'
-import { useForm } from 'react-hook-form'
-import { KeyboardAvoidingView, ScrollView, Text, View } from 'react-native'
+import {
+	RootStackScreenProps,
+	useRootStackNavigation,
+} from '@navigators/RootStack'
+import firebase from '@utils/firebase'
+import { formatDate, formatServiceNumber } from '@utils/format'
+import { FirebaseError } from 'firebase/app'
+import { createUserWithEmailAndPassword } from 'firebase/auth/react-native'
+import { DateTime } from 'luxon'
+import { useCallback } from 'react'
+import { SubmitHandler, useForm } from 'react-hook-form'
+import {
+	Alert,
+	KeyboardAvoidingView,
+	ScrollView,
+	Text,
+	View,
+} from 'react-native'
 import { z } from 'zod'
 
-import { RANK } from '@/constants/rank'
+import { FONT } from '@constants/font'
+import { RANK } from '@constants/rank'
 
 type Props = RootStackScreenProps<'SignUp'>
 
@@ -40,24 +56,55 @@ const formSchema = z
 type FieldValues = z.infer<typeof formSchema>
 
 const SignupScreen: React.FC<Props> = props => {
+	const navigation = useRootStackNavigation()
+
 	const {
 		control,
-		formState: { isValid, errors },
+		handleSubmit,
+		formState: { isValid },
+		...form
 	} = useForm<FieldValues>({
 		resolver: zodResolver(formSchema),
 		mode: 'all',
 		reValidateMode: 'onChange',
-		defaultValues: {
-			email: '',
-			password: '',
-			confirmPassword: '',
-		},
 	})
+
+	const onSubmit = useCallback<SubmitHandler<FieldValues>>(
+		async ({
+			name,
+			email,
+			password,
+			serviceNumber,
+			dischargedAt,
+			enlistedAt,
+			rank,
+			position,
+			affiliatedUnit,
+		}) => {
+			try {
+				/**
+				 * TODO: tie user info with firebase credentials
+				 */
+				const credentials = await createUserWithEmailAndPassword(
+					firebase.auth,
+					email,
+					password,
+				)
+				await firebase.auth.updateCurrentUser(credentials.user)
+				navigation.pop()
+			} catch (error) {
+				if (error instanceof FirebaseError) {
+					Alert.alert('오류', error.message)
+				}
+			}
+		},
+		[],
+	)
 
 	return (
 		<KeyboardAvoidingView
 			behavior="padding"
-			keyboardVerticalOffset={24}
+			keyboardVerticalOffset={72}
 			enabled
 			style={css`
 				flex: 1;
@@ -70,20 +117,20 @@ const SignupScreen: React.FC<Props> = props => {
 			>
 				<View
 					style={css`
-						padding: 48px 16px;
+						padding: 24px 16px;
 					`}
 				>
 					<Text
 						style={css`
 							font-size: 32px;
-							font-weight: 700;
+							font-family: ${FONT.Pretendard.BOLD};
 						`}
 					>
 						회원가입
 					</Text>
 					<View
 						style={css`
-							padding: 48px 0;
+							padding: 24px 0;
 						`}
 					>
 						<ControlledTPTextInput
@@ -99,6 +146,7 @@ const SignupScreen: React.FC<Props> = props => {
 							keyboardType="email-address"
 							label="이메일"
 							placeholder="이메일을 입력해주세요"
+							autoCapitalize="none"
 						/>
 						<Spacer y={16} />
 						<ControlledTPTextInput
@@ -129,14 +177,7 @@ const SignupScreen: React.FC<Props> = props => {
 							returnKeyType="done"
 							label="군번"
 							placeholder="군번을 입력해주세요"
-							serialize={v => {
-								if (!v) return v
-								const stripped = v.replace(/[^\d]/g, '')
-								if (stripped.length <= 2) {
-									return stripped
-								}
-								return `${stripped.substring(0, 2)}-${stripped.substring(2)}`
-							}}
+							serialize={v => (v ? formatServiceNumber(v) : v)}
 						/>
 						<Spacer y={16} />
 						<TPModalSelect<string>
@@ -149,6 +190,47 @@ const SignupScreen: React.FC<Props> = props => {
 							modalStyle={css`
 								padding: 0;
 							`}
+							value={form.watch('rank')}
+							onChange={value =>
+								value &&
+								form.setValue('rank', value, {
+									shouldValidate: true,
+								})
+							}
+						/>
+						<Spacer y={16} />
+						<ControlledTPTextInput
+							name="position"
+							control={control}
+							label="보직"
+							placeholder="현재 보직을 입력해주세요"
+						/>
+						<Spacer y={16} />
+						<ControlledTPTextInput
+							name="affiliatedUnit"
+							control={control}
+							label="소속부대"
+							placeholder="현재 소속부대를 입력해주세요"
+						/>
+						<Spacer y={16} />
+						<ControlledTPTextInput
+							name="enlistedAt"
+							control={control}
+							keyboardType="number-pad"
+							returnKeyType="done"
+							label="입대일"
+							placeholder={DateTime.now().toFormat('yyyy.MM.dd')}
+							serialize={v => (v ? formatDate(v) : v)}
+						/>
+						<Spacer y={16} />
+						<ControlledTPTextInput
+							name="dischargedAt"
+							control={control}
+							keyboardType="number-pad"
+							returnKeyType="done"
+							label="전역일"
+							placeholder={DateTime.now().toFormat('yyyy.MM.dd')}
+							serialize={v => (v ? formatDate(v) : v)}
 						/>
 					</View>
 				</View>
@@ -158,7 +240,13 @@ const SignupScreen: React.FC<Props> = props => {
 					padding: 0 12px 48px 12px;
 				`}
 			>
-				<TPButton>가입하기</TPButton>
+				<TPButton
+					disabled={!isValid}
+					size="large"
+					onPress={handleSubmit(onSubmit)}
+				>
+					가입하기
+				</TPButton>
 			</View>
 		</KeyboardAvoidingView>
 	)
