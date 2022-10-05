@@ -1,11 +1,13 @@
 import { createStackNavigator } from '@react-navigation/stack'
 import React from 'react'
 
+import CommunityForumScreen from './CommunityForumScreen'
 import CommunityHomeScreen from './CommunityHomeScreen'
 import CommunityPostScreen from './CommunityPostScreen'
 
 export type CommunityNaviParamList = {
 	CommunityHome: undefined
+	CommunityForum: undefined
 	CommunityPost: { postId: number }
 }
 
@@ -16,6 +18,7 @@ const CommunityNavigator: React.FC = () => {
 	return (
 		<Stack.Navigator screenOptions={{ headerShown: false }}>
 			<Stack.Screen name="CommunityHome" component={CommunityHomeScreen} />
+			<Stack.Screen name="CommunityForum" component={CommunityForumScreen} />
 			<Stack.Screen name="CommunityPost" component={CommunityPostScreen} />
 		</Stack.Navigator>
 	)
