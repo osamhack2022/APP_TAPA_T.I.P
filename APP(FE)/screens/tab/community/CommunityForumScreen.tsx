@@ -2,7 +2,7 @@ import FocusAwareStatusBar from '@components/FocusAwareStatusBar'
 import { css } from '@emotion/native'
 import { Text, View } from 'react-native'
 
-const CommunityScreen: React.FC = () => (
+const CommunityForumScreen: React.FC = () => (
 	<>
 		<View
 			style={css`
@@ -11,10 +11,10 @@ const CommunityScreen: React.FC = () => (
 				justify-content: center;
 			`}
 		>
-			<Text>CommunityScreen</Text>
+			<Text>ForumScreen</Text>
 		</View>
 		<FocusAwareStatusBar style="dark" />
 	</>
 )
 
-export default CommunityScreen
+export default CommunityForumScreen
