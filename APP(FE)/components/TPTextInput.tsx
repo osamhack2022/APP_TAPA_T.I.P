@@ -2,6 +2,8 @@ import styled, { css } from '@emotion/native'
 import { useMemo, useRef, useState } from 'react'
 import { Text, TextInput, TextInputProps, View } from 'react-native'
 
+import { FONT } from '@/constants/font'
+
 import TPNote from './TPNote'
 
 type Props<T = string> = Omit<TextInputProps, 'value'> & {
@@ -49,7 +51,7 @@ const TPTextInput = <T extends any = string>({
 			{label && (
 				<Text
 					style={css`
-						font-weight: 700;
+						font-family: ${FONT.Pretendard.BOLD};
 						color: ${labelColor};
 						margin-left: 8px;
 						margin-bottom: 4px;
