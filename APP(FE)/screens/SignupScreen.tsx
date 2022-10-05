@@ -9,6 +9,7 @@ import { useForm } from 'react-hook-form'
 import { KeyboardAvoidingView, ScrollView, Text, View } from 'react-native'
 import { z } from 'zod'
 
+import { FONT } from '@/constants/font'
 import { RANK } from '@/constants/rank'
 
 type Props = RootStackScreenProps<'SignUp'>
@@ -76,7 +77,7 @@ const SignupScreen: React.FC<Props> = props => {
 					<Text
 						style={css`
 							font-size: 32px;
-							font-weight: 700;
+							font-family: ${FONT.Pretendard.BOLD};
 						`}
 					>
 						회원가입
@@ -158,7 +159,7 @@ const SignupScreen: React.FC<Props> = props => {
 					padding: 0 12px 48px 12px;
 				`}
 			>
-				<TPButton>가입하기</TPButton>
+				<TPButton size="large">가입하기</TPButton>
 			</View>
 		</KeyboardAvoidingView>
 	)

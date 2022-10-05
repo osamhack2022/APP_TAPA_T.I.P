@@ -2,6 +2,8 @@ import { css } from '@emotion/native'
 import { Pressable, PressableProps, Text } from 'react-native'
 import tinycolor from 'tinycolor2'
 
+import { FONT } from '@/constants/font'
+
 type Props = Omit<PressableProps, 'disabled' | 'children'> & {
 	variant?: 'primary' | 'secondary'
 	disabled?: boolean
@@ -46,7 +48,7 @@ const TPButton: React.FC<Props> = ({
 				style={css`
 					color: #fff;
 					font-size: ${fontSize + 'px'};
-					font-weight: 700;
+					font-family: ${FONT.Pretendard.BOLD};
 				`}
 			>
 				{children}

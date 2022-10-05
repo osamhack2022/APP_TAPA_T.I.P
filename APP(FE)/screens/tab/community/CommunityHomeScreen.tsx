@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { Text, TouchableOpacity, View } from 'react-native'
 
+import { FONT } from '@/constants/font'
 import { PostType } from '@/lib/types/community'
 
 import { CommunityNavigationParamList } from './CommunityNavigator'
@@ -44,7 +45,7 @@ const CommunityHomeScreen: React.FC = () => {
 					<Text
 						style={css`
 							margin-bottom: 10px;
-							font-weight: bold;
+							font-family: ${FONT.Pretendard.BOLD};
 						`}
 					>
 						Best
@@ -64,7 +65,7 @@ const CommunityHomeScreen: React.FC = () => {
 					<Text
 						style={css`
 							margin-bottom: 10px;
-							font-weight: bold;
+							font-family: ${FONT.Pretendard.BOLD};
 						`}
 					>
 						New

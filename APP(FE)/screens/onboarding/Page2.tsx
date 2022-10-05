@@ -1,6 +1,8 @@
 import { css } from '@emotion/native'
 import { Text, View } from 'react-native'
 
+import { FONT } from '@/constants/font'
+
 const Page2: React.FC = () => (
 	<View>
 		<Text
@@ -8,7 +10,7 @@ const Page2: React.FC = () => (
 				text-align: center;
 				color: #fff;
 				font-size: 32px;
-				font-weight: 700;
+				font-family: ${FONT.Pretendard.BOLD};
 			`}
 		>
 			또래 장병에게 상담받기
