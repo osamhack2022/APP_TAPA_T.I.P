@@ -9,6 +9,7 @@
 			"@screens/*": ["./screens/*"],
 			"@store/*": ["./store/*"],
 			"@utils/*": ["./utils/*"],
+			"@navigators/*": ["./navigators/*"],
 			"@/*": ["./*"]
 		}
 	}

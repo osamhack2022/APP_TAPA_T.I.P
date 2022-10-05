@@ -1,11 +1,33 @@
-import { StatusBar } from 'expo-status-bar'
-import { Text, View } from 'react-native'
+import MultiProvider from '@components/MultiProvider'
+import useAuth from '@hooks/auth'
+import { RootStackParamList } from '@navigators/RootStack'
+import RootStackNavigator from '@navigators/RootStackNavigator'
+import { NavigationContainer } from '@react-navigation/native'
+import { Provider as JotaiProvider } from 'jotai'
 
-export default function App() {
+import 'react-native-gesture-handler'
+
+const App: React.FC = () => {
+	const firebaseUser = useAuth()
+
 	return (
-		<View>
-			<Text>Open up App.tsx to start working on your app!</Text>
-			<StatusBar style="auto" />
-		</View>
+		<MultiProvider providers={[<JotaiProvider />]}>
+			<NavigationContainer<RootStackParamList>
+				initialState={{
+					routes: [
+						{
+							name: 'Tab',
+						},
+						{
+							name: 'OnBoarding',
+						},
+					],
+				}}
+			>
+				<RootStackNavigator />
+			</NavigationContainer>
+		</MultiProvider>
 	)
 }
+
+export default App
