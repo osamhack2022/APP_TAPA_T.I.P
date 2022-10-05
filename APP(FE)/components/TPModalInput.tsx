@@ -142,8 +142,8 @@ const TextInputLikeView = styled.View`
 	border-radius: 12px;
 	border-width: 2px;
 
-	background-color: ${COLOR.GRAY.NORMAL(2)};
-	border-color: ${COLOR.GRAY.NORMAL(2)};
+	background-color: ${COLOR.GRAY.NORMAL(1)};
+	border-color: ${COLOR.GRAY.NORMAL(1)};
 `
 
 export default TPModalInput
