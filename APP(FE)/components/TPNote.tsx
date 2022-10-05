@@ -2,7 +2,7 @@ import styled, { css } from '@emotion/native'
 import { FontAwesome5 } from '@expo/vector-icons'
 import { StyleProp, Text, View, ViewStyle } from 'react-native'
 
-import { FONT } from '@/constants/font'
+import { FONT } from '@constants/font'
 
 import Spacer from './Spacer'
 

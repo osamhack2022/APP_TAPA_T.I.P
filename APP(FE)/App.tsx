@@ -1,5 +1,6 @@
 import MultiProvider from '@components/MultiProvider'
 import { TAPASquareIcon } from '@components/TPIcon'
+import { COLOR } from '@constants/color'
 import { css } from '@emotion/native'
 import useAuth from '@hooks/auth'
 import { RootStackParamList } from '@navigators/RootStack'
@@ -53,6 +54,17 @@ const App: React.FC = () => {
 	return (
 		<MultiProvider providers={[<JotaiProvider />]}>
 			<NavigationContainer<RootStackParamList>
+				theme={{
+					dark: false,
+					colors: {
+						primary: COLOR.BRAND.MAIN,
+						notification: COLOR.BRAND.MAIN,
+						text: COLOR.BLACK(2),
+						border: COLOR.GRAY.NORMAL(2),
+						background: '#fff',
+						card: '#fff',
+					},
+				}}
 				initialState={{
 					routes: [
 						{

@@ -1,3 +1,4 @@
+import { COLOR } from '@constants/color'
 import styled, { css } from '@emotion/native'
 import { useState } from 'react'
 import { FlatList, FlatListProps, Pressable, Text, View } from 'react-native'
@@ -57,7 +58,7 @@ const TPSelect = <T extends any = string>({
 						<Spacer x={8} />
 						<Text
 							style={css`
-								color: #444;
+								color: ${COLOR.BLACK(3)};
 								font-size: 16px;
 							`}
 						>
@@ -75,8 +76,9 @@ const SelectionCircle = styled.View<{ selected?: boolean }>`
 	height: 20px;
 	border-radius: 12px;
 	border-width: 2px;
-	border-color: ${({ selected }) => (selected ? '#0059ff' : '#ccc')};
-	background: ${({ selected }) => (selected ? '#0059ff' : '#FFF')};
+	border-color: ${({ selected }) =>
+		selected ? COLOR.BRAND.MAIN : COLOR.GRAY.NORMAL(4)};
+	background: ${({ selected }) => (selected ? COLOR.BRAND.MAIN : '#FFF')};
 `
 
 export default TPSelect

@@ -1,8 +1,8 @@
+import { COLOR } from '@constants/color'
+import { FONT } from '@constants/font'
 import { css } from '@emotion/native'
 import { Pressable, PressableProps, Text } from 'react-native'
 import tinycolor from 'tinycolor2'
-
-import { FONT } from '@/constants/font'
 
 type Props = Omit<PressableProps, 'disabled' | 'children'> & {
 	variant?: 'primary' | 'secondary'
@@ -21,7 +21,7 @@ const TPButton: React.FC<Props> = ({
 	style,
 	...passProps
 }) => {
-	const color = variant === 'primary' ? '#0059ff' : '#343434'
+	const color = variant === 'primary' ? COLOR.BRAND.MAIN : COLOR.BLACK(4)
 	const pressedColor = tinycolor(color).darken(10).toHexString()
 	const [padding, fontSize] =
 		size === 'small'
