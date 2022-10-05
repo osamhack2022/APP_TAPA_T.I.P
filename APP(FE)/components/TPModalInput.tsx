@@ -122,8 +122,9 @@ const TPModalInput = <T,>({
 					{children({
 						value,
 						setValue: v => {
-							setValue(v)
 							setOpen(false)
+							setValue(v)
+							onChange?.(v)
 						},
 						cancel: () => {
 							setOpen(false)

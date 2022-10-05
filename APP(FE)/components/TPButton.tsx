@@ -34,6 +34,7 @@ const TPButton: React.FC<Props> = ({
 	return (
 		<Pressable
 			{...passProps}
+			disabled={disabled}
 			style={({ pressed }) => [
 				css`
 					border-radius: 12px;
