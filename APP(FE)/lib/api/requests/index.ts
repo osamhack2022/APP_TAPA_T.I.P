@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import { API_BASE_URL } from '../../constant'
+import { API_BASE_URL } from '../../../constants'
 import TokenHeader from '../TokenHeader'
 
 export const GetRequest = <T = any>(url: string, params?: object) =>

@@ -19,11 +19,8 @@
 		"@react-navigation/native": "^6.0.13",
 		"@react-navigation/stack": "^6.3.1",
 		"@shopify/flash-list": "1.1.0",
-<<<<<<< HEAD
 		"axios": "^0.27.2",
-=======
 		"@types/tinycolor2": "^1.4.3",
->>>>>>> f4bad6e23f9464025f70e9fffb74d5f25cf44378
 		"dotenv": "^16.0.2",
 		"expo": "~46.0.9",
 		"expo-constants": "~13.2.4",
