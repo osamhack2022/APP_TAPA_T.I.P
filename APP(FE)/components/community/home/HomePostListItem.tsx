@@ -1,16 +1,14 @@
+import { PostType } from '@app-types/community'
 import { css } from '@emotion/native'
 import { Entypo } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
-import { CommunityNaviParamList } from '@screens/tab/community/CommunityNavigator'
+import { CommunityNavigationParamList } from '@screens/tab/community/CommunityNavigator'
 import React from 'react'
-import { Text, View } from 'react-native'
-import { TouchableOpacity } from 'react-native-gesture-handler'
-
-import { PostType } from '@/lib/types/community'
+import { Pressable, Text, View } from 'react-native'
 
 type NavigationProp = StackNavigationProp<
-	CommunityNaviParamList,
+	CommunityNavigationParamList,
 	'CommunityHome'
 >
 
@@ -21,16 +19,15 @@ const HomePostListItem: React.FC<React.PropsWithChildren<Props>> = ({
 	post,
 }) => {
 	const navigation = useNavigation<NavigationProp>()
-	const onPressNavigate = () => {
-		navigation.navigate('CommunityPost', { postId: post.id })
-	}
 	return (
-		<TouchableOpacity onPress={onPressNavigate}>
+		<Pressable
+			onPress={() => navigation.navigate('CommunityPost', { postId: post.id })}
+		>
 			<View>
 				<Text>{post.title}</Text>
 				<View
 					style={css`
-						padding-top: 5px;
+						padding-top: 4px;
 						align-self: flex-end;
 						flex-direction: row;
 					`}
@@ -39,7 +36,7 @@ const HomePostListItem: React.FC<React.PropsWithChildren<Props>> = ({
 					<Text>{post.views}</Text>
 				</View>
 			</View>
-		</TouchableOpacity>
+		</Pressable>
 	)
 }
 

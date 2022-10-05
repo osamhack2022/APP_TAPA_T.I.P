@@ -10,6 +10,8 @@
 			"@store/*": ["./store/*"],
 			"@utils/*": ["./utils/*"],
 			"@navigators/*": ["./navigators/*"],
+			"@app-types/*": ["./types/*"],
+			"@api/*": ["./types/*"],
 			"@/*": ["./*"]
 		}
 	}

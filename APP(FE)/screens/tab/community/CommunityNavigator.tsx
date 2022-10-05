@@ -5,13 +5,13 @@ import CommunityForumScreen from './CommunityForumScreen'
 import CommunityHomeScreen from './CommunityHomeScreen'
 import CommunityPostScreen from './CommunityPostScreen'
 
-export type CommunityNaviParamList = {
+export type CommunityNavigationParamList = {
 	CommunityHome: undefined
 	CommunityForum: undefined
 	CommunityPost: { postId: number }
 }
 
-const Stack = createStackNavigator<CommunityNaviParamList>()
+const Stack = createStackNavigator<CommunityNavigationParamList>()
 
 const CommunityNavigator: React.FC = () => {
 	// 타입선언 필요

@@ -7,10 +7,10 @@ import { Text, TouchableOpacity, View } from 'react-native'
 
 import { PostType } from '@/lib/types/community'
 
-import { CommunityNaviParamList } from './CommunityNavigator'
+import { CommunityNavigationParamList } from './CommunityNavigator'
 
 type NavigationProp = StackNavigationProp<
-	CommunityNaviParamList,
+	CommunityNavigationParamList,
 	'CommunityHome'
 >
 
