@@ -1,11 +1,10 @@
 import FocusAwareStatusBar from '@components/FocusAwareStatusBar'
 import Spacer from '@components/Spacer'
+import { FONT } from '@constants/font'
 import { css } from '@emotion/native'
 import { useRootStackNavigation } from '@navigators/RootStack'
 import React from 'react'
 import { Pressable, Text, View } from 'react-native'
-
-import { FONT } from '@/constants/font'
 
 const Button: React.FC<
 	React.ComponentProps<typeof Pressable> & {

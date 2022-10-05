@@ -1,7 +1,7 @@
 import { css } from '@emotion/native'
 import { Text, View } from 'react-native'
 
-import { FONT } from '@/constants/font'
+import { FONT } from '@constants/font'
 
 const Page1: React.FC = () => (
 	<View>
