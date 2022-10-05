@@ -1,4 +1,3 @@
-import { PostType } from '@app-types/community'
 import { css } from '@emotion/native'
 import { Entypo } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
@@ -6,6 +5,8 @@ import { StackNavigationProp } from '@react-navigation/stack'
 import { CommunityNavigationParamList } from '@screens/tab/community/CommunityNavigator'
 import React from 'react'
 import { Pressable, Text, View } from 'react-native'
+
+import { PostType } from '@/types/community'
 
 type NavigationProp = StackNavigationProp<
 	CommunityNavigationParamList,
