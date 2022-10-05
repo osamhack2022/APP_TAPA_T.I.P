@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { Text, TouchableOpacity, View } from 'react-native'
 
-import { FONT } from '@/constants/font'
+import { FONT } from '@constants/font'
 import { PostType } from '@/lib/types/community'
 
 import { CommunityNavigationParamList } from './CommunityNavigator'

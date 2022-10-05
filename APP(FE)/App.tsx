@@ -1,5 +1,6 @@
 import MultiProvider from '@components/MultiProvider'
 import { TAPASquareIcon } from '@components/TPIcon'
+import { COLOR } from '@constants/color'
 import { css } from '@emotion/native'
 import useAuthListener from '@hooks/auth'
 import { RootStackParamList } from '@navigators/RootStack'
@@ -24,6 +25,17 @@ const RootNavigationContainer: React.FC = () => {
 	return (
 		<NavigationContainer<RootStackParamList>
 			ref={navigationContainerRef}
+			theme={{
+				dark: false,
+				colors: {
+					primary: COLOR.BRAND.MAIN,
+					notification: COLOR.BRAND.MAIN,
+					text: COLOR.BLACK(2),
+					border: COLOR.GRAY.NORMAL(2),
+					background: '#fff',
+					card: '#fff',
+				},
+			}}
 			initialState={{
 				routes: [
 					{

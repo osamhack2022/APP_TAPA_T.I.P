@@ -24,8 +24,8 @@ import {
 } from 'react-native'
 import { z } from 'zod'
 
-import { FONT } from '@/constants/font'
-import { RANK } from '@/constants/rank'
+import { FONT } from '@constants/font'
+import { RANK } from '@constants/rank'
 
 type Props = RootStackScreenProps<'SignUp'>
 
