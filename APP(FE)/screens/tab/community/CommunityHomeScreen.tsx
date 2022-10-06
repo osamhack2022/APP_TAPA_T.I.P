@@ -1,3 +1,4 @@
+import { PostType } from '@app-types/community'
 import HomePostListItem from '@components/community/home/HomePostListItem'
 import FocusAwareStatusBar from '@components/FocusAwareStatusBar'
 import { FONT } from '@constants/font'
@@ -5,8 +6,6 @@ import { css } from '@emotion/native'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { Text, TouchableOpacity, View } from 'react-native'
-
-import { PostType } from '@/lib/types/community'
 
 import { CommunityNavigationParamList } from './CommunityNavigator'
 
