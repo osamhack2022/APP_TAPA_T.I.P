@@ -11,6 +11,9 @@ export type RootStackParamList = {
 	SignUp: {
 		trap?: boolean
 	}
+	SignIn: {
+		trap?: boolean
+	}
 }
 export type RootStackScreenProps<T extends keyof RootStackParamList> =
 	StackScreenProps<RootStackParamList, T>

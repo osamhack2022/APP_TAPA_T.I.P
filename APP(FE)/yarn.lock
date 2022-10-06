@@ -1430,10 +1430,31 @@
     "slugify" "^1.3.4"
     "sucrase" "^3.20.0"
 
+<<<<<<< HEAD
 "@expo/config@6.0.24":
   "integrity" "sha512-OcACI1md1Yo5TQmUxxueJ/RaTlR2Mgl6KswTFOYCL1XJERF/jjAx95zhWXH+JQGdlM0yB0vqM6vB6GbUFRvLxA=="
   "resolved" "https://registry.npmjs.org/@expo/config/-/config-6.0.24.tgz"
   "version" "6.0.24"
+=======
+"@expo/configure-splash-screen@^0.6.0":
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/@expo/configure-splash-screen/-/configure-splash-screen-0.6.0.tgz#07d97ee512fd859fcc09506ba3762fd6263ebc39"
+  integrity sha512-4DyPoNXJqx9bN4nEwF3HQreo//ECu7gDe1Xor3dnnzFm9P/VDxAKdbEhA0n+R6fgkNfT2onVHWijqvdpTS3Xew==
+  dependencies:
+    color-string "^1.5.3"
+    commander "^5.1.0"
+    fs-extra "^9.0.0"
+    glob "^7.1.6"
+    lodash "^4.17.15"
+    pngjs "^5.0.0"
+    xcode "^3.0.0"
+    xml-js "^1.6.11"
+
+"@expo/dev-server@0.1.115":
+  version "0.1.115"
+  resolved "https://registry.yarnpkg.com/@expo/dev-server/-/dev-server-0.1.115.tgz#d64a3caee6ee8023976233767272cfb4f81e39c3"
+  integrity sha512-kqr71GAXzBVmjT+qSmqckBKY6Y9lFf4Oy1S4aVygx72CNgyzVTw4CPqT5RsNhcvQEEdACgarczDbPnNkmrm7GQ==
+>>>>>>> 7313f8722c52e1e1a6ab936683df25e4c35d4737
   dependencies:
     "@babel/code-frame" "~7.10.4"
     "@expo/config-plugins" "4.1.5"
@@ -2817,6 +2838,20 @@
   "resolved" "https://registry.npmjs.org/@types/q/-/q-1.5.5.tgz"
   "version" "1.5.5"
 
+"@types/react-native-global-props@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@types/react-native-global-props/-/react-native-global-props-1.1.1.tgz#2d4f3762ee5d97b37de5a9c0949aabb4106f922e"
+  integrity sha512-u7jCZ9OUPFfNBcpDJHvHenm9r+K6a/wiKdpoLJTaUocLueN5hS5eGcLlFdUN/SDfBLVRNAkPRV1ZDFK1GyRBOw==
+  dependencies:
+    "@types/react-native" "^0.65"
+
+"@types/react-native@^0.65":
+  version "0.65.26"
+  resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.65.26.tgz#a1dc5a3a983d47eb61226a05221b2f7fd637539f"
+  integrity sha512-o/YpCvmLLH5uf89d9IiCXMRWEp0flIHBq7lVJq1najoF1aZgaAtmzdJhqPUcqxaetJNShnWMoajxL2dv7yjQJg==
+  dependencies:
+    "@types/react" "^17"
+
 "@types/react-native@~0.69.1":
   "integrity" "sha512-KSB92KK/mCvzK5t8O9s/FB3uX2dt5q70hoAmXW6jtLc4ehY0Oj005wXTiZctXwYWyrijTtXPTojzcQK+QyqIpg=="
   "resolved" "https://registry.npmjs.org/@types/react-native/-/react-native-0.69.12.tgz"
@@ -2832,6 +2867,15 @@
     "@types/prop-types" "*"
     "@types/scheduler" "*"
     "csstype" "^3.0.2"
+
+"@types/react@^17":
+  version "17.0.50"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-17.0.50.tgz#39abb4f7098f546cfcd6b51207c90c4295ee81fc"
+  integrity sha512-ZCBHzpDb5skMnc1zFXAXnL3l1FAdi+xZvwxK+PkglMmBrwjpp9nKaWuEvrGnSifCJmBFGxZOOFuwC6KH/s0NuA==
+  dependencies:
+    "@types/prop-types" "*"
+    "@types/scheduler" "*"
+    csstype "^3.0.2"
 
 "@types/responselike@*", "@types/responselike@^1.0.0":
   "integrity" "sha512-85Y2BjiufFzaMIlvJDvTTB8Fxl2xfLo4HgmHzVBz08w4wDePCTjYw66PdrolO0kzli3yam/YCgRufyo1DdQVTA=="
