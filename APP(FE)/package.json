@@ -7,8 +7,8 @@
 		"android": "expo start --android",
 		"ios": "expo start --ios",
 		"web": "expo start --web",
-		"lint": "eslint ./**/*.{ts,tsx}",
-		"lint-fix": "eslint ./**/*.{ts,tsx} --fix"
+		"lint": "eslint \"./**/*.{ts,tsx}\"",
+		"lint-fix": "eslint \"./**/*.{ts,tsx}\" --fix"
 	},
 	"dependencies": {
 		"@emotion/native": "^11.10.0",
