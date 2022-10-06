@@ -1,3 +1,5 @@
+import { COLOR } from '@constants/color'
+import { FONT } from '@constants/font'
 import styled, { css } from '@emotion/native'
 import { useMemo, useState } from 'react'
 import {
@@ -9,8 +11,6 @@ import {
 	ViewStyle,
 } from 'react-native'
 import Modal from 'react-native-modal'
-
-import { FONT } from '@/constants/font'
 
 export type ModalChildProps<T> = {
 	value?: T
@@ -56,7 +56,7 @@ const TPModalInput = <T,>({
 					<Text
 						style={css`
 							font-family: ${FONT.Pretendard.BOLD};
-							color: ${value ? '#0059ff' : '#888'};
+							color: ${value ? COLOR.BRAND.MAIN : COLOR.GRAY.NORMAL(6)};
 							margin-left: 8px;
 							margin-bottom: 4px;
 						`}
@@ -77,7 +77,7 @@ const TPModalInput = <T,>({
 						{typeof renderedValue === 'string' && (
 							<Text
 								style={css`
-									color: #444;
+									color: ${COLOR.GRAY.NORMAL(7)};
 									font-size: 16px;
 								`}
 							>
@@ -87,7 +87,7 @@ const TPModalInput = <T,>({
 						{typeof renderedValue === 'undefined' && (
 							<Text
 								style={css`
-									color: #aaa;
+									color: ${COLOR.GRAY.NORMAL(5)};
 									font-size: 16px;
 								`}
 							>
@@ -122,8 +122,9 @@ const TPModalInput = <T,>({
 					{children({
 						value,
 						setValue: v => {
-							setValue(v)
 							setOpen(false)
+							setValue(v)
+							onChange?.(v)
 						},
 						cancel: () => {
 							setOpen(false)
@@ -141,8 +142,8 @@ const TextInputLikeView = styled.View`
 	border-radius: 12px;
 	border-width: 2px;
 
-	background-color: #e8e8e8;
-	border-color: #e8e8e8;
+	background-color: ${COLOR.GRAY.NORMAL(1)};
+	border-color: ${COLOR.GRAY.NORMAL(1)};
 `
 
 export default TPModalInput

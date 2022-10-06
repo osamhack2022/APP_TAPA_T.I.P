@@ -1,8 +1,8 @@
+import { COLOR } from '@constants/color'
+import { FONT } from '@constants/font'
 import styled, { css } from '@emotion/native'
 import { useMemo, useRef, useState } from 'react'
 import { Text, TextInput, TextInputProps, View } from 'react-native'
-
-import { FONT } from '@/constants/font'
 
 import TPNote from './TPNote'
 
@@ -38,12 +38,22 @@ const TPTextInput = <T extends any = string>({
 	const [backgroundColor, foregroundColor, borderColor, labelColor] =
 		useMemo(() => {
 			if (focused) {
-				return ['#fff', '#444', '#e8e8e8', '#0059ff']
+				return ['#fff', COLOR.BLACK(3), COLOR.GRAY.NORMAL(1), COLOR.BRAND.MAIN]
 			}
 			if (value) {
-				return ['#e8e8e8', '#444', '#e8e8e8', '#0059ff']
+				return [
+					COLOR.GRAY.NORMAL(1),
+					COLOR.BLACK(3),
+					COLOR.GRAY.NORMAL(6),
+					COLOR.BRAND.MAIN,
+				]
 			}
-			return ['#e8e8e8', '#444', '#e8e8e8', '#888']
+			return [
+				COLOR.GRAY.NORMAL(1),
+				COLOR.BLACK(3),
+				COLOR.GRAY.NORMAL(1),
+				COLOR.GRAY.NORMAL(6),
+			]
 		}, [value, focused, error?.length])
 
 	return (
@@ -86,12 +96,12 @@ const TPTextInput = <T extends any = string>({
 					`,
 					passProps.style,
 				]}
-				placeholderTextColor="#aaa"
+				placeholderTextColor={COLOR.GRAY.NORMAL(5)}
 			/>
 			{helper && (
 				<Text
 					style={css`
-						color: #888;
+						color: ${COLOR.GRAY.NORMAL(5)};
 						margin-top: 4px;
 						margin-left: 8px;
 						font-size: 12px;

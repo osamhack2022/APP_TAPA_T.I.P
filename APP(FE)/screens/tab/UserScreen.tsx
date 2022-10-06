@@ -1,49 +1,17 @@
 import FocusAwareStatusBar from '@components/FocusAwareStatusBar'
 import Spacer from '@components/Spacer'
+import TPButton from '@components/TPButton'
 import { css } from '@emotion/native'
 import { useRootStackNavigation } from '@navigators/RootStack'
+import { userAtom } from '@store/atoms'
+import firebase from '@utils/firebase'
+import { useAtomValue } from 'jotai'
 import React from 'react'
-import { Pressable, Text, View } from 'react-native'
-
-import { FONT } from '@/constants/font'
-
-const Button: React.FC<
-	React.ComponentProps<typeof Pressable> & {
-		children: string
-	}
-> = ({ style, children, ...passProps }) => (
-	<Pressable
-		{...passProps}
-		style={state => {
-			const customStyle = typeof style === 'function' ? style(state) : style
-			return [
-				css`
-					background: #007aff;
-					padding: 12px 24px;
-					border-radius: 4px;
-				`,
-				state.pressed &&
-					css`
-						background: #0a84ff;
-					`,
-				customStyle,
-			]
-		}}
-	>
-		<Text
-			style={css`
-				font-family: ${FONT.Pretendard.BOLD};
-				text-align: center;
-				color: #fff;
-			`}
-		>
-			{children}
-		</Text>
-	</Pressable>
-)
+import { Text, View } from 'react-native'
 
 const UserScreen: React.FC = () => {
 	const navigation = useRootStackNavigation()
+	const firebaseUser = useAtomValue(userAtom)
 	return (
 		<>
 			<View
@@ -55,15 +23,37 @@ const UserScreen: React.FC = () => {
 			>
 				<Text>UserScreen</Text>
 				<Spacer y={12} />
-				<Button
-					onPress={() => {
-						navigation.push('SignUp', { trap: false })
-					}}
-				>
-					회원가입
-				</Button>
-				<Spacer y={12} />
-				<Button>로그인</Button>
+				{firebaseUser?.uid ? (
+					<>
+						<Text>Logged in as: {firebaseUser.uid}</Text>
+						<Spacer y={12} />
+						<TPButton
+							onPress={() => {
+								firebase.auth.signOut()
+							}}
+						>
+							로그아웃
+						</TPButton>
+					</>
+				) : (
+					<>
+						<TPButton
+							onPress={() => {
+								navigation.push('SignUp', { trap: false })
+							}}
+						>
+							회원가입
+						</TPButton>
+						<Spacer y={12} />
+						<TPButton
+							onPress={() => {
+								navigation.push('SignIn', { trap: false })
+							}}
+						>
+							로그인
+						</TPButton>
+					</>
+				)}
 			</View>
 			<FocusAwareStatusBar style="dark" />
 		</>
