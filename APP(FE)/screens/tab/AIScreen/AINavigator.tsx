@@ -15,12 +15,12 @@ const Stack = createStackNavigator<AINaviParamList>()
 const AINavigator: React.FC = () => {
 	
 	return (
-		<NavigationContainer>
+		
 			<Stack.Navigator screenOptions={{ headerShown: false }}>
 				<Stack.Screen name="AIHome" component={AIHomeScreen} />
 				<Stack.Screen name="AICounselor" component={AICounselorScreen} />
 			</Stack.Navigator>
-		</NavigationContainer>
+		
 	)
 }
 
