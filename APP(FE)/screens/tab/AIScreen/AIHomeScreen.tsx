@@ -1,8 +1,9 @@
 import FocusAwareStatusBar from '@components/FocusAwareStatusBar'
+import {FONT} from '@constants/font'
 import { css } from '@emotion/native'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
-import { Button, Pressable, Text, View } from 'react-native'
+import { Button, Text, TouchableOpacity, View } from 'react-native'
 
 import { AINaviParamList } from './AINavigator'
 
@@ -15,32 +16,30 @@ const AIHomeScreen: React.FC = () => {
 	const navigation = useNavigation<NavigationProp>()
 	return (
 		<>
-			<View style = {css`flex : 1;`}>
+			<View >
 				<View
 					style={css`
-						flex: 1;
+						marginTop : 100px;
 						align-items: center;
 						justify-content: center;
+						
 					`}
 				>
 					<Text style = {css`
-					
+						font-family : ${FONT.Pretendard.BOLD};
 						font-style: normal;
 						font-weight: 700;
 						font-size: 25px;
-						color: #7C7C7C;
 					`}>처벌 수위 예측 서비스</Text>
 				</View>
 				<View style = {css`
-					
-					backgroundColor : yellow;
-					height: 63px;
-					align-items: center;
-					margin : 30px 0px 0px 0px;
-					padding : 0px 100px;
+					marginTop: 40px;
+					marginLeft : 105px;
+					width : 200px;
 				`}>
 					<Text style = {css`
-						
+						font-family : ${FONT.Pretendard.REGULAR};
+						text-align: center;
 						font-style: normal;
 						font-weight: 500;
 						font-size: 14px;
@@ -48,10 +47,36 @@ const AIHomeScreen: React.FC = () => {
 					`}>사건의 정보를 간단히 입력하면 대략적인 처벌 수위를 예측해주는 서비스를 제공하고 있습니다</Text>
 
 				</View>
-				<View>
-					<Button title="시작하기" 
-					onPress={()=>navigation.navigate('AICounselor') }></Button>
-
+				<View style = {css`
+					align-items : center;
+					marginTop : 300px;
+				`}>
+					<View style = {css`
+						border-style : solid;
+						border-width : 1px;
+						border-color : grey;
+						border-radius : 10px;
+						width : 275px;
+						padding : 10px;
+					`}>
+						<Button title="시작하기" 
+						color="black"
+						onPress={()=>navigation.navigate('AICounselor') }></Button>
+					</View>
+					<TouchableOpacity style = {css`
+						marginTop : 10px;
+					`} onPress = {()=>navigation.navigate('AICounselor')}>
+						<Text
+						style = {css`
+							font-family : ${FONT.Pretendard.REGULAR};
+							color : black;
+							font-size : 14px;
+						`}
+						>지난 예측 기록 보기</Text>
+					</TouchableOpacity>
+					
+					
+					
 				</View>
 			</View>
 			
