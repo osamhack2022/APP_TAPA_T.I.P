@@ -1,6 +1,7 @@
-/* eslint-disable simple-import-sort/imports */
+import { PostType } from '@app-types/community'
 import HomePostListItem from '@components/community/home/HomePostListItem'
 import FocusAwareStatusBar from '@components/FocusAwareStatusBar'
+import { FONT } from '@constants/font'
 import { css } from '@emotion/native'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
