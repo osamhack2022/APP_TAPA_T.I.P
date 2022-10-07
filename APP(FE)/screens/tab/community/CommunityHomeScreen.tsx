@@ -1,12 +1,11 @@
+import { PostType } from '@app-types/community'
 import HomePostListItem from '@components/community/home/HomePostListItem'
 import FocusAwareStatusBar from '@components/FocusAwareStatusBar'
+import { FONT } from '@constants/font'
 import { css } from '@emotion/native'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
-import { Text, TouchableOpacity, View } from 'react-native'
-
-import { FONT } from '@constants/font'
-import { PostType } from '@/lib/types/community'
+import { Text, View } from 'react-native'
 
 import { CommunityNavigationParamList } from './CommunityNavigator'
 
@@ -32,23 +31,24 @@ const CommunityHomeScreen: React.FC = () => {
 			<View
 				style={css`
 					flex: 1;
+					padding: 0px 20px;
 				`}
 			>
 				<View
 					style={css`
 						width: 100%;
-						padding: 11px 20px;
-						margin-top: 10px;
+						margin: 10px 0px;
 						background-color: white;
 					`}
 				>
 					<Text
 						style={css`
 							margin-bottom: 10px;
+							font-size: 16px;
 							font-family: ${FONT.Pretendard.BOLD};
 						`}
 					>
-						Best
+						BEST
 					</Text>
 					<HomePostListItem post={samplePost} />
 					<HomePostListItem post={samplePost} />
@@ -57,7 +57,6 @@ const CommunityHomeScreen: React.FC = () => {
 				<View
 					style={css`
 						width: 100%;
-						padding: 11px 20px;
 						margin-top: 10px;
 						background-color: white;
 					`}
@@ -65,16 +64,17 @@ const CommunityHomeScreen: React.FC = () => {
 					<Text
 						style={css`
 							margin-bottom: 10px;
+							font-size: 16px;
 							font-family: ${FONT.Pretendard.BOLD};
 						`}
 					>
-						New
+						NEW
 					</Text>
 					<HomePostListItem post={samplePost} />
 					<HomePostListItem post={samplePost} />
 					<HomePostListItem post={samplePost} />
 				</View>
-				<TouchableOpacity
+				{/* <TouchableOpacity
 					style={css`
 						width: 100%;
 						padding: 11px 20px;
@@ -87,7 +87,7 @@ const CommunityHomeScreen: React.FC = () => {
 						<Text>질문 게시판</Text>
 						<Text>자신이 당한 일에 대해 자유롭게 질문하는 공간</Text>
 					</View>
-				</TouchableOpacity>
+				</TouchableOpacity> */}
 			</View>
 			<FocusAwareStatusBar style="dark" />
 		</>

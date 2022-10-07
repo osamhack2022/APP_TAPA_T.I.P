@@ -6,7 +6,7 @@ import ExpertScreen from '@screens/tab/ExpertScreen'
 import HomeScreen from '@screens/tab/HomeScreen'
 import UserScreen from '@screens/tab/UserScreen'
 
-import { RootStackScreenProps } from './RootStackNavigator'
+import { RootStackScreenProps } from './RootStack'
 
 export type TabParamList = {
 	Home: undefined
@@ -46,6 +46,7 @@ const TabNavigator: React.FC<RootStackScreenProps<'Tab'>> = ({
 		<Tab.Screen
 			name="Community"
 			options={{
+				headerShown: false,
 				title: '커뮤니티',
 				tabBarIcon: ({ color, focused, size }) => (
 					<Entypo name="chat" {...{ color, size }} />

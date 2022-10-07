@@ -1,5 +1,7 @@
+import Spacer from '@components/Spacer'
+import { COLOR } from '@constants/color'
+import { FONT } from '@constants/font'
 import { css } from '@emotion/native'
-import { Entypo } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { CommunityNavigationParamList } from '@screens/tab/community/CommunityNavigator'
@@ -7,6 +9,8 @@ import React from 'react'
 import { Pressable, Text, View } from 'react-native'
 
 import { PostType } from '@/types/community'
+
+import PostCountList from '../PostCountList'
 
 type NavigationProp = StackNavigationProp<
 	CommunityNavigationParamList,
@@ -16,25 +20,42 @@ type NavigationProp = StackNavigationProp<
 type Props = {
 	post: PostType
 }
-const HomePostListItem: React.FC<React.PropsWithChildren<Props>> = ({
-	post,
-}) => {
+const HomePostListItem: React.FC<Props> = ({ post }) => {
 	const navigation = useNavigation<NavigationProp>()
 	return (
 		<Pressable
 			onPress={() => navigation.navigate('CommunityPost', { postId: post.id })}
 		>
-			<View>
-				<Text>{post.title}</Text>
-				<View
+			<View
+				style={css`
+					padding: 8px 0px;
+				`}
+			>
+				<Text
 					style={css`
-						padding-top: 4px;
-						align-self: flex-end;
-						flex-direction: row;
+						font-size: 14px;
+						font-family: ${FONT.Pretendard.BOLD};
 					`}
 				>
-					<Entypo name="eye" />
-					<Text>{post.views}</Text>
+					{post.title}
+				</Text>
+				<Spacer y={5} />
+				<View
+					style={css`
+						flex-direction: row;
+						align-items: center;
+						justify-content: space-between;
+					`}
+				>
+					<Text
+						style={css`
+							font-size: 10px;
+							color: ${COLOR.BLACK(6)};
+						`}
+					>
+						질문게시판 | Xrong | 09.23{' '}
+					</Text>
+					<PostCountList post={post} />
 				</View>
 			</View>
 		</Pressable>

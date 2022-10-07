@@ -2,6 +2,8 @@ import ControlledTPTextInput from '@components/controlled/TPTextInput'
 import Spacer from '@components/Spacer'
 import TPButton from '@components/TPButton'
 import TPModalSelect from '@components/TPModalSelect'
+import { FONT } from '@constants/font'
+import { RANK } from '@constants/rank'
 import { css } from '@emotion/native'
 import { zodResolver } from '@hookform/resolvers/zod'
 import {
@@ -23,9 +25,6 @@ import {
 	View,
 } from 'react-native'
 import { z } from 'zod'
-
-import { FONT } from '@constants/font'
-import { RANK } from '@constants/rank'
 
 type Props = RootStackScreenProps<'SignUp'>
 
