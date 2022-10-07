@@ -34,8 +34,10 @@ const AIHomeScreen: React.FC = () => {
 				</View>
 				<View style = {css`
 					marginTop: 40px;
-					marginLeft : 105px;
-					width : 200px;
+					align-items: center;
+					justify-content : center;
+					width : 45%;
+					width : 100%;
 				`}>
 					<Text style = {css`
 						font-family : ${FONT.Pretendard.REGULAR};
@@ -44,7 +46,8 @@ const AIHomeScreen: React.FC = () => {
 						font-weight: 500;
 						font-size: 14px;
 						line-height : 25%;
-					`}>사건의 정보를 간단히 입력하면 대략적인 처벌 수위를 예측해주는 서비스를 제공하고 있습니다</Text>
+						width : 45%
+					`}>사건의 정보를 간단히 입력하면      대략적인 처벌 수위를 예측해주는    서비스를 제공하고 있습니다</Text>
 
 				</View>
 				<View style = {css`
@@ -65,7 +68,7 @@ const AIHomeScreen: React.FC = () => {
 					</View>
 					<TouchableOpacity style = {css`
 						marginTop : 10px;
-					`} onPress = {()=>navigation.navigate('AICounselor')}>
+					`} onPress = {()=>navigation.navigate('AIRecord')}>
 						<Text
 						style = {css`
 							font-family : ${FONT.Pretendard.REGULAR};

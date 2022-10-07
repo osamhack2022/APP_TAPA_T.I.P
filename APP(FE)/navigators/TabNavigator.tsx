@@ -1,13 +1,12 @@
 import { Entypo, FontAwesome5, Fontisto } from '@expo/vector-icons'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-
 import AINavigator from '@screens/tab/AIScreen/AINavigator'
 import CommunityNavigator from '@screens/tab/community/CommunityNavigator'
 import ExpertScreen from '@screens/tab/ExpertScreen'
 import HomeScreen from '@screens/tab/HomeScreen'
 import UserScreen from '@screens/tab/UserScreen'
 
-import { RootStackScreenProps } from './RootStackNavigator'
+import { RootStackScreenProps } from './RootStack'
 
 export type TabParamList = {
 	Home: undefined
