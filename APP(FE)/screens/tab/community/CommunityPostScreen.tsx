@@ -1,5 +1,7 @@
+import { PostType } from '@app-types/community'
 import FocusAwareStatusBar from '@components/FocusAwareStatusBar'
 import Spacer from '@components/Spacer'
+import { samplePost } from '@constants/community'
 import { FONT } from '@constants/font'
 import { css } from '@emotion/native'
 import { useNavigation } from '@react-navigation/core'
@@ -21,6 +23,7 @@ type CommunityPostRouteProp = RouteProp<
 const CommunityPostScreen: React.FC = () => {
 	const navigation = useNavigation<NavigationProp>()
 	const { postId } = useRoute<CommunityPostRouteProp>().params
+	const post: PostType = samplePost
 	return (
 		<>
 			<View
@@ -35,7 +38,7 @@ const CommunityPostScreen: React.FC = () => {
 						font-size: 20px;
 					`}
 				>
-					제목입니다
+					{post.title}
 				</Text>
 				<Spacer y={20} />
 				<Text
@@ -44,7 +47,7 @@ const CommunityPostScreen: React.FC = () => {
 						font-size: 14px;
 					`}
 				>
-					내용입니다{`\n`}내용입니다{`\n`}내용입니다{`\n`}내용입니다
+					{post.content}
 				</Text>
 			</View>
 			<FocusAwareStatusBar style="dark" />

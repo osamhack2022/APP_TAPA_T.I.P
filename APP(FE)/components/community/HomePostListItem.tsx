@@ -10,7 +10,7 @@ import { Pressable, Text, View } from 'react-native'
 
 import { PostType } from '@/types/community'
 
-import PostCountList from '../PostCountList'
+import PostCountList from './PostCountList'
 
 type NavigationProp = StackNavigationProp<
 	CommunityNavigationParamList,
@@ -20,6 +20,7 @@ type NavigationProp = StackNavigationProp<
 type Props = {
 	post: PostType
 }
+
 const HomePostListItem: React.FC<Props> = ({ post }) => {
 	const navigation = useNavigation<NavigationProp>()
 	return (

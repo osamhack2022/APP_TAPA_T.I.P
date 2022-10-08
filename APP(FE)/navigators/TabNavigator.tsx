@@ -1,3 +1,4 @@
+import { FONT } from '@constants/font'
 import { Entypo, FontAwesome5, Fontisto } from '@expo/vector-icons'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import AIScreen from '@screens/tab/AIScreen'
@@ -22,7 +23,14 @@ const TabNavigator: React.FC<RootStackScreenProps<'Tab'>> = ({
 	navigation,
 	route,
 }) => (
-	<Tab.Navigator>
+	<Tab.Navigator
+		screenOptions={{
+			headerTitleStyle: {
+				fontFamily: FONT.Pretendard.BOLD,
+			},
+			tabBarShowLabel: false,
+		}}
+	>
 		<Tab.Screen
 			name="Home"
 			options={{

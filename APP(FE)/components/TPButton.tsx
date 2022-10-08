@@ -1,6 +1,7 @@
 import { COLOR } from '@constants/color'
 import { FONT } from '@constants/font'
 import { css } from '@emotion/native'
+import { ReactNode } from 'react'
 import { Pressable, PressableProps, Text } from 'react-native'
 import tinycolor from 'tinycolor2'
 
@@ -8,7 +9,7 @@ type Props = Omit<PressableProps, 'disabled' | 'children'> & {
 	variant?: 'primary' | 'secondary'
 	disabled?: boolean
 	loading?: boolean
-	children?: string
+	children?: string | ReactNode
 	size?: 'small' | 'medium' | 'large'
 }
 
