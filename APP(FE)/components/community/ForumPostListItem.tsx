@@ -44,7 +44,6 @@ const ForumPostListItem: React.FC<Props> = ({ post }) => {
 				<Text
 					style={css`
 						font-size: 12px;
-						font-family: ${FONT.Pretendard.REGULAR};
 					`}
 					numberOfLines={1}
 					ellipsizeMode="tail"

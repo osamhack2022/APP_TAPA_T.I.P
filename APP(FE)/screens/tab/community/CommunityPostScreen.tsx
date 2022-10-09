@@ -22,7 +22,9 @@ type CommunityPostRouteProp = RouteProp<
 
 const CommunityPostScreen: React.FC = () => {
 	const navigation = useNavigation<NavigationProp>()
-	const { postId } = useRoute<CommunityPostRouteProp>().params
+	const {
+		params: { postId },
+	} = useRoute<CommunityPostRouteProp>()
 	const post: PostType = samplePost
 	return (
 		<>

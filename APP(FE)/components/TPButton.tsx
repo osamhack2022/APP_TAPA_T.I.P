@@ -9,7 +9,7 @@ type Props = Omit<PressableProps, 'disabled' | 'children'> & {
 	variant?: 'primary' | 'secondary'
 	disabled?: boolean
 	loading?: boolean
-	children?: string | ReactNode
+	children?: ReactNode
 	size?: 'small' | 'medium' | 'large'
 }
 
@@ -46,15 +46,19 @@ const TPButton: React.FC<Props> = ({
 				typeof style === 'function' ? style({ pressed }) : style,
 			]}
 		>
-			<Text
-				style={css`
-					color: #fff;
-					font-size: ${fontSize + 'px'};
-					font-family: ${FONT.Pretendard.BOLD};
-				`}
-			>
-				{children}
-			</Text>
+			{typeof children === 'string' ? (
+				<Text
+					style={css`
+						color: #fff;
+						font-size: ${fontSize + 'px'};
+						font-family: ${FONT.Pretendard.BOLD};
+					`}
+				>
+					{children}
+				</Text>
+			) : (
+				<>{children}</>
+			)}
 		</Pressable>
 	)
 }
