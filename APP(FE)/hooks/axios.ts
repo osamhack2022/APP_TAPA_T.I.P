@@ -1,11 +1,11 @@
+import { userAtom } from '@store/atoms'
 import extra from '@utils/extra'
 import axios from 'axios'
+import { useAtomValue } from 'jotai'
 import { useMemo } from 'react'
 
-import useAuth from './auth'
-
 const useAxios = () => {
-	const user = useAuth()
+	const user = useAtomValue(userAtom)
 	const axiosInstance = useMemo(() => {
 		const instance = axios.create({
 			baseURL: extra.backendBaseURL,
