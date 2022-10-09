@@ -7,6 +7,7 @@ import { css } from '@emotion/native'
 import { useNavigation } from '@react-navigation/core'
 import { RouteProp, useRoute } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
+import { atom, useAtom } from 'jotai'
 import { Text, View } from 'react-native'
 
 import { CommunityNavigationParamList } from './CommunityNavigator'
@@ -20,11 +21,14 @@ type CommunityPostRouteProp = RouteProp<
 	'CommunityPost'
 >
 
+const currentPostAtom = atom<PostType | null>(null)
+
 const CommunityPostScreen: React.FC = () => {
 	const navigation = useNavigation<NavigationProp>()
 	const {
 		params: { postId },
 	} = useRoute<CommunityPostRouteProp>()
+	const [currentPost, setCurrentPost] = useAtom(currentPostAtom)
 	const post: PostType = samplePost
 	return (
 		<>
