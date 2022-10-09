@@ -81,7 +81,8 @@ const SignupScreen: React.FC<Props> = props => {
 		resolver: zodResolver(formSchema),
 		mode: 'all',
 		reValidateMode: 'onChange',
-		defaultValues: DEFAULT_VALUES,
+		// uncomment if you want the values above to be prefilled
+		// defaultValues: DEFAULT_VALUES,
 	})
 
 	const onSubmit = useCallback<SubmitHandler<FieldValues>>(
