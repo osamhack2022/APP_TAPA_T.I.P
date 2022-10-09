@@ -17,6 +17,7 @@ import { View } from 'react-native'
 import { setCustomText, setCustomTextInput } from 'react-native-global-props'
 
 import 'react-native-gesture-handler'
+import 'luxon'
 
 const RootNavigationContainer: React.FC = () => {
 	useAuthListener()
