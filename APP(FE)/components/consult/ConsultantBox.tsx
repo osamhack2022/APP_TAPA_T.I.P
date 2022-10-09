@@ -6,7 +6,7 @@ import { FontAwesome5 } from '@expo/vector-icons'
 import React from 'react'
 import { Text, View } from 'react-native'
 
-import ConsultIconButton from './\bConsultIconButton'
+import ConsultIconButton from './ConsultIconButton'
 type Props = {
 	profile: undefined
 }

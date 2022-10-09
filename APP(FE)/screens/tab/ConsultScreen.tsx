@@ -1,8 +1,8 @@
-import BorderButton from '@components/BorderButton'
 import ConsultantBox from '@components/consult/ConsultantBox'
 import ConsultHistoryBox from '@components/consult/ConsultHistoryBox'
 import FocusAwareStatusBar from '@components/FocusAwareStatusBar'
 import Spacer from '@components/Spacer'
+import TPButton from '@components/TPButton'
 import { FONT } from '@constants/font'
 import { css } from '@emotion/native'
 import { useNavigation } from '@react-navigation/core'
@@ -38,7 +38,17 @@ const ConsultScreen: React.FC = () => {
 						<ConsultantBox profile={undefined} />
 						<ConsultantBox profile={undefined} />
 						<Spacer y={10} />
-						<BorderButton>더보기</BorderButton>
+						<TPButton
+							variant="border"
+							size="small"
+							style={css`
+								height: 32px;
+								width: 100px;
+								border-radius: 16px;
+							`}
+						>
+							더보기
+						</TPButton>
 						<Spacer y={10} />
 					</View>
 					<Spacer y={10} />
@@ -60,7 +70,17 @@ const ConsultScreen: React.FC = () => {
 						<ConsultHistoryBox profile={undefined} />
 						<ConsultHistoryBox profile={undefined} />
 						<Spacer y={10} />
-						<BorderButton>더보기</BorderButton>
+						<TPButton
+							variant="border"
+							size="small"
+							style={css`
+								height: 32px;
+								width: 100px;
+								border-radius: 16px;
+							`}
+						>
+							더보기
+						</TPButton>
 					</View>
 				</ScrollView>
 			</View>

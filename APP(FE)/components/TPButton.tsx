@@ -6,7 +6,7 @@ import { Pressable, PressableProps, Text } from 'react-native'
 import tinycolor from 'tinycolor2'
 
 type Props = Omit<PressableProps, 'disabled' | 'children'> & {
-	variant?: 'primary' | 'secondary'
+	variant?: 'primary' | 'secondary' | 'border'
 	disabled?: boolean
 	loading?: boolean
 	children?: string | ReactNode
@@ -22,7 +22,12 @@ const TPButton: React.FC<Props> = ({
 	style,
 	...passProps
 }) => {
-	const color = variant === 'primary' ? COLOR.BRAND.MAIN : COLOR.BLACK(4)
+	const color =
+		variant === 'border'
+			? '#fff'
+			: variant === 'primary'
+			? COLOR.BRAND.MAIN
+			: COLOR.BLACK(4)
 	const pressedColor = tinycolor(color).darken(10).toHexString()
 	const [padding, fontSize] =
 		size === 'small'
@@ -41,6 +46,8 @@ const TPButton: React.FC<Props> = ({
 					border-radius: 12px;
 					padding: ${padding + 'px'};
 					align-items: center;
+					border-color: ${COLOR.GRAY.NORMAL(6)};
+					border-width: ${variant === 'border' ? '1px' : '0px'};
 					background: ${pressed ? pressedColor : color};
 				`,
 				typeof style === 'function' ? style({ pressed }) : style,
@@ -48,7 +55,7 @@ const TPButton: React.FC<Props> = ({
 		>
 			<Text
 				style={css`
-					color: #fff;
+					color: ${variant === 'border' ? COLOR.GRAY.NORMAL(6) : '#fff'};
 					font-size: ${fontSize + 'px'};
 					font-family: ${FONT.Pretendard.BOLD};
 				`}
