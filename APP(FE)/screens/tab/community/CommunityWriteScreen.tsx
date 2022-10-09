@@ -1,10 +1,32 @@
+import PostWriteTabBar from '@components/community/PostWriteTabBar'
 import TPTextInput from '@components/TPTextInput'
 import { COLOR } from '@constants/color'
 import { css } from '@emotion/native'
+import { useNavigation } from '@react-navigation/native'
+import { StackNavigationProp } from '@react-navigation/stack'
+import { atom, useAtom } from 'jotai'
 import React from 'react'
-import { KeyboardAvoidingView, ScrollView, TextInput, View } from 'react-native'
+import {
+	Image,
+	KeyboardAvoidingView,
+	ScrollView,
+	TextInput,
+	View,
+} from 'react-native'
+
+import { CommunityNavigationParamList } from './CommunityNavigator'
+
+type NavigationProp = StackNavigationProp<
+	CommunityNavigationParamList,
+	'CommunityWrite'
+>
+
+const imageUrlAtom = atom<string>('')
 
 const CommunityWriteScreen: React.FC = () => {
+	const [imageUrl, setImageUrl] = useAtom(imageUrlAtom)
+
+	const navigation = useNavigation<NavigationProp>()
 	return (
 		<KeyboardAvoidingView
 			behavior="padding"
@@ -34,6 +56,9 @@ const CommunityWriteScreen: React.FC = () => {
 						}}
 						placeholderTextColor={COLOR.GRAY.NORMAL(6)}
 					/>
+					{imageUrl && (
+						<Image source={{ uri: imageUrl }} style={{ width: '100%' }} />
+					)}
 					<TextInput
 						placeholder="내용을 입력해주세요"
 						textAlignVertical="top"
@@ -52,6 +77,7 @@ const CommunityWriteScreen: React.FC = () => {
 						style={{ marginTop: 10 }}
 					/>
 				</View>
+				<PostWriteTabBar imageUrl={imageUrl} setImageUrl={setImageUrl} />
 			</ScrollView>
 		</KeyboardAvoidingView>
 	)

@@ -19,6 +19,7 @@ const config: ExpoConfig = {
 		fallbackToCacheTimeout: 0,
 	},
 	assetBundlePatterns: ['**/*'],
+	plugins: ['expo-image-picker'],
 	ios: {
 		supportsTablet: true,
 	},
