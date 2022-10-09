@@ -1,3 +1,4 @@
+import { FONT } from '@constants/font'
 import { css } from '@emotion/native'
 import { Text, View } from 'react-native'
 
@@ -8,7 +9,7 @@ const Page1: React.FC = () => (
 				text-align: center;
 				color: #fff;
 				font-size: 32px;
-				font-weight: 700;
+				font-family: ${FONT.Pretendard.BOLD};
 			`}
 		>
 			전문가의 도움 받기

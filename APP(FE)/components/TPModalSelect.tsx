@@ -38,8 +38,6 @@ const TPModalSelectContent = <T extends any = string>({
 		'keyExtractor' | 'options' | 'renderOption' | 'flatlistProps'
 	>) => {
 	const [value, setValue] = useState(props.value)
-	console.log(value)
-
 	return (
 		<View style={{ flex: 1 }}>
 			<TPSelect<T>

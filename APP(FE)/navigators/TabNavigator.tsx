@@ -1,14 +1,14 @@
 import { Entypo, FontAwesome5, Fontisto } from '@expo/vector-icons'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import AIScreen from '@screens/tab/AIScreen'
-import CommunityScreen from '@screens/tab/CommunityScreen'
+import CommunityNavigator from '@screens/tab/community/CommunityNavigator'
 import ExpertScreen from '@screens/tab/ExpertScreen'
 import HomeScreen from '@screens/tab/HomeScreen'
 import UserScreen from '@screens/tab/UserScreen'
 
 import { RootStackScreenProps } from './RootStackNavigator'
 
-type TabParamList = {
+export type TabParamList = {
 	Home: undefined
 	Expert: undefined
 	Community: undefined
@@ -51,7 +51,7 @@ const TabNavigator: React.FC<RootStackScreenProps<'Tab'>> = ({
 					<Entypo name="chat" {...{ color, size }} />
 				),
 			}}
-			component={CommunityScreen}
+			component={CommunityNavigator}
 		/>
 		<Tab.Screen
 			name="AI"

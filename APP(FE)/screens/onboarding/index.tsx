@@ -1,5 +1,5 @@
 import styled, { css } from '@emotion/native'
-import { RootStackScreenProps } from '@navigators/RootStackNavigator'
+import { RootStackScreenProps } from '@navigators/RootStack'
 import { Pressable, SafeAreaView, Text } from 'react-native'
 import PagerView from 'react-native-pager-view'
 

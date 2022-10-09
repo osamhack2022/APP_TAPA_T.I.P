@@ -1,3 +1,4 @@
+import { FONT } from '@constants/font'
 import styled, { css } from '@emotion/native'
 import { FontAwesome5 } from '@expo/vector-icons'
 import { StyleProp, Text, View, ViewStyle } from 'react-native'
@@ -34,7 +35,7 @@ const TPNote: React.FC<Props> = ({ type, title, style, children }) => {
 						style={css`
 							color: ${PALETTE[type ?? 'notice'][1]};
 							font-size: 14px;
-							font-weight: 700;
+							font-family: ${FONT.Pretendard.BOLD};
 						`}
 					>
 						{title}
