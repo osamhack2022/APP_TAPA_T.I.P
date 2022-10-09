@@ -1,9 +1,9 @@
 import { FONT } from '@constants/font'
-import { Entypo, FontAwesome5, Fontisto } from '@expo/vector-icons'
+import { FontAwesome5 } from '@expo/vector-icons'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import AIScreen from '@screens/tab/AIScreen'
 import CommunityNavigator from '@screens/tab/community/CommunityNavigator'
-import ExpertScreen from '@screens/tab/ExpertScreen'
+import ConsultScreen from '@screens/tab/ConsultScreen'
 import HomeScreen from '@screens/tab/HomeScreen'
 import UserScreen from '@screens/tab/UserScreen'
 
@@ -11,7 +11,7 @@ import { RootStackScreenProps } from './RootStack'
 
 export type TabParamList = {
 	Home: undefined
-	Expert: undefined
+	Consult: undefined
 	Community: undefined
 	AI: undefined
 	User: undefined
@@ -36,20 +36,20 @@ const TabNavigator: React.FC<RootStackScreenProps<'Tab'>> = ({
 			options={{
 				title: '홈',
 				tabBarIcon: ({ color, focused, size }) => (
-					<Entypo name="home" {...{ color, size }} />
+					<FontAwesome5 name="home" {...{ color, size }} />
 				),
 			}}
 			component={HomeScreen}
 		/>
 		<Tab.Screen
-			name="Expert"
+			name="Consult"
 			options={{
-				title: '전문가',
+				title: '상담',
 				tabBarIcon: ({ color, focused, size }) => (
-					<Fontisto name="persons" {...{ color, size }} />
+					<FontAwesome5 name="user-tie" {...{ color, size }} />
 				),
 			}}
-			component={ExpertScreen}
+			component={ConsultScreen}
 		/>
 		<Tab.Screen
 			name="Community"
@@ -57,7 +57,7 @@ const TabNavigator: React.FC<RootStackScreenProps<'Tab'>> = ({
 				headerShown: false,
 				title: '커뮤니티',
 				tabBarIcon: ({ color, focused, size }) => (
-					<Entypo name="chat" {...{ color, size }} />
+					<FontAwesome5 name="comment-alt" solid {...{ color, size }} />
 				),
 			}}
 			component={CommunityNavigator}
