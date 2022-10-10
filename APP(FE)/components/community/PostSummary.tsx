@@ -6,6 +6,7 @@ import { css } from '@emotion/native'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { CommunityNavigationParamList } from '@screens/tab/community/CommunityNavigator'
+import { getFullDate } from '@utils/time'
 import React from 'react'
 import { Pressable, Text, View } from 'react-native'
 
@@ -17,21 +18,24 @@ type NavigationProp = StackNavigationProp<
 >
 
 type Props = {
+	size: 'small' | 'default' | 'large'
 	post: PostType
 }
 
-const ForumPostListItem: React.FC<Props> = ({ post }) => {
+const PostSummary: React.FC<Props> = ({ post, size }) => {
 	const navigation = useNavigation<NavigationProp>()
 
 	return (
 		<Pressable
+			style={({ pressed }) => [
+				css`
+					padding: 8px 20px;
+					background: ${pressed ? COLOR.BRAND.TINT(1) : '#fff'};
+				`,
+			]}
 			onPress={() => navigation.navigate('CommunityPost', { postId: post.id })}
 		>
-			<View
-				style={css`
-					padding: 8px 20px;
-				`}
-			>
+			<View>
 				<Text
 					style={css`
 						font-size: 14px;
@@ -40,17 +44,21 @@ const ForumPostListItem: React.FC<Props> = ({ post }) => {
 				>
 					{post.title}
 				</Text>
-				<Spacer y={5} />
-				<Text
-					style={css`
-						font-size: 12px;
-					`}
-					numberOfLines={1}
-					ellipsizeMode="tail"
-				>
-					{post.content}
-				</Text>
-				<Spacer y={5} />
+				{size !== 'small' && (
+					<>
+						<Spacer y={5} />
+						<Text
+							style={css`
+								font-size: 12px;
+							`}
+							numberOfLines={size === 'default' ? 1 : 2}
+							ellipsizeMode="tail"
+						>
+							{post.content}
+						</Text>
+					</>
+				)}
+				<Spacer y={size === 'small' ? 2 : 4} />
 				<View
 					style={css`
 						flex-direction: row;
@@ -64,7 +72,7 @@ const ForumPostListItem: React.FC<Props> = ({ post }) => {
 							color: ${COLOR.GRAY.NORMAL(6)};
 						`}
 					>
-						질문게시판 | Xrong | 09.23{' '}
+						질문게시판 | {post.author} | {getFullDate(post.created_at)}
 					</Text>
 					<PostCountList post={post} />
 				</View>
@@ -73,4 +81,4 @@ const ForumPostListItem: React.FC<Props> = ({ post }) => {
 	)
 }
 
-export default ForumPostListItem
+export default PostSummary

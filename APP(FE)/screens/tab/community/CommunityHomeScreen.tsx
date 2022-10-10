@@ -1,4 +1,4 @@
-import HomePostListItem from '@components/community/HomePostListItem'
+import PostSummary from '@components/community/PostSummary'
 import FocusAwareStatusBar from '@components/FocusAwareStatusBar'
 import Spacer from '@components/Spacer'
 import { COLOR } from '@constants/color'
@@ -30,43 +30,45 @@ const CommunityHomeScreen: React.FC = () => {
 				<View
 					style={css`
 						width: 100%;
-						padding: 10px 20px;
+						padding: 10px 0px;
 						background-color: white;
 					`}
 				>
 					<Text
 						style={css`
 							margin-bottom: 10px;
+							padding: 0px 20px;
 							font-size: 16px;
 							font-family: ${FONT.Pretendard.BOLD};
 						`}
 					>
 						BEST
 					</Text>
-					<HomePostListItem post={samplePost} />
-					<HomePostListItem post={samplePost} />
-					<HomePostListItem post={samplePost} />
+					<PostSummary size="large" post={samplePost} />
+					<PostSummary size="large" post={samplePost} />
+					<PostSummary size="large" post={samplePost} />
 				</View>
 				<Spacer y={4} />
 				<View
 					style={css`
 						width: 100%;
-						padding: 10px 20px;
+						padding: 10px 0px;
 						background-color: white;
 					`}
 				>
 					<Text
 						style={css`
 							margin-bottom: 10px;
+							padding: 0px 20px;
 							font-size: 16px;
 							font-family: ${FONT.Pretendard.BOLD};
 						`}
 					>
 						NEW
 					</Text>
-					<HomePostListItem post={samplePost} />
-					<HomePostListItem post={samplePost} />
-					<HomePostListItem post={samplePost} />
+					<PostSummary size="small" post={samplePost} />
+					<PostSummary size="small" post={samplePost} />
+					<PostSummary size="small" post={samplePost} />
 				</View>
 				<Spacer y={4} />
 				<Pressable onPress={() => navigation.navigate('CommunityForum')}>

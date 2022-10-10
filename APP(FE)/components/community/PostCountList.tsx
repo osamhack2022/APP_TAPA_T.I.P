@@ -35,8 +35,7 @@ const PostCountList: React.FC<Props> = ({ post }) => {
 					color: ${COLOR.ERROR};
 				`}
 			>
-				{/* {post.likes} */}
-				{10}
+				{post.likes}
 			</Text>
 			<Spacer x={4} />
 			<FontAwesome5 name="thumbs-up" solid color={COLOR.ERROR} />
@@ -47,8 +46,7 @@ const PostCountList: React.FC<Props> = ({ post }) => {
 					color: #3e68ff;
 				`}
 			>
-				{/* {post.comments} */}
-				{10}
+				{post.comments}
 			</Text>
 			<Spacer x={4} />
 			<FontAwesome5 name="comment" solid color="#3E68FF" />

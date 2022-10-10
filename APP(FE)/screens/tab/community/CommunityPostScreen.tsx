@@ -7,6 +7,7 @@ import { css } from '@emotion/native'
 import { useNavigation } from '@react-navigation/core'
 import { RouteProp, useRoute } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
+import { getFullTime } from '@utils/time'
 import { atom, useAtom } from 'jotai'
 import { Text, View } from 'react-native'
 
@@ -30,6 +31,7 @@ const CommunityPostScreen: React.FC = () => {
 	} = useRoute<CommunityPostRouteProp>()
 	const [currentPost, setCurrentPost] = useAtom(currentPostAtom)
 	const post: PostType = samplePost
+
 	return (
 		<>
 			<View
@@ -46,6 +48,8 @@ const CommunityPostScreen: React.FC = () => {
 				>
 					{post.title}
 				</Text>
+				<Spacer y={6} />
+				<Text>{getFullTime(post.created_at)}</Text>
 				<Spacer y={20} />
 				<Text
 					style={css`
