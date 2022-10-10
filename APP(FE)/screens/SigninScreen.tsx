@@ -49,9 +49,6 @@ const SigninScreen: React.FC<Props> = props => {
 	const onSubmit = useCallback<SubmitHandler<FieldValues>>(
 		async ({ email, password }) => {
 			try {
-				/**
-				 * TODO: tie user info with firebase credentials
-				 */
 				const credentials = await signInWithEmailAndPassword(
 					firebase.auth,
 					email,
