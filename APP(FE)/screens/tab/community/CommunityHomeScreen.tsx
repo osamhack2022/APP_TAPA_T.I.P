@@ -8,7 +8,7 @@ import { css } from '@emotion/native'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import React from 'react'
-import { Pressable, Text, View } from 'react-native'
+import { Pressable, ScrollView, Text, View } from 'react-native'
 
 import { CommunityNavigationParamList } from './CommunityNavigator'
 
@@ -20,7 +20,11 @@ type NavigationProp = StackNavigationProp<
 const CommunityHomeScreen: React.FC = () => {
 	const navigation = useNavigation<NavigationProp>()
 	return (
-		<>
+		<ScrollView
+			contentInset={{
+				bottom: 24,
+			}}
+		>
 			<View
 				style={css`
 					flex: 1;
@@ -93,7 +97,7 @@ const CommunityHomeScreen: React.FC = () => {
 				</Pressable>
 			</View>
 			<FocusAwareStatusBar style="dark" />
-		</>
+		</ScrollView>
 	)
 }
 
