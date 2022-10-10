@@ -17,7 +17,7 @@ const useAxios = () => {
 				...config,
 				headers: {
 					...(config.headers ?? {}),
-					Authortization: `Bearer ${token}`,
+					Authorization: `Bearer ${token}`,
 				},
 			}
 		})
