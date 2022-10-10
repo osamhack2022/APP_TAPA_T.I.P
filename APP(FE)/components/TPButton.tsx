@@ -6,7 +6,7 @@ import { Pressable, PressableProps, Text } from 'react-native'
 import tinycolor from 'tinycolor2'
 
 type Props = Omit<PressableProps, 'disabled' | 'children'> & {
-	variant?: 'primary' | 'secondary'
+	variant?: 'primary' | 'secondary' | 'inline'
 	disabled?: boolean
 	loading?: boolean
 	children?: ReactNode
@@ -37,22 +37,33 @@ const TPButton: React.FC<Props> = ({
 			{...passProps}
 			disabled={disabled}
 			style={({ pressed }) => [
-				css`
-					border-radius: 12px;
-					padding: ${padding + 'px'};
-					align-items: center;
-					background: ${pressed ? pressedColor : color};
-				`,
+				variant === 'inline'
+					? css``
+					: css`
+							border-radius: 12px;
+							padding: ${padding + 'px'};
+							align-items: center;
+							background: ${pressed ? pressedColor : color};
+					  `,
 				typeof style === 'function' ? style({ pressed }) : style,
 			]}
 		>
 			{typeof children === 'string' ? (
 				<Text
-					style={css`
-						color: #fff;
-						font-size: ${fontSize + 'px'};
-						font-family: ${FONT.Pretendard.BOLD};
-					`}
+					style={[
+						variant === 'inline'
+							? css`
+									color: ${disabled ? COLOR.GRAY.NORMAL(6) : COLOR.BRAND.MAIN};
+									font-size: ${fontSize + 4 + 'px'};
+							  `
+							: css`
+									color: #fff;
+							  `,
+						css`
+							font-size: ${fontSize + 'px'};
+							font-family: ${FONT.Pretendard.BOLD};
+						`,
+					]}
 				>
 					{children}
 				</Text>
