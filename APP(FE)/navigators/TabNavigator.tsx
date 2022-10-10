@@ -1,5 +1,5 @@
 import { FONT } from '@constants/font'
-import { Entypo, FontAwesome5, Fontisto } from '@expo/vector-icons'
+import { FontAwesome5 } from '@expo/vector-icons'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { getFocusedRouteNameFromRoute } from '@react-navigation/core'
 import { RouteProp } from '@react-navigation/native'
@@ -44,7 +44,7 @@ const TabNavigator: React.FC<RootStackScreenProps<'Tab'>> = ({
 				options={{
 					title: '홈',
 					tabBarIcon: ({ color, focused, size }) => (
-						<Entypo name="home" {...{ color, size }} />
+						<FontAwesome5 name="home" {...{ color, size }} />
 					),
 				}}
 				component={HomeScreen}
@@ -54,7 +54,7 @@ const TabNavigator: React.FC<RootStackScreenProps<'Tab'>> = ({
 				options={{
 					title: '전문가',
 					tabBarIcon: ({ color, focused, size }) => (
-						<Fontisto name="persons" {...{ color, size }} />
+						<FontAwesome5 name="user-tie" {...{ color, size }} />
 					),
 				}}
 				component={ExpertScreen}
@@ -65,7 +65,7 @@ const TabNavigator: React.FC<RootStackScreenProps<'Tab'>> = ({
 					headerShown: false,
 					title: '커뮤니티',
 					tabBarIcon: ({ color, focused, size }) => (
-						<Entypo name="chat" {...{ color, size }} />
+						<FontAwesome5 name="comment-alt" solid {...{ color, size }} />
 					),
 					tabBarStyle: {
 						display: getTabBarVisibility(route) ? 'flex' : 'none',

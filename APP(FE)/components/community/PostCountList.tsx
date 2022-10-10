@@ -2,7 +2,7 @@ import { PostType } from '@app-types/community'
 import Spacer from '@components/Spacer'
 import { COLOR } from '@constants/color'
 import { css } from '@emotion/native'
-import { Entypo } from '@expo/vector-icons'
+import { FontAwesome5 } from '@expo/vector-icons'
 import React from 'react'
 import { Text, View } from 'react-native'
 
@@ -27,7 +27,7 @@ const PostCountList: React.FC<Props> = ({ post }) => {
 				{post.views}
 			</Text>
 			<Spacer x={4} />
-			<Entypo name="eye" color={COLOR.BRAND.MAIN} />
+			<FontAwesome5 name="eye" solid color={COLOR.BRAND.MAIN} />
 			<Spacer x={4} />
 			<Text
 				style={css`
@@ -39,7 +39,7 @@ const PostCountList: React.FC<Props> = ({ post }) => {
 				{10}
 			</Text>
 			<Spacer x={4} />
-			<Entypo name="thumbs-up" color={COLOR.ERROR} />
+			<FontAwesome5 name="thumbs-up" solid color={COLOR.ERROR} />
 			<Spacer x={4} />
 			<Text
 				style={css`
@@ -51,7 +51,7 @@ const PostCountList: React.FC<Props> = ({ post }) => {
 				{10}
 			</Text>
 			<Spacer x={4} />
-			<Entypo name="message" color="#3E68FF" />
+			<FontAwesome5 name="comment" solid color="#3E68FF" />
 		</View>
 	)
 }
