@@ -56,7 +56,7 @@ const TPTextInput = <T extends any = string>({
 				return [
 					COLOR.GRAY.NORMAL(1),
 					COLOR.BLACK(3),
-					COLOR.GRAY.NORMAL(6),
+					COLOR.GRAY.NORMAL(1),
 					COLOR.BRAND.MAIN,
 				]
 			}
