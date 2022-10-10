@@ -1,6 +1,6 @@
 env/
 node_modules/
-server/src/mySecrets.py
+mySecrets.py
 
 *.pyc
 __pycache__/
