@@ -1,6 +1,8 @@
 # 타파 TAPA
 
-![Logo](https://logosbynick.com/wp-content/uploads/2018/03/final-logo-example.png)
+<p align="center">
+    <img src="assets/app-icon.svg" width="100" />
+</p>
 
 ## 프로잭트 소개
 
@@ -23,7 +25,7 @@
 
 ### Front-end
 
-- To Be Added
+- Expo
 
 ## 설치 안내 (Installation Process)
 

@@ -1,0 +1,27 @@
+name: Lint
+on: ["push"]
+jobs:
+  frontend-run-lint:
+    name: Run ESLint
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: 🏗 Setup repo
+        uses: actions/checkout@v3
+
+      - name: 🏗 Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
+          cache: yarn
+          cache-dependency-path: ./APP(FE)/yarn.lock
+
+      - name: 📦 Install dependencies
+        working-directory: ./APP(FE)
+        run: yarn install
+
+      - name: 🤞 Run ESLint
+        run: yarn lint
+        working-directory: ./APP(FE)
+
+      

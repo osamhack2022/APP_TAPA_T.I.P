@@ -5,10 +5,14 @@
 		"baseUrl": "./",
 		"paths": {
 			"@components/*": ["./components/*"],
+			"@constants/*": ["./constants/*"],
 			"@hooks/*": ["./hooks/*"],
 			"@screens/*": ["./screens/*"],
 			"@store/*": ["./store/*"],
 			"@utils/*": ["./utils/*"],
+			"@navigators/*": ["./navigators/*"],
+			"@app-types/*": ["./types/*"],
+			"@api/*": ["./types/*"],
 			"@/*": ["./*"]
 		}
 	}

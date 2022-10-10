@@ -5,6 +5,7 @@ import { ExpoConfig } from '@expo/config-types'
 const config: ExpoConfig = {
 	name: 'TAPA',
 	slug: 'tapa',
+	owner: 'osam-tapa-tip',
 	version: '1.0.0',
 	orientation: 'portrait',
 	icon: './assets/icon.png',
