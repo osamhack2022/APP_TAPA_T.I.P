@@ -114,11 +114,8 @@ const SignupScreen: React.FC<Props> = props => {
 				)
 				const res = await axios.post('/users/myself', {
 					id: credentials.user.uid,
-					username: credentials.user.uid,
 					email: credentials.user.email,
-					password: 'none',
 					name,
-					email_verified: credentials.user.emailVerified,
 					service_number: serviceNumber,
 					rank,
 					position,
@@ -126,7 +123,6 @@ const SignupScreen: React.FC<Props> = props => {
 					enlisted_at: enlistedAsTime,
 					discharged_at: dischargedAsTime,
 				})
-				console.log(res.data)
 				await firebase.auth.updateCurrentUser(credentials.user)
 				navigation.pop()
 			} catch (error) {
