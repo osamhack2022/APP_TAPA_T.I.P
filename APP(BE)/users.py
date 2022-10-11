@@ -1,6 +1,6 @@
 from crypt import methods
 from flask import Flask, render_template, Blueprint, request
-import os, pyrebase, requests
+import os, pyrebase, requests, json
 import time, datetime
 import base64
 
@@ -37,6 +37,14 @@ def get_myself():
     return {"status": "Invalid token"}, 200
   return decoded, 200
   
+@bp.route("/login", methods=["POST"])
+def login():
+  params = request.get_json()
+  username = params["username"]
+  password = params["password"]
+  user = auth.sign_in_with_email_and_password(username, password)
+  return {"idToken": user["idToken"]}, 200
+
 
 @bp.route("/myself", methods=["POST", "PUT"])
 def update_user():
