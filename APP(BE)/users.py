@@ -4,7 +4,6 @@ import os, pyrebase, requests
 import time, datetime
 import base64
 
-
 from mySecrets import config
 
 firebase = pyrebase.initialize_app(config)
