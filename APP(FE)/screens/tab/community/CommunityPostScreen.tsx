@@ -1,8 +1,11 @@
 import { PostType } from '@app-types/community'
+import PostComment from '@components/community/PostComment'
 import PostCountList from '@components/community/PostCountList'
+import UserProfile from '@components/community/UserProfile'
 import FocusAwareStatusBar from '@components/FocusAwareStatusBar'
 import Spacer from '@components/Spacer'
-import { samplePost } from '@constants/community'
+import { COLOR } from '@constants/color'
+import { sampleComment, samplePost } from '@constants/community'
 import { FONT } from '@constants/font'
 import { css } from '@emotion/native'
 import { useNavigation } from '@react-navigation/core'
@@ -46,6 +49,8 @@ const CommunityPostScreen: React.FC = () => {
 					padding: 20px 20px;
 				`}
 			>
+				<UserProfile userName={post.author} size="large" />
+				<Spacer y={6} />
 				<Text
 					style={css`
 						font-family: ${FONT.Pretendard.BOLD};
@@ -90,6 +95,17 @@ const CommunityPostScreen: React.FC = () => {
 					{post.content}
 				</Text>
 			</View>
+			<View
+				style={css`
+					height: 6px;
+					width: 100%;
+					background-color: ${COLOR.GRAY.NORMAL(1)};
+				`}
+			/>
+			<PostComment comment={sampleComment} />
+			<PostComment comment={sampleComment} type="reply" />
+			<PostComment comment={sampleComment} />
+			<PostComment comment={sampleComment} />
 			<FocusAwareStatusBar style="dark" />
 		</ScrollView>
 	)

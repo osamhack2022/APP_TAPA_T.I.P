@@ -16,7 +16,9 @@ export type CommentType = {
 	id: number
 	post_id: number
 	user_id: number
+	author: string
 	content: string
+	likes: number
 	created_at: Date
 	updated_at: Date
 }

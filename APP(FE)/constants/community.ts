@@ -1,6 +1,6 @@
 // api 연동 후 삭제예정
 
-import { PostType } from '@app-types/community'
+import { CommentType, PostType } from '@app-types/community'
 
 export const samplePost: PostType = {
 	id: 1,
@@ -15,4 +15,15 @@ export const samplePost: PostType = {
 	comments: 2,
 	created_at: new Date('2022-10-05'),
 	updated_at: new Date('2022-10-05'),
+}
+
+export const sampleComment: CommentType = {
+	id: 1,
+	post_id: 1,
+	user_id: 1,
+	author: 'Xrong',
+	content: '저희 부대에서 유사 사례가 있었습니다.',
+	likes: 10,
+	created_at: new Date('2022-10-08'),
+	updated_at: new Date('2022-10-08'),
 }

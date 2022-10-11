@@ -12,6 +12,7 @@ import React from 'react'
 import { Image, Pressable, Text, View } from 'react-native'
 
 import PostCountList from './PostCountList'
+import UserProfile from './UserProfile'
 
 type NavigationProp = StackNavigationProp<
 	CommunityNavigationParamList,
@@ -45,14 +46,7 @@ const PostSummary: React.FC<Props> = ({ post, size }) => {
 							margin-bottom: 4px;
 						`}
 					>
-						<Text
-							style={css`
-								font-size: 14px;
-								font-family: ${FONT.Pretendard.BOLD};
-							`}
-						>
-							{post.author}
-						</Text>
+						<UserProfile userName={post.author} size="small" />
 						<Text
 							style={css`
 								font-size: 10px;
