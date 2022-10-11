@@ -13,12 +13,19 @@ import { userAtom } from '@store/atoms'
 import { useFonts } from 'expo-font'
 import { Provider as JotaiProvider, useAtomValue } from 'jotai'
 import { useEffect } from 'react'
-import { View } from 'react-native'
+import { Platform, UIManager, View } from 'react-native'
 import { setCustomText, setCustomTextInput } from 'react-native-global-props'
 
 import 'react-native-gesture-handler'
 import 'intl'
 import 'intl/locale-data/jsonp/en'
+
+if (
+	Platform.OS === 'android' &&
+	UIManager.setLayoutAnimationEnabledExperimental
+) {
+	UIManager.setLayoutAnimationEnabledExperimental(true)
+}
 
 const RootNavigationContainer: React.FC = () => {
 	useAuthListener()
