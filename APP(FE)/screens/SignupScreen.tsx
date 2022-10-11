@@ -6,6 +6,7 @@ import { FONT } from '@constants/font'
 import { RANK } from '@constants/rank'
 import { css } from '@emotion/native'
 import { zodResolver } from '@hookform/resolvers/zod'
+import useAxios from '@hooks/axios'
 import {
 	RootStackScreenProps,
 	useRootStackNavigation,
@@ -54,8 +55,22 @@ const formSchema = z
 
 type FieldValues = z.infer<typeof formSchema>
 
+const DEFAULT_VALUES: FieldValues = {
+	name: '신은수',
+	email: 'me@esinx.net',
+	password: 'password123',
+	confirmPassword: 'password123',
+	affiliatedUnit: '제2작전사령부 근무지원단',
+	rank: '상병',
+	serviceNumber: '21-72025276',
+	position: '정작상황병',
+	enlistedAt: '2021.10.19',
+	dischargedAt: '2022.04.18',
+}
+
 const SignupScreen: React.FC<Props> = props => {
 	const navigation = useRootStackNavigation()
+	const axios = useAxios()
 
 	const {
 		control,
@@ -66,6 +81,8 @@ const SignupScreen: React.FC<Props> = props => {
 		resolver: zodResolver(formSchema),
 		mode: 'all',
 		reValidateMode: 'onChange',
+		// uncomment if you want the values above to be prefilled
+		// defaultValues: DEFAULT_VALUES,
 	})
 
 	const onSubmit = useCallback<SubmitHandler<FieldValues>>(
@@ -81,6 +98,12 @@ const SignupScreen: React.FC<Props> = props => {
 			affiliatedUnit,
 		}) => {
 			try {
+				const [enlistedAsTime, dischargedAsTime] = [
+					enlistedAt,
+					dischargedAt,
+				].map(dateStr =>
+					DateTime.fromFormat(dateStr, 'yyyy.MM.dd').toJSDate().getTime(),
+				)
 				/**
 				 * TODO: tie user info with firebase credentials
 				 */
@@ -89,9 +112,21 @@ const SignupScreen: React.FC<Props> = props => {
 					email,
 					password,
 				)
+				const res = await axios.post('/users/myself', {
+					id: credentials.user.uid,
+					email: credentials.user.email,
+					name,
+					service_number: serviceNumber,
+					rank,
+					position,
+					affiliated_unit: affiliatedUnit,
+					enlisted_at: enlistedAsTime,
+					discharged_at: dischargedAsTime,
+				})
 				await firebase.auth.updateCurrentUser(credentials.user)
 				navigation.pop()
 			} catch (error) {
+				console.error(error)
 				if (error instanceof FirebaseError) {
 					Alert.alert('오류', error.message)
 				}
