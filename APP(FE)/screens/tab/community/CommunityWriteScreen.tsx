@@ -25,12 +25,11 @@ import {
 	Alert,
 	Keyboard,
 	KeyboardAvoidingView,
+	LayoutAnimation,
 	ScrollView,
-	StyleProp,
 	Text,
 	TextInput,
 	View,
-	ViewStyle,
 } from 'react-native'
 import { KeyboardAccessoryView } from 'react-native-keyboard-accessory'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
@@ -81,35 +80,6 @@ const Tag: React.FC<{
 		<PressableOpacity onPress={onTapDelete}>
 			<MaterialIcons name="clear" size={12} color={COLOR.BLACK(2)} />
 		</PressableOpacity>
-	</View>
-)
-
-const ImageLoading: React.FC<{ style?: StyleProp<ViewStyle> }> = ({
-	style,
-}) => (
-	<View
-		style={[
-			css`
-				justify-content: center;
-				align-items: center;
-				width: 96px;
-				height: 96px;
-				border-radius: 12px;
-				background: ${COLOR.GRAY.NORMAL(1)};
-			`,
-			style,
-		]}
-	>
-		<Spinner />
-		<Text
-			style={css`
-				margin-top: 8px;
-				font-size: 8px;
-				color: ${COLOR.BLACK(3)};
-			`}
-		>
-			이미지 업로드 중...
-		</Text>
 	</View>
 )
 
@@ -182,8 +152,8 @@ const CommunityWriteScreen: React.FC = () => {
 				mediaTypes: ImagePicker.MediaTypeOptions.Images,
 				quality: 0,
 			})
+			LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
 			setImageUploading(true)
-
 			const uploadResults = await Promise.all(
 				imageBlobs.map(blob => uploadImageBlob(blob, '/community')),
 			)
@@ -279,13 +249,16 @@ const CommunityWriteScreen: React.FC = () => {
 							onSubmitEditing={event => {
 								const value = event.nativeEvent.text
 								if (!value) return
+								LayoutAnimation.configureNext(
+									LayoutAnimation.Presets.easeInEaseOut,
+								)
 								form.setValue('tags', Array.from(new Set([value, ...tags])), {
 									shouldValidate: true,
 								})
 							}}
 							clearOnSubmit
 							clearTextOnFocus
-							blurOnSubmit
+							blurOnSubmit={false}
 						/>
 					</View>
 					<ScrollView
@@ -303,13 +276,16 @@ const CommunityWriteScreen: React.FC = () => {
 								<Tag
 									value={tag}
 									key={tag}
-									onTapDelete={() =>
+									onTapDelete={() => {
+										LayoutAnimation.configureNext(
+											LayoutAnimation.Presets.easeInEaseOut,
+										)
 										form.setValue(
 											'tags',
 											form.getValues('tags').filter(t => t !== tag),
 											{ shouldValidate: true },
 										)
-									}
+									}}
 								/>
 							))}
 						</View>
@@ -318,10 +294,29 @@ const CommunityWriteScreen: React.FC = () => {
 				{(imageURLs?.length || imageUploading) && (
 					<View
 						style={css`
+							position: relative;
+							min-height: 48px;
 							border-bottom-color: ${COLOR.GRAY.NORMAL(2)};
 							border-bottom-width: 1px;
 						`}
 					>
+						<AnimatePresence>
+							{imageUploading && (
+								<View
+									style={css`
+										position: absolute;
+										z-index: 1;
+										width: 100%;
+										height: 100%;
+										background: #11111177;
+										align-items: center;
+										justify-content: center;
+									`}
+								>
+									<Spinner />
+								</View>
+							)}
+						</AnimatePresence>
 						<ScrollView
 							horizontal
 							showsHorizontalScrollIndicator={false}
@@ -370,6 +365,9 @@ const CommunityWriteScreen: React.FC = () => {
 														text: '네, 삭제할래요',
 														style: 'destructive',
 														onPress: () => {
+															LayoutAnimation.configureNext(
+																LayoutAnimation.Presets.easeInEaseOut,
+															)
 															form.setValue(
 																'imageURLs',
 																form
@@ -407,21 +405,6 @@ const CommunityWriteScreen: React.FC = () => {
 										/>
 									</MotiView>
 								))}
-								{imageUploading && (
-									<MotiView
-										from={{ scale: 0.3, opacity: 0.3 }}
-										animate={{ scale: 1, opacity: 1 }}
-										exit={{
-											scale: 0.3,
-											opacity: 0,
-										}}
-										style={css`
-											margin-right: 8px;
-										`}
-									>
-										<ImageLoading />
-									</MotiView>
-								)}
 							</AnimatePresence>
 						</ScrollView>
 					</View>
