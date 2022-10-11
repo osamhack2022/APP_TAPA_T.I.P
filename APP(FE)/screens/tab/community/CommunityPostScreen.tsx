@@ -1,4 +1,5 @@
 import { PostType } from '@app-types/community'
+import PostCountList from '@components/community/PostCountList'
 import FocusAwareStatusBar from '@components/FocusAwareStatusBar'
 import Spacer from '@components/Spacer'
 import { samplePost } from '@constants/community'
@@ -9,7 +10,8 @@ import { RouteProp, useRoute } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { getFullTime } from '@utils/time'
 import { atom, useAtom } from 'jotai'
-import { Text, View } from 'react-native'
+import { Dimensions, ScrollView, Text, View } from 'react-native'
+import AutoHeightImage from 'react-native-auto-height-image'
 
 import { CommunityNavigationParamList } from './CommunityNavigator'
 
@@ -33,7 +35,11 @@ const CommunityPostScreen: React.FC = () => {
 	const post: PostType = samplePost
 
 	return (
-		<>
+		<ScrollView
+			contentInset={{
+				bottom: 24,
+			}}
+		>
 			<View
 				style={css`
 					flex: 1;
@@ -49,8 +55,32 @@ const CommunityPostScreen: React.FC = () => {
 					{post.title}
 				</Text>
 				<Spacer y={6} />
-				<Text>{getFullTime(post.created_at)}</Text>
-				<Spacer y={20} />
+				<View
+					style={css`
+						flex-direction: row;
+						justify-content: space-between;
+					`}
+				>
+					<Text
+						style={css`
+							font-size: 10px;
+						`}
+					>
+						{getFullTime(post.created_at)}
+					</Text>
+					<PostCountList post={post} type="simple" />
+				</View>
+				<Spacer y={6} />
+				{post.image_url && (
+					<>
+						<Spacer y={10} />
+						<AutoHeightImage
+							source={{ uri: post.image_url }}
+							width={Dimensions.get('window').width - 40}
+						/>
+						<Spacer y={10} />
+					</>
+				)}
 				<Text
 					style={css`
 						font-family: ${FONT.Pretendard.REGULAR};
@@ -61,7 +91,7 @@ const CommunityPostScreen: React.FC = () => {
 				</Text>
 			</View>
 			<FocusAwareStatusBar style="dark" />
-		</>
+		</ScrollView>
 	)
 }
 

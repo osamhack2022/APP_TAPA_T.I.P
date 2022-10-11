@@ -113,7 +113,7 @@ const PostSummary: React.FC<Props> = ({ post, size }) => {
 					</View>
 					{size !== 'small' && post.image_url && (
 						<Image
-							source={{ uri: 'https://picsum.photos/200' }}
+							source={{ uri: post.image_url }}
 							style={{
 								width: 60,
 								height: 48,
