@@ -1,14 +1,15 @@
 import { COLOR } from '@constants/color'
 import { FONT } from '@constants/font'
 import { css } from '@emotion/native'
+import { ReactNode } from 'react'
 import { Pressable, PressableProps, Text } from 'react-native'
 import tinycolor from 'tinycolor2'
 
 type Props = Omit<PressableProps, 'disabled' | 'children'> & {
-	variant?: 'primary' | 'secondary'
+	variant?: 'primary' | 'secondary' | 'inline'
 	disabled?: boolean
 	loading?: boolean
-	children?: string
+	children?: ReactNode
 	size?: 'small' | 'medium' | 'large'
 }
 
@@ -36,24 +37,39 @@ const TPButton: React.FC<Props> = ({
 			{...passProps}
 			disabled={disabled}
 			style={({ pressed }) => [
-				css`
-					border-radius: 12px;
-					padding: ${padding + 'px'};
-					align-items: center;
-					background: ${pressed ? pressedColor : color};
-				`,
+				variant === 'inline'
+					? css``
+					: css`
+							border-radius: 12px;
+							padding: ${padding + 'px'};
+							align-items: center;
+							background: ${pressed ? pressedColor : color};
+					  `,
 				typeof style === 'function' ? style({ pressed }) : style,
 			]}
 		>
-			<Text
-				style={css`
-					color: #fff;
-					font-size: ${fontSize + 'px'};
-					font-family: ${FONT.Pretendard.BOLD};
-				`}
-			>
-				{children}
-			</Text>
+			{typeof children === 'string' ? (
+				<Text
+					style={[
+						variant === 'inline'
+							? css`
+									color: ${disabled ? COLOR.GRAY.NORMAL(6) : COLOR.BRAND.MAIN};
+									font-size: ${fontSize + 4 + 'px'};
+							  `
+							: css`
+									color: #fff;
+							  `,
+						css`
+							font-size: ${fontSize + 'px'};
+							font-family: ${FONT.Pretendard.BOLD};
+						`,
+					]}
+				>
+					{children}
+				</Text>
+			) : (
+				<>{children}</>
+			)}
 		</Pressable>
 	)
 }

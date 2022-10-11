@@ -2,6 +2,7 @@ export const COLOR = {
 	ERROR: '#FF5555',
 	BRAND: {
 		MAIN: '#FF9200',
+		BLUE: '#3E68FF',
 		TINT: (index: 1 | 2 | 3) => ['#FFF5E6', '#FFE0B3', '#FFC166'][index - 1],
 		SHADE: (index: 1 | 2 | 3) => ['#CC7A00', '#995B00', '#4D2E00'][index - 1],
 	},

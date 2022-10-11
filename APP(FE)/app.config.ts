@@ -19,6 +19,7 @@ const config: ExpoConfig = {
 		fallbackToCacheTimeout: 0,
 	},
 	assetBundlePatterns: ['**/*'],
+	plugins: ['expo-image-picker'],
 	ios: {
 		supportsTablet: true,
 	},
@@ -32,7 +33,8 @@ const config: ExpoConfig = {
 		favicon: './assets/favicon.png',
 	},
 	extra: {
-		backendBaseURL: process.env.BACKEND_BASE_URL ?? 'https://api.tip-tapa.kr',
+		backendBaseURL:
+			process.env.BACKEND_BASE_URL ?? 'https://tapa-tip.du.r.appspot.com',
 		firebase: {
 			apiKey: process.env.FIREBASE_API_KEY,
 			appId: process.env.FIREBASE_APP_ID,
