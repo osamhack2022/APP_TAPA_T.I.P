@@ -46,7 +46,7 @@ const AIHomeScreen: React.FC = () => {
 						font-size: 14px;
 						line-height : 25%;
 						width : 45%
-					`}>사건의 정보를 간단히 입력하면`\n`대략적인 처벌 수위를 예측해주는`\n`서비스를 제공하고 있습니다</Text>
+					`}>사건의 정보를 간단히 입력하면{"\n"}대략적인 처벌 수위를 예측해주는{"\n"}서비스를 제공하고 있습니다</Text>
 
 				</View>
 				<View style = {css`

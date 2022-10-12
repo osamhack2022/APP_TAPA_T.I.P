@@ -30,7 +30,7 @@ const AICounselorScreen: React.FC = () => {
 
 		}else{
 			//can select only one answer
-			newselect[q] = newselect[q].some((i:number) => i === idx) ? [idx] : []
+			newselect[q] = newselect[q].some((i:number) => i === idx) ? [] : [idx]
 		}
 		setSelect(newselect);
 	}
