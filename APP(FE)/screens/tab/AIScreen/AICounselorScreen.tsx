@@ -1,37 +1,26 @@
 import FocusAwareStatusBar from '@components/FocusAwareStatusBar'
+import {ANSWER} from	'@constants/AI/answer'
+import { QUESTION } from '@constants/AI/question'
 import {FONT} from '@constants/font'
 import { css } from '@emotion/native'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
-import React, { useState } from 'react'
+import {atom, useAtom} from 'jotai'
+import React from 'react'
 import { Text, TouchableOpacity,View } from 'react-native'
 
 import { AINaviParamList } from './AINavigator'
-
-
 type NavigationProp = StackNavigationProp<
 	AINaviParamList,
 	'AICounselor'
 >
+const QueryAtom = atom(0);
+const SelectAtom = atom([[],[],[],[],[]]);
 const AICounselorScreen: React.FC = () => {
-	const [query, setQuery] = useState(0);
-	const [select, setSelect] = useState([[],[],[],[],[],[]]);
-	const question = [
-		"당한 가혹행위의 종류가 무엇인가요?",
-		"언제부터 가혹행위를 당했나요?",
-		"가혹행위를 얼마나 자주 당했나요?",
-		"상대방은 본인과 어떤 관계인가요?",
-		"가혹행위를 당했을 때 느낀 감정은 어땠나요?",
-		"앞으로 상대방과 어떤 관계로 남고 싶나요?" , 
-	];
-	const answer = [
-		["폭행", "폭언", "따돌림", "금품갈취", "협박", "감금", "성추행","얼차려","강요"],
-		["1년전","1년~6개월전","6개월~3개월전", "3개월~1개월전", "1개월 이내"],
-		["한달에 1번", "한달에 2번", "일주일에 1번", "일주일에 2~3번", "일주일에 4~5번", "매일"],
-		["선임", "동기", "후임",  "간부"],
-		["크게 신경지 않았다","우울감에 빠졌다", "상대방에게 되갚아주고 싶었다", "나에게 문제가 있는지 의심이 들었다","자기혐오감이 들었다","죽고 싶었다", "탈영하고 싶었다"],
-		["친해지고 싶다","편안한 사이가 되고 싶다", "좋은 사이는 어렵지만, 나쁘지 않은 사이로 지내고 싶다","서로 신경쓰고 싶지 않다", "상대방과 같은 생활관을 쓰는 것도 싫다", "살면서 더이상 마주치고 싶지 않다"]
-	];
+	const [query, setQuery] = useAtom(QueryAtom);
+	const [select, setSelect] = useAtom(SelectAtom);
+	
+	
 	const selection = (q : number, idx : number) =>{
 		// eslint-disable-next-line camelcase
 		let newselect = JSON.parse(JSON.stringify(select));
@@ -41,8 +30,7 @@ const AICounselorScreen: React.FC = () => {
 
 		}else{
 			//can select only one answer
-			if(newselect[q].indexOf(idx)!=-1) newselect[q] = [];
-			else newselect[q]=[idx];
+			newselect[q] = newselect[q].some((i:number) => i === idx) ? [idx] : []
 		}
 		setSelect(newselect);
 	}
@@ -72,7 +60,7 @@ const AICounselorScreen: React.FC = () => {
 						justify-content : center;
 					`}>
 						<TouchableOpacity onPress ={()=>{
-							query > 0 ? setQuery((q) =>q-1) : null
+							if(query > 0) setQuery(q => q-1)
 						}}><Text>이전</Text></TouchableOpacity>
 					</View>
 					<View style = {css`
@@ -85,9 +73,9 @@ const AICounselorScreen: React.FC = () => {
 							font-weight : 700;
 							padding : 10px;
 							
-						`}>{question[query]}</Text>
+						`}>{QUESTION[query]}</Text>
 
-						{answer[query].map((ans,idx)=> 
+						{ANSWER[query].map((ans,idx)=> 
 						<TouchableOpacity key = {idx} onPress = {()=>selection(query,idx)}>
 							<Text key = {idx} style = {css`
 								font-family : ${FONT.Pretendard.REGULAR};
@@ -95,7 +83,7 @@ const AICounselorScreen: React.FC = () => {
 								font-weight : 500;
 								padding : 5px;
 								margin: 3px;
-								backgroundColor : ${select[query].indexOf(idx as never)==-1 ? 'white' : 'orange'};
+								backgroundColor : ${select[query].some((i:number)=>i===idx) ? 'orange' : 'white'};
 							`}>{ans}</Text>
 						</TouchableOpacity>)}
 
@@ -106,7 +94,7 @@ const AICounselorScreen: React.FC = () => {
 						justify-content : center;
 					`}>
 						<TouchableOpacity onPress={()=>{
-							query<question.length-1 ?  setQuery((q)=>q+1): null
+							if(query<QUESTION.length-1) setQuery((q)=>q+1)
 						}}><Text>다음</Text></TouchableOpacity>
 					</View>
 				</View>
