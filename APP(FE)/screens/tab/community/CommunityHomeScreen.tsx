@@ -1,13 +1,15 @@
+import { PostType } from '@app-types/community'
 import PostSummary from '@components/community/PostSummary'
 import FocusAwareStatusBar from '@components/FocusAwareStatusBar'
 import Spacer from '@components/Spacer'
 import { COLOR } from '@constants/color'
-import { samplePost } from '@constants/community'
 import { FONT } from '@constants/font'
 import { css } from '@emotion/native'
+import useAxios from '@hooks/axios'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
-import React from 'react'
+import { atom, useAtom } from 'jotai'
+import React, { useEffect } from 'react'
 import { Pressable, ScrollView, Text, View } from 'react-native'
 
 import { CommunityNavigationParamList } from './CommunityNavigator'
@@ -16,8 +18,37 @@ type NavigationProp = StackNavigationProp<
 	CommunityNavigationParamList,
 	'CommunityHome'
 >
+const newPostListAtom = atom<PostType[]>([])
+const bestPostListAtom = atom<PostType[]>([])
 
 const CommunityHomeScreen: React.FC = () => {
+	const [newPostList, setNewPostList] = useAtom(newPostListAtom)
+	const [bestPostList, setBestPostList] = useAtom(bestPostListAtom)
+	const axios = useAxios()
+
+	const getNewPostList = async () => {
+		const res = await axios.get(`/community/new/`)
+		setNewPostList(
+			Object.keys(res.data).map((key, _) => {
+				return { id: key, ...res.data[key] }
+			}),
+		)
+	}
+
+	// const getBestPostList = async () => {
+	// 	const res = await axios.get(`/community/best/`)
+	// 	setBestPostList(
+	// 		Object.keys(res.data).map((key, _) => {
+	// 			return { id: key, ...res.data[key] }
+	// 		}),
+	// 	)
+	// }
+
+	useEffect(() => {
+		getNewPostList()
+		// getBestPostList()
+	}, [])
+
 	const navigation = useNavigation<NavigationProp>()
 	return (
 		<ScrollView
@@ -48,9 +79,9 @@ const CommunityHomeScreen: React.FC = () => {
 					>
 						BEST
 					</Text>
-					<PostSummary size="large" post={samplePost} />
-					<PostSummary size="large" post={samplePost} />
-					<PostSummary size="large" post={samplePost} />
+					{bestPostList.map(item => {
+						return <PostSummary size="large" post={item} key={item.id} />
+					})}
 				</View>
 				<Spacer y={4} />
 				<View
@@ -70,9 +101,9 @@ const CommunityHomeScreen: React.FC = () => {
 					>
 						NEW
 					</Text>
-					<PostSummary size="small" post={samplePost} />
-					<PostSummary size="small" post={samplePost} />
-					<PostSummary size="small" post={samplePost} />
+					{newPostList.map(item => {
+						return <PostSummary size="large" post={item} key={item.id} />
+					})}
 				</View>
 				<Spacer y={4} />
 				<Pressable onPress={() => navigation.navigate('CommunityForum')}>

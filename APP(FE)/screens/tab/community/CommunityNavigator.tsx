@@ -12,7 +12,7 @@ import CommunityWriteScreen from './CommunityWriteScreen'
 export type CommunityNavigationParamList = {
 	CommunityHome: undefined
 	CommunityForum: undefined
-	CommunityPost: { postId: number }
+	CommunityPost: { postId: string }
 	CommunityWrite: undefined
 }
 

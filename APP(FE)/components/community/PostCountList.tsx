@@ -8,10 +8,15 @@ import { Text, View } from 'react-native'
 
 type Props = {
 	post: PostType
+	commentCount: number
 	type?: 'default' | 'simple'
 }
 
-const PostCountList: React.FC<Props> = ({ post, type = 'default' }) => {
+const PostCountList: React.FC<Props> = ({
+	post,
+	commentCount,
+	type = 'default',
+}) => {
 	return (
 		<View
 			style={css`
@@ -51,7 +56,7 @@ const PostCountList: React.FC<Props> = ({ post, type = 'default' }) => {
 					color: #3e68ff;
 				`}
 			>
-				{post.comments}
+				{commentCount}
 			</Text>
 			<Spacer x={4} />
 			<FontAwesome5 size={10} name="comment" solid color="#3E68FF" />
