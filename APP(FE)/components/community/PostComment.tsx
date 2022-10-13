@@ -49,7 +49,7 @@ const PostComment: React.FC<Props> = ({ comment, type = 'comment' }) => {
 							justify-content: space-between;
 						`}
 					>
-						<UserProfile userName={comment.author} size="small" />
+						<UserProfile userName={comment.username} size="small" />
 						<Pressable onPress={() => setModalOpen(true)}>
 							<MaterialIcons name="more-vert" size={12} />
 						</Pressable>

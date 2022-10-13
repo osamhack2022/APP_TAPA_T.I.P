@@ -1,11 +1,10 @@
-import { PostDetailType } from '@app-types/community'
+import { CommentType, PostDetailType } from '@app-types/community'
 import PostComment from '@components/community/PostComment'
 import PostCountList from '@components/community/PostCountList'
 import UserProfile from '@components/community/UserProfile'
 import Spacer from '@components/Spacer'
 import TPTextInput from '@components/TPTextInput'
 import { COLOR } from '@constants/color'
-import { sampleComment } from '@constants/community'
 import { FONT } from '@constants/font'
 import { css } from '@emotion/native'
 import useAxios from '@hooks/axios'
@@ -33,6 +32,7 @@ type CommunityPostRouteProp = RouteProp<
 >
 
 const currentPostAtom = atom<PostDetailType | null>(null)
+const commentListAtom = atom<CommentType[]>([])
 
 const CommunityPostScreen: React.FC = () => {
 	const navigation = useNavigation<NavigationProp>()
@@ -41,11 +41,17 @@ const CommunityPostScreen: React.FC = () => {
 		params: { postId },
 	} = useRoute<CommunityPostRouteProp>()
 	const [currentPost, setCurrentPost] = useAtom(currentPostAtom)
+	const [commentList, setCommentList] = useAtom(commentListAtom)
 	const insets = useSafeAreaInsets()
 
 	const getPost = async () => {
-		const res = await axios.get(`/community/posts/${postId}`)
+		const res = await axios.get<PostDetailType>(`/community/posts/${postId}`)
 		setCurrentPost(res.data)
+		setCommentList(
+			Object.keys(res.data.comments).map((key, _) => {
+				return { id: key, ...res.data.comments[key] }
+			}),
+		)
 	}
 
 	useEffect(() => {
@@ -78,10 +84,7 @@ const CommunityPostScreen: React.FC = () => {
 							padding: 20px 20px;
 						`}
 					>
-						<UserProfile
-							userName={currentPost.post.author || 'undefined'}
-							size="large"
-						/>
+						<UserProfile userName={currentPost.post.username} size="large" />
 						<Spacer y={6} />
 						<Text
 							style={css`
@@ -144,10 +147,11 @@ const CommunityPostScreen: React.FC = () => {
 							background-color: ${COLOR.GRAY.NORMAL(1)};
 						`}
 					/>
-					<PostComment comment={sampleComment} />
-					<PostComment comment={sampleComment} type="reply" />
-					<PostComment comment={sampleComment} />
-					<PostComment comment={sampleComment} />
+					{commentList.map(comment => {
+						return (
+							<PostComment comment={comment} key={comment.id} type="comment" />
+						)
+					})}
 				</ScrollView>
 			</KeyboardAvoidingView>
 			<KeyboardAccessoryView

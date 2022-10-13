@@ -1,12 +1,14 @@
 export type PostType = {
 	id: string
 	user_id: number
-	author?: string
+	username: string
 	image_url?: string
 	title: string
 	content: string
 	views: number
 	likes: number
+	comment_num: number
+	comments: object
 	created_at: number
 	updated_at: number
 }
@@ -17,12 +19,12 @@ export type PostDetailType = {
 }
 
 export type CommentType = {
-	id: number
-	post_id: number
-	user_id: number
-	author: string
+	id: string
+	post_id: string
+	user_id: string
+	username: string
 	content: string
 	likes: number
-	created_at: Date
-	updated_at: Date
+	created_at: number
+	// updated_at: Date
 }

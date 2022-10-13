@@ -46,7 +46,7 @@ const PostSummary: React.FC<Props> = ({ post, size }) => {
 							margin-bottom: 4px;
 						`}
 					>
-						<UserProfile userName={post.author || 'undefined'} size="small" />
+						<UserProfile userName={post.username} size="small" />
 						<Text
 							style={css`
 								font-size: 10px;
@@ -134,7 +134,7 @@ const PostSummary: React.FC<Props> = ({ post, size }) => {
 					>
 						질문게시판
 						{size !== 'large' &&
-							` | ${post.author} | ${getFullDate(post.created_at)}`}
+							` | ${post.username} | ${getFullDate(post.created_at)}`}
 					</Text>
 					<PostCountList post={post} commentCount={0} />
 				</View>
