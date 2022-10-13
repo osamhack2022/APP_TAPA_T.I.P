@@ -53,6 +53,7 @@ def update_user():
   u_id = params["id"]
   u_email = params["email"]
   u_name = params["name"]
+  u_username = params["username"]
   #u_avatar = update_avatar(params["avatar"], u_id)
   u_service_number = params["service_number"]
   u_rank = params["rank"]
@@ -67,6 +68,7 @@ def update_user():
   db.child("users").child(u_id).update(
     {
      'id': u_id,
+     'username': u_username,
      'email': u_email,
      'name': u_name,
      'service_number': u_service_number,
