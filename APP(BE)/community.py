@@ -60,11 +60,13 @@ def like_this_post(post_id):
 def post_a_post():
   token = request.headers.get("Authorization") 
   decoded = check_token(token)
+  print(decoded)
   if decoded == "invalid token":
     return {"status": "Invalid token, requires login again"}, 403
 
   #fields 
   user_id = decoded["localId"]
+  username = db.child("users").child(user_id).child("username").get().val()
 
   params = request.get_json()
   u_title = params["title"]
@@ -76,6 +78,7 @@ def post_a_post():
   u_updated_at = CUR_TIME
 
   res = db.child("posts").push({
+    "username": username,
     "user_id": user_id,
     "title": u_title,
     "content": u_content,
@@ -83,7 +86,8 @@ def post_a_post():
     "created_at": u_created_at,
     "updated_at": u_updated_at,
     "likes": 0,
-    "views": 0
+    "views": 0,
+    "comment_num": 0
   })
 
   #print(res)
@@ -155,12 +159,14 @@ def delete_post(post_id):
 def post_a_comment(post_id):
   token = request.headers.get("Authorization") 
   decoded = check_token(token)
+
   if decoded == "invalid token":
     return {"status": "Invalid token, requires login again"}, 403
   #print(decoded)
 
   #fields 
   user_id = decoded["localId"]
+  username = db.child("users").child(user_id).child("username").get().val()
 
   params = request.get_json()
   u_content = params["content"]
@@ -169,6 +175,7 @@ def post_a_comment(post_id):
   u_created_at = CUR_TIME
 
   res = db.child("comments").push({
+    "username": username,
     "post_id": post_id,
     "user_id": user_id,
     "content": u_content,
@@ -182,6 +189,17 @@ def post_a_comment(post_id):
 
   db.child("users").child(user_id).child("comments").update({
     res["name"]: u_created_at
+  })
+
+  len_comments = 0 
+  #print(db.child("comments").order_by_child("post_id").equal_to(post_id).get().val())
+  try:
+    len_comments = len(db.child("comments").order_by_child("post_id").equal_to(post_id).get().val())
+  except:
+    pass
+
+  db.child("posts").child(post_id).update({
+    "comment_num": len_comments
   })
 
   return {"status": "comment post success", "comment_id": res["name"]}, 200
@@ -210,4 +228,12 @@ def delete_comment(comment_id):
   db.child("comments").child(comment_id).remove()
   db.child("users").child(user_id).child("comments").child(comment_id).remove()
   db.child("posts").child(c_post_id).child("comments").child(comment_id).remove()
+  len_comments = 0 
+  try:
+    len_comments = len(db.child("comments").order_by_child("post_id").equal_to(c_post_id).get().val())
+  except:
+    pass
+  db.child("posts").child(c_post_id).update({
+    "comment_num": len_comments
+  })
   return {"status": "delete success"}, 200
