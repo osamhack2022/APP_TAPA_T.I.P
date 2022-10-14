@@ -1,9 +1,8 @@
 from crypt import methods
 from flask import Flask, render_template, Blueprint, request
-import os, pyrebase, requests
+import os, pyrebase, requests, json
 import time, datetime
 import base64
-
 
 from mySecrets import config
 
@@ -38,6 +37,14 @@ def get_myself():
     return {"status": "Invalid token"}, 200
   return decoded, 200
   
+@bp.route("/login", methods=["POST"])
+def login():
+  params = request.get_json()
+  username = params["username"]
+  password = params["password"]
+  user = auth.sign_in_with_email_and_password(username, password)
+  return {"idToken": user["idToken"]}, 200
+
 
 @bp.route("/myself", methods=["POST", "PUT"])
 def update_user():
@@ -46,6 +53,7 @@ def update_user():
   u_id = params["id"]
   u_email = params["email"]
   u_name = params["name"]
+  u_username = params["username"]
   #u_avatar = update_avatar(params["avatar"], u_id)
   u_service_number = params["service_number"]
   u_rank = params["rank"]
@@ -60,6 +68,7 @@ def update_user():
   db.child("users").child(u_id).update(
     {
      'id': u_id,
+     'username': u_username,
      'email': u_email,
      'name': u_name,
      'service_number': u_service_number,
