@@ -7,8 +7,8 @@
 		"android": "expo start --android",
 		"ios": "expo start --ios",
 		"web": "expo start --web",
-		"lint": "eslint ./**/*.{ts,tsx}",
-		"lint-fix": "eslint ./**/*.{ts,tsx} --fix"
+		"lint": "eslint \"./**/*.{ts,tsx}\"",
+		"lint-fix": "eslint \"./**/*.{ts,tsx}\" --fix"
 	},
 	"dependencies": {
 		"@emotion/native": "^11.10.0",
@@ -31,6 +31,7 @@
 		"expo-status-bar": "~1.4.0",
 		"expo-updates": "~0.14.6",
 		"firebase": "^9.10.0",
+		"intl": "^1.2.5",
 		"jotai": "^1.8.4",
 		"luxon": "^3.0.3",
 		"react": "18.0.0",
