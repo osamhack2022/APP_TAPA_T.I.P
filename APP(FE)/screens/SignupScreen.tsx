@@ -82,7 +82,7 @@ const SignupScreen: React.FC<Props> = props => {
 		mode: 'all',
 		reValidateMode: 'onChange',
 		// uncomment if you want the values above to be prefilled
-		defaultValues: DEFAULT_VALUES,
+		// defaultValues: DEFAULT_VALUES,
 	})
 
 	const onSubmit = useCallback<SubmitHandler<FieldValues>>(
