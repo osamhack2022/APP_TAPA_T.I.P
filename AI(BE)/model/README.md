@@ -1,0 +1,1 @@
+학습된 모델(emotions_model.pt)을 위한 폴더입니다.
