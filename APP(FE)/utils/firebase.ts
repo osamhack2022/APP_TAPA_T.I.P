@@ -16,7 +16,7 @@ const firebaseConfig: FirebaseOptions = {
 	...extra.firebase,
 }
 
-const sanitizeKey = (key: string) => key.replace(/:/g, '.')
+export const sanitizeKey = (key: string) => key.replace(/:/g, '.')
 
 /**
  * A wrapper around SecureStore(expo-secure-store) as ReactNativeAsyncStorage

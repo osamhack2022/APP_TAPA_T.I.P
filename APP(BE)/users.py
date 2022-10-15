@@ -42,7 +42,7 @@ def check_token(token):
 def get_myself():
     token = request.headers.get("Authorization")
     decoded = check_token(token)
-    if token == "invalid token":
+    if decoded == "invalid token":
         return {"status": "Invalid token"}, 200
     u_id = decoded["localId"]
     data = db.child("users").child(u_id).get().val()

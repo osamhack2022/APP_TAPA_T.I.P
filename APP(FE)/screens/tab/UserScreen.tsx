@@ -27,7 +27,6 @@ const UserScreen: React.FC = () => {
 	const userQuery = useQuery<UserType>(
 		['tapa', '/users/get/myself'],
 		async () => {
-			console.log('fetching...')
 			const res = await axios.get('/users/get/myself')
 			return res.data
 		},
@@ -208,16 +207,6 @@ const UserScreen: React.FC = () => {
 						<TPButton
 							onPress={() => {
 								firebase.auth.signOut()
-								navigation.reset({
-									routes: [
-										{
-											name: 'Tab',
-										},
-										{
-											name: 'OnBoarding',
-										},
-									],
-								})
 							}}
 						>
 							로그아웃
