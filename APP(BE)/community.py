@@ -55,24 +55,6 @@ def like_this_post(post_id):
     db.child("posts").child(post_id).child("likes").child(user_id).remove()
   return {"status": "like success"}, 200
 
-@bp.route("/comment/<comment_id>/like", methods=["POST"])
-def like_this_comment(comment_id):
-  token = request.headers.get("Authorization") 
-  decoded = check_token(token)
-  if decoded == "invalid token":
-    return {"status": "Invalid token, requires login again"}, 403
-  
-  user_id = decoded["localId"]
-  
-  like = db.child("users").child(user_id).child("likes").child(comment_id).get().val()
-  if like is None:
-    db.child("users").child(user_id).child("likes").child(comment_id).set(1)
-    db.child("comments").child(comment_id).child("likes").child(user_id).set(1)
-  else: 
-    db.child("users").child(user_id).child("likes").child(comment_id).remove()
-    db.child("comments").child(comment_id).child("likes").child(user_id).remove()
-  return {"status": "like success"}, 200
-
 #게시물 작성, login required.
 @bp.route("/posts/", methods=["POST"])
 def post_a_post():
@@ -106,7 +88,6 @@ def post_a_post():
     "tags": u_tags,
     "created_at": u_created_at,
     "updated_at": u_updated_at,
-    "likes": 0,
     "views": 0,
     "comment_num": 0
   })
@@ -223,7 +204,6 @@ def post_a_comment(post_id):
     "user_id": user_id,
     "content": u_content,
     "created_at": u_created_at,
-    "likes": 0,
   })
 
   db.child("posts").child(post_id).child("comments").update({
@@ -281,9 +261,27 @@ def delete_comment(comment_id):
   })
   return {"status": "delete success"}, 200
 
+@bp.route("/comment/<comment_id>/like", methods=["POST"])
+def like_this_comment(comment_id):
+  token = request.headers.get("Authorization") 
+  decoded = check_token(token)
+  if decoded == "invalid token":
+    return {"status": "Invalid token, requires login again"}, 403
+  
+  user_id = decoded["localId"]
+  
+  like = db.child("users").child(user_id).child("likes").child(comment_id).get().val()
+  if like is None:
+    db.child("users").child(user_id).child("likes").child(comment_id).set(1)
+    db.child("comments").child(comment_id).child("likes").child(user_id).set(1)
+  else: 
+    db.child("users").child(user_id).child("likes").child(comment_id).remove()
+    db.child("comments").child(comment_id).child("likes").child(user_id).remove()
+  return {"status": "like success"}, 200
+
 @bp.route("/posts/<post_id>/views", methods=["POST"])
 def update_views(post_id):
-  remote_addr = request.remote_addr
+  """remote_addr = request.remote_addr
   timestamp = int(time.time())
   try:
     is_there_view = db.child("views").child(post_id).order_by_key().get().val().keys()
@@ -297,5 +295,10 @@ def update_views(post_id):
     past_view += 1
     db.child("posts").child(post_id).update({
       "views": past_view
-    })
+    })"""
+  past_view = db.child("posts").child(post_id).child("views").get().val()
+  past_view += 1
+  db.child("posts").child(post_id).update({
+    "views": past_view
+  })
   return {"status": "update view success"}, 200
