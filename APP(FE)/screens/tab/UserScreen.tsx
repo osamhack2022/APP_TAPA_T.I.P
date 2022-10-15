@@ -19,6 +19,64 @@ import { DateTime } from 'luxon'
 import React, { useCallback } from 'react'
 import { Text, View } from 'react-native'
 
+const DiaryList: React.FC = () => {
+	const firebaseUser = useAtomValue(userAtom)
+	const axios = useAxios()
+
+	const diaryListQuery = useQuery<
+		{
+			key: string
+			content: string
+			created_at: number
+		}[]
+	>(
+		['tapa', '/diary/list'],
+		async () => {
+			const res = await axios.get('/diary/list')
+			return res.data
+		},
+		{
+			enabled: !!firebaseUser,
+		},
+	)
+
+	const refetch = (force?: boolean) => {
+		if (force || diaryListQuery.data) diaryListQuery.refetch()
+	}
+
+	useFocusEffect(
+		useCallback(() => {
+			refetch()
+		}, []),
+	)
+
+	if (diaryListQuery.isLoading || !diaryListQuery.data) return <Spinner />
+	return (
+		<View>
+			{diaryListQuery.data.map(entry => (
+				<View
+					key={entry.key}
+					style={css`
+						margin-bottom: 12px;
+						padding: 8px;
+						border-radius: 8px;
+						background: ${COLOR.GRAY.NORMAL(1)};
+					`}
+				>
+					<Text
+						style={css`
+							font-family: ${FONT.Pretendard.BOLD};
+						`}
+					>
+						{DateTime.fromMillis(entry.created_at * 1000).toFormat('MM.dd.')}
+					</Text>
+					<Text>{entry.content}</Text>
+				</View>
+			))}
+		</View>
+	)
+}
+
 const UserScreen: React.FC = () => {
 	const navigation = useRootStackNavigation()
 	const firebaseUser = useAtomValue(userAtom)
@@ -201,36 +259,16 @@ const UserScreen: React.FC = () => {
 						</View>
 					)}
 				</View>
-				{firebaseUser?.uid ? (
-					<>
-						<Spacer y={12} />
-						<TPButton
-							onPress={() => {
-								firebase.auth.signOut()
-							}}
-						>
-							로그아웃
-						</TPButton>
-					</>
-				) : (
-					<>
-						<TPButton
-							onPress={() => {
-								navigation.push('SignUp', { trap: false })
-							}}
-						>
-							회원가입
-						</TPButton>
-						<Spacer y={12} />
-						<TPButton
-							onPress={() => {
-								navigation.push('SignIn', { trap: false })
-							}}
-						>
-							로그인
-						</TPButton>
-					</>
-				)}
+				<Spacer y={12} />
+				<TPButton
+					onPress={() => {
+						firebase.auth.signOut()
+					}}
+				>
+					로그아웃
+				</TPButton>
+				<Spacer y={12} />
+				<DiaryList />
 			</View>
 			<FocusAwareStatusBar style="dark" />
 		</>

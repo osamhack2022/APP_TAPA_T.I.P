@@ -6,9 +6,11 @@ import { COLOR } from '@constants/color'
 import { FONT } from '@constants/font'
 import { css } from '@emotion/native'
 import { zodResolver } from '@hookform/resolvers/zod'
+import useAxios from '@hooks/axios'
 import { useSafeUserQuery } from '@hooks/data/user'
 import { DateTime } from 'luxon'
-import { Controller, useForm } from 'react-hook-form'
+import { useCallback } from 'react'
+import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { ScrollView, Text, TextInput, View } from 'react-native'
 import { z } from 'zod'
 
@@ -19,6 +21,7 @@ const formSchema = z.object({
 type FieldValues = z.infer<typeof formSchema>
 
 const DiarySection: React.FC = () => {
+	const axios = useAxios()
 	const {
 		control,
 		handleSubmit,
@@ -34,6 +37,16 @@ const DiarySection: React.FC = () => {
 	})
 
 	const content = form.watch('content')
+
+	const onSubmit = useCallback<SubmitHandler<FieldValues>>(
+		async ({ content }) => {
+			const res = await axios.post('/diary/new', {
+				content,
+			})
+			console.log(res)
+		},
+		[],
+	)
 
 	return (
 		<View>
@@ -87,7 +100,14 @@ const DiarySection: React.FC = () => {
 					>
 						{content.length}/200
 					</Text>
-					<TPButton size="small">기록하기</TPButton>
+					<TPButton
+						disabled={!isValid}
+						loading={isSubmitting}
+						onPress={handleSubmit(onSubmit)}
+						size="small"
+					>
+						기록하기
+					</TPButton>
 				</View>
 			</View>
 		</View>
