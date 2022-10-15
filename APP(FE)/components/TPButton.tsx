@@ -47,7 +47,7 @@ const TPButton: React.FC<Props> = ({
 				variant === 'inline'
 					? css``
 					: css`
-							border-radius: 12px;
+							border-radius: ${padding / 2 + 'px'};
 							padding-horizontal: ${padding + 'px'};
 							padding-vertical: ${padding - 4 + 'px'};
 							align-items: center;
