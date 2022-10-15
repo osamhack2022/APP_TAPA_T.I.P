@@ -49,14 +49,16 @@ const RootNavigationContainer: React.FC = () => {
 				},
 			}}
 			initialState={{
-				routes: [
-					{
-						name: 'Tab',
-					},
-					{
-						name: 'OnBoarding',
-					},
-				],
+				routes: firebaseUser
+					? [{ name: 'Tab' }]
+					: [
+							{
+								name: 'Tab',
+							},
+							{
+								name: 'OnBoarding',
+							},
+					  ],
 			}}
 		>
 			<RootStackNavigator key={firebaseUser?.uid ?? 'RootStackNavigator'} />

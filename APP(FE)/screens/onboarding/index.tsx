@@ -1,4 +1,5 @@
 import styled, { css } from '@emotion/native'
+import useTrap from '@hooks/trap'
 import { RootStackScreenProps } from '@navigators/RootStack'
 import { Pressable, SafeAreaView, Text } from 'react-native'
 import PagerView from 'react-native-pager-view'
@@ -16,6 +17,7 @@ const OnBoarding: React.FC<RootStackScreenProps<'OnBoarding'>> = ({
 	navigation,
 	route,
 }) => {
+	useTrap()
 	return (
 		<SafeAreaView
 			style={css`
@@ -46,7 +48,21 @@ const OnBoarding: React.FC<RootStackScreenProps<'OnBoarding'>> = ({
 			</PagerView>
 			<Container>
 				<Pressable
-					onPress={() => navigation.popToTop()}
+					onPress={() =>
+						navigation.reset({
+							routes: [
+								{
+									name: 'Tab',
+								},
+								{
+									name: 'SignIn',
+									params: {
+										trap: true,
+									},
+								},
+							],
+						})
+					}
 					style={state => [
 						css`
 							border: solid #fff 1px;

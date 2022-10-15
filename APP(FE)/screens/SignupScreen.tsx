@@ -65,7 +65,7 @@ const DEFAULT_VALUES: FieldValues = {
 	serviceNumber: '21-72025276',
 	position: '정작상황병',
 	enlistedAt: '2021.10.19',
-	dischargedAt: '2022.04.18',
+	dischargedAt: '2023.04.18',
 }
 
 const SignupScreen: React.FC<Props> = props => {
@@ -82,7 +82,7 @@ const SignupScreen: React.FC<Props> = props => {
 		mode: 'all',
 		reValidateMode: 'onChange',
 		// uncomment if you want the values above to be prefilled
-		// defaultValues: DEFAULT_VALUES,
+		defaultValues: DEFAULT_VALUES,
 	})
 
 	const onSubmit = useCallback<SubmitHandler<FieldValues>>(
@@ -116,6 +116,7 @@ const SignupScreen: React.FC<Props> = props => {
 					id: credentials.user.uid,
 					email: credentials.user.email,
 					name,
+					username: name,
 					service_number: serviceNumber,
 					rank,
 					position,
