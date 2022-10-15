@@ -110,7 +110,7 @@ const CommunityPostScreen: React.FC = () => {
 							</Text>
 							<PostCountList
 								post={currentPost.post}
-								commentCount={currentPost.comments.length}
+								commentCount={currentPost.post.comment_num}
 								type="simple"
 							/>
 						</View>

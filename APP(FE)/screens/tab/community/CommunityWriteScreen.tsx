@@ -9,8 +9,10 @@ import { FONT } from '@constants/font'
 import styled, { css } from '@emotion/native'
 import { FontAwesome5, MaterialIcons } from '@expo/vector-icons'
 import { zodResolver } from '@hookform/resolvers/zod'
+import useAxios from '@hooks/axios'
 import { useFocusEffect, useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
+import { userAtom } from '@store/atoms'
 import { getPublicStorageURL } from '@utils/firebase'
 import {
 	ImagePickerCancelledError,
@@ -18,6 +20,7 @@ import {
 	uploadImageBlob,
 } from '@utils/image-picker'
 import * as ImagePicker from 'expo-image-picker'
+import { useAtomValue } from 'jotai'
 import { AnimatePresence, MotiView } from 'moti'
 import React, { useCallback, useState } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
@@ -87,6 +90,8 @@ const CommunityWriteScreen: React.FC = () => {
 	const navigation = useNavigation<NavigationProp>()
 	const insets = useSafeAreaInsets()
 	const [imageUploading, setImageUploading] = useState(false)
+	const axios = useAxios()
+	const user = useAtomValue(userAtom)
 
 	const {
 		control,
@@ -105,18 +110,22 @@ const CommunityWriteScreen: React.FC = () => {
 	const onSubmit = useCallback<SubmitHandler<FieldValues>>(
 		async ({ title, tags, content, imageURLs }) => {
 			try {
-				/**
-				 * TODO: implement posting
-				 */
+				const res = await axios.post('/community/posts/', {
+					title,
+					tags,
+					content,
+					user_id: user?.uid,
+				})
 				console.log({
 					title,
-
 					tags,
 					content,
 					imageURLs,
 				})
 				navigation.pop()
-			} catch (error) {}
+			} catch (error) {
+				console.error(error)
+			}
 		},
 		[],
 	)

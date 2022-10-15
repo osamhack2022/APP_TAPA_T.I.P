@@ -136,7 +136,7 @@ const PostSummary: React.FC<Props> = ({ post, size }) => {
 						{size !== 'large' &&
 							` | ${post.username} | ${getFullDate(post.created_at)}`}
 					</Text>
-					<PostCountList post={post} commentCount={0} />
+					<PostCountList post={post} />
 				</View>
 			</View>
 		</Pressable>

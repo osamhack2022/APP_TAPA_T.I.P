@@ -12,12 +12,14 @@ const useAxios = () => {
 		})
 		instance.interceptors.request.use(async config => {
 			const token = await user?.getIdToken()
+			console.log(token)
+
 			if (!token) return config
 			return {
 				...config,
 				headers: {
 					...(config.headers ?? {}),
-					Authorization: `Bearer ${token}`,
+					Authorization: { token },
 				},
 			}
 		})
