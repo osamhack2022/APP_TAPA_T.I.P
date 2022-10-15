@@ -10,6 +10,7 @@ import {
 	useNavigationContainerRef,
 } from '@react-navigation/native'
 import { userAtom } from '@store/atoms'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { useFonts } from 'expo-font'
 import { Provider as JotaiProvider, useAtomValue } from 'jotai'
 import { useEffect } from 'react'
@@ -17,6 +18,8 @@ import { View } from 'react-native'
 import { setCustomText, setCustomTextInput } from 'react-native-global-props'
 
 import 'react-native-gesture-handler'
+
+const queryClient = new QueryClient()
 
 const RootNavigationContainer: React.FC = () => {
 	useAuthListener()
@@ -87,7 +90,12 @@ const App: React.FC = () => {
 		)
 	}
 	return (
-		<MultiProvider providers={[<JotaiProvider />]}>
+		<MultiProvider
+			providers={[
+				<JotaiProvider />,
+				<QueryClientProvider client={queryClient} />,
+			]}
+		>
 			<RootNavigationContainer />
 		</MultiProvider>
 	)
