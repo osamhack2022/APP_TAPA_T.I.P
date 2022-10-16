@@ -1,11 +1,14 @@
-import { PostType } from '@app-types/community'
-import HomePostListItem from '@components/community/home/HomePostListItem'
+import PostSummary from '@components/community/PostSummary'
 import FocusAwareStatusBar from '@components/FocusAwareStatusBar'
+import Spacer from '@components/Spacer'
+import { COLOR } from '@constants/color'
+import { samplePost } from '@constants/community'
 import { FONT } from '@constants/font'
 import { css } from '@emotion/native'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
-import { Text, TouchableOpacity, View } from 'react-native'
+import React from 'react'
+import { Pressable, ScrollView, Text, View } from 'react-native'
 
 import { CommunityNavigationParamList } from './CommunityNavigator'
 
@@ -14,82 +17,87 @@ type NavigationProp = StackNavigationProp<
 	'CommunityHome'
 >
 
-const samplePost: PostType = {
-	id: 1,
-	user_id: 1,
-	title: '이런 경우엔 조치가 가능할까요?',
-	content: 'ㅈㄱㄴ',
-	views: 10,
-	created_at: new Date('2022-10-05'),
-	updated_at: new Date('2022-10-05'),
-}
-
 const CommunityHomeScreen: React.FC = () => {
 	const navigation = useNavigation<NavigationProp>()
 	return (
-		<>
+		<ScrollView
+			contentInset={{
+				bottom: 24,
+			}}
+		>
 			<View
 				style={css`
 					flex: 1;
+					background-color: ${COLOR.GRAY.NORMAL(1)};
 				`}
 			>
 				<View
 					style={css`
 						width: 100%;
-						padding: 11px 20px;
-						margin-top: 10px;
+						padding: 10px 0px;
 						background-color: white;
 					`}
 				>
 					<Text
 						style={css`
 							margin-bottom: 10px;
+							padding: 0px 20px;
+							font-size: 16px;
 							font-family: ${FONT.Pretendard.BOLD};
 						`}
 					>
-						Best
+						BEST
 					</Text>
-					<HomePostListItem post={samplePost} />
-					<HomePostListItem post={samplePost} />
-					<HomePostListItem post={samplePost} />
+					<PostSummary size="large" post={samplePost} />
+					<PostSummary size="large" post={samplePost} />
+					<PostSummary size="large" post={samplePost} />
 				</View>
+				<Spacer y={4} />
 				<View
 					style={css`
 						width: 100%;
-						padding: 11px 20px;
-						margin-top: 10px;
+						padding: 10px 0px;
 						background-color: white;
 					`}
 				>
 					<Text
 						style={css`
 							margin-bottom: 10px;
+							padding: 0px 20px;
+							font-size: 16px;
 							font-family: ${FONT.Pretendard.BOLD};
 						`}
 					>
-						New
+						NEW
 					</Text>
-					<HomePostListItem post={samplePost} />
-					<HomePostListItem post={samplePost} />
-					<HomePostListItem post={samplePost} />
+					<PostSummary size="small" post={samplePost} />
+					<PostSummary size="small" post={samplePost} />
+					<PostSummary size="small" post={samplePost} />
 				</View>
-				<TouchableOpacity
-					style={css`
-						width: 100%;
-						padding: 11px 20px;
-						background-color: white;
-						margin-top: 10px;
-					`}
-					onPress={() => navigation.navigate('CommunityForum')}
-				>
-					<View>
-						<Text>질문 게시판</Text>
+				<Spacer y={4} />
+				<Pressable onPress={() => navigation.navigate('CommunityForum')}>
+					<View
+						style={css`
+							width: 100%;
+							padding: 10px 20px;
+							background-color: white;
+						`}
+					>
+						<Text
+							style={css`
+								font-size: 16px;
+								font-family: ${FONT.Pretendard.BOLD};
+							`}
+						>
+							질문 게시판
+						</Text>
+						<Spacer y={5} />
 						<Text>자신이 당한 일에 대해 자유롭게 질문하는 공간</Text>
 					</View>
-				</TouchableOpacity>
+				</Pressable>
 			</View>
 			<FocusAwareStatusBar style="dark" />
-		</>
+		</ScrollView>
 	)
 }
 
