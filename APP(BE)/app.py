@@ -2,17 +2,28 @@ import users
 import diary
 import channels
 import community
-from flask import Flask, render_template
+from flask import Flask, render_template, request, jsonify
 from flask_cors import CORS
 import os
 import time
 import datetime
 from mySecrets import app_secret_key
+from emotions_classifier import predict_text, get_emotion_from
 
 app = Flask(__name__)
 app.secret_key = app_secret_key
 cors = CORS(app)
 
+@app.route('/classify', methods=['POST'])
+def classify():
+    parameters = request.get_json()
+    text = parameters["content"]
+    avg_scores = predict_text(text)
+    resp = {
+        "emotion": get_emotion_from(avg_scores),
+        "avg_scores": avg_scores.tolist()
+    }
+    return jsonify(resp)
 
 def format_server_time():
     server_time = time.localtime()

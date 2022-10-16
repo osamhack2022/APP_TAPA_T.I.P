@@ -2,8 +2,12 @@ env/
 node_modules/
 mySecrets.py
 
+
+model/*.pt
+model/*.pth
 *.pyc
 __pycache__/
+.cache/
 
 instance/
 
