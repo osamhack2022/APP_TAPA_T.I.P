@@ -68,7 +68,6 @@ max_len = 64
 batch_size = 64
 tokenizer = get_tokenizer()
 tok = nlp.data.BERTSPTokenizer(tokenizer, vocab, lower=False)
-emotions = ["기쁨", "불안", "당황", "분노", "상처", "슬픔"]
 
 
 def predict(predict_sentence):
@@ -83,18 +82,30 @@ def predict(predict_sentence):
     for batch_id, (token_ids, valid_length, segment_ids, label) in enumerate(test_dataloader):
         token_ids = token_ids.long().to(device)
         segment_ids = segment_ids.long().to(device)
-        out = model(token_ids, valid_length, segment_ids)
-        # 0 기쁨 1 불안 2 당황 3 분노 4 상처 5 슬픔
+        out = model(token_ids, valid_length, segment_ids)\
 
         for i in out:
             logits = i
             logits = logits.detach().cpu().numpy()
             logits = torch.from_numpy(logits)
-            print(logits)
-            probs = F.softmax(logits, dim=0)
-            return probs
+            prob = F.softmax(logits, dim=0)
+            return prob
 
     return [0, 0, 0, 0, 0, 0]
+
+
+# [0. 기쁨, 1. 불안, 2. 당황, 3. 분노, 4. 상처, 5 슬픔]
+weights = [-2.0, 1.5, 0.5, 2, 2.5, 0.5]
+max_weighted_score = max(weights)
+
+
+def calculate_weighted_score(avg_scores):
+    weighted_score = 0
+
+    for idx, score in enumerate(avg_scores):
+        weighted_score += weights[idx] * score
+
+    return weighted_score / max_weighted_score
 
 
 def predict_text(text):
@@ -109,5 +120,9 @@ def predict_text(text):
     return sums
 
 
-def get_emotion_from(avg_scores):
+emotions = ["기쁨", "불안", "당황", "분노", "상처", "슬픔"]
+
+
+def get_top_emotion_from(avg_scores):
     return emotions[np.argmax(avg_scores)]
+
