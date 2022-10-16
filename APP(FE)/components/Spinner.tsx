@@ -5,15 +5,17 @@ import Svg, { Path } from 'react-native-svg'
 import tinycolor from 'tinycolor2'
 
 type Props = {
+	size?: number
 	foregroundColor?: string
 	backgroundColor?: string
 }
 
 const SpinnerSVG: React.FC<{
+	size?: number
 	foregroundColor: string
 	backgroundColor: string
-}> = ({ foregroundColor, backgroundColor }) => (
-	<Svg width={30} height={30} viewBox="0 0 30 30" fill="none">
+}> = ({ size = 30, foregroundColor, backgroundColor }) => (
+	<Svg width={size} height={size} viewBox="0 0 30 30" fill="none">
 		<Path
 			d="M30 15C30 23.2843 23.2843 30 15 30C6.71573 30 0 23.2843 0 15C0 6.71573 6.71573 0 15 0C23.2843 0 30 6.71573 30 15ZM4.5 15C4.5 20.799 9.20101 25.5 15 25.5C20.799 25.5 25.5 20.799 25.5 15C25.5 9.20101 20.799 4.5 15 4.5C9.20101 4.5 4.5 9.20101 4.5 15Z"
 			fill={backgroundColor}
@@ -31,6 +33,7 @@ const easeInOutCubic = (x: number): number => {
 
 const Spinner: React.FC<Props> = props => {
 	const {
+		size = 30,
 		foregroundColor = COLOR.BRAND.MAIN,
 		backgroundColor = tinycolor(foregroundColor)
 			.setAlpha(0.3)
@@ -53,8 +56,8 @@ const Spinner: React.FC<Props> = props => {
 	return (
 		<Animated.View
 			style={{
-				width: 30,
-				height: 30,
+				width: size,
+				height: size,
 				transform: [
 					{
 						rotate: rotation.interpolate({
@@ -66,6 +69,7 @@ const Spinner: React.FC<Props> = props => {
 			}}
 		>
 			<SpinnerSVG
+				size={size}
 				foregroundColor={foregroundColor}
 				backgroundColor={backgroundColor}
 			/>
