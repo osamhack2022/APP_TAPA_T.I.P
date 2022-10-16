@@ -60,13 +60,15 @@ class BERTClassifier(nn.Module):
         return self.classifier(out)
 
 
+bertmodel, vocab = get_pytorch_kobert_model(cachedir=".cache")
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
-model = torch.load("./model/emotions_model.pt", map_location=device)
+model = BERTClassifier(bertmodel,  dr_rate=0.5).to(device)
+model.load_state_dict(torch.load("./model/emotions.pth", map_location=device))
 max_len = 64
 batch_size = 64
 tokenizer = get_tokenizer()
-vocab = get_pytorch_kobert_model(cachedir=".cache")[1]
 tok = nlp.data.BERTSPTokenizer(tokenizer, vocab, lower=False)
+emotions = ["기쁨", "불안", "당황", "분노", "상처", "슬픔"]
 
 
 def predict(predict_sentence):
@@ -105,3 +107,7 @@ def predict_text(text):
 
     sums /= len(sentences)
     return sums
+
+
+def get_emotion_from(avg_scores):
+    return emotions[np.argmax(avg_scores)]

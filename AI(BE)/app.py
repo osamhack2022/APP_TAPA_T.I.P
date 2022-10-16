@@ -1,16 +1,20 @@
 from flask import Flask, request, jsonify
 import os
-from emotions_classifier import predict_text
+from emotions_classifier import predict_text, get_emotion_from
 
 app = Flask(__name__)
 
 
-@app.route('/')
+@app.route('/classify', methods=['POST'])
 def index():
-    text = request.get_json()["content"]
-    # sums = predict_text(text)
-    # sums_list = sums.tolist()
-    # return jsonify(sums_list)
+    parameters = request.get_json()
+    text = parameters["content"]
+    avg_scores = predict_text(text)
+    resp = {
+        "emotion": get_emotion_from(avg_scores),
+        "avg_scores": avg_scores.tolist()
+    }
+    return jsonify(resp)
 
 
 if __name__ == '__main__':

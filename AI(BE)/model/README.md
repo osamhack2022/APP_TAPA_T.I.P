@@ -1,1 +1,1 @@
-학습된 모델(emotions_model.pt)을 위한 폴더입니다.
+학습된 모델의 stale_dict 파일(emotions.pth)을 위한 폴더입니다.

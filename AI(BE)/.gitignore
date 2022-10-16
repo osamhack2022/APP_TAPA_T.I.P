@@ -1,4 +1,5 @@
 model/*.pt
+model/*.pth
 .cache/
 
 env/
