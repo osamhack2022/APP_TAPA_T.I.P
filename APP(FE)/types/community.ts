@@ -1,9 +1,13 @@
 export type PostType = {
 	id: number
 	user_id: number
+	author: string
+	image_url: string
 	title: string
 	content: string
 	views: number
+	likes: number
+	comments: number
 	created_at: Date
 	updated_at: Date
 }
