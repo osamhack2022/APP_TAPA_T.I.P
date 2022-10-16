@@ -5,6 +5,10 @@ from kobert import get_pytorch_kobert_model
 from kobert import get_tokenizer
 from torch import nn
 from torch.utils.data import Dataset
+import torch.nn.functional as F
+import nltk
+
+nltk.download("punkt")
 
 
 class BERTDataset(Dataset):
@@ -77,39 +81,27 @@ def predict(predict_sentence):
     for batch_id, (token_ids, valid_length, segment_ids, label) in enumerate(test_dataloader):
         token_ids = token_ids.long().to(device)
         segment_ids = segment_ids.long().to(device)
-
-        valid_length = valid_length
-        label = label.long().to(device)
-
         out = model(token_ids, valid_length, segment_ids)
         # 0 기쁨 1 불안 2 당황 3 분노 4 상처 5 슬픔
-
-        test_eval = []
 
         for i in out:
             logits = i
             logits = logits.detach().cpu().numpy()
+            logits = torch.from_numpy(logits)
+            print(logits)
+            probs = F.softmax(logits, dim=0)
+            return probs
 
-            if np.argmax(logits) == 0:
-                test_eval.append("기쁨이")
-            elif np.argmax(logits) == 1:
-                test_eval.append("불안이")
-            elif np.argmax(logits) == 2:
-                test_eval.append("당황이")
-            elif np.argmax(logits) == 3:
-                test_eval.append("분노가")
-            elif np.argmax(logits) == 4:
-                test_eval.append("상처가")
-            elif np.argmax(logits) == 5:
-                test_eval.append("슬픔이")
-
-        print(">> 입력하신 내용에서 " + test_eval[0] + " 느껴집니다.")
+    return [0, 0, 0, 0, 0, 0]
 
 
-end = 1
-while end == 1:
-    sentence = input("하고싶은 말을 입력해주세요 : ")
-    if sentence == "0":
-        break
-    predict(sentence)
-    print("\n")
+def predict_text(text):
+    sentences = nltk.sent_tokenize(text)
+    sums = np.array([0.0, 0.0, 0.0, 0.0, 0.0, 0.0])
+
+    for s in sentences:
+        prob = predict(s).detach().cpu().numpy()
+        sums = np.add(sums, prob)
+
+    sums /= len(sentences)
+    return sums
