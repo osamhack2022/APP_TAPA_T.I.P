@@ -13,13 +13,11 @@ const useAxios = () => {
 		instance.interceptors.request.use(async config => {
 			const token = await user?.getIdToken()
 			console.log(token)
-
-			if (!token) return config
 			return {
 				...config,
 				headers: {
 					...(config.headers ?? {}),
-					Authorization: { token },
+					Authorization: token,
 				},
 			}
 		})
@@ -29,7 +27,7 @@ const useAxios = () => {
 					`AxiosError(${value.response?.status}/${value.code}): ${value.message}\n${value.response?.data}`,
 				)
 			} else {
-				console.error(value)
+				console.error(value.response)
 			}
 			return value
 		})

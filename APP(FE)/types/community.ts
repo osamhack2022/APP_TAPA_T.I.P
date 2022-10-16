@@ -1,12 +1,12 @@
 export type PostType = {
 	id: string
-	user_id: number
+	user_id: string
 	username: string
-	image_url?: string
+	pic_url?: string
 	title: string
 	content: string
 	views: number
-	likes: number
+	likes: object
 	comment_num: number
 	comments: object
 	created_at: number
@@ -24,7 +24,7 @@ export type CommentType = {
 	user_id: string
 	username: string
 	content: string
-	likes: number
+	likes: object
 	created_at: number
 	// updated_at: Date
 }

@@ -77,25 +77,33 @@ const PostComment: React.FC<Props> = ({ comment, type = 'comment' }) => {
 							{getFullTime(comment.created_at)}
 						</Text>
 						<Spacer x={10} />
-						<Text
-							style={css`
-								font-size: 10px;
-								color: ${COLOR.ERROR};
-							`}
-						>
-							{comment.likes}
-						</Text>
-						<Spacer x={4} />
-						<FontAwesome5
-							size={10}
-							name="thumbs-up"
-							solid
-							color={COLOR.ERROR}
-						/>
+						{comment.likes && (
+							<>
+								<Text
+									style={css`
+										font-size: 10px;
+										color: ${COLOR.ERROR};
+									`}
+								>
+									{Object.keys(comment.likes).length}
+								</Text>
+								<Spacer x={4} />
+								<FontAwesome5
+									size={10}
+									name="thumbs-up"
+									solid
+									color={COLOR.ERROR}
+								/>
+							</>
+						)}
 					</View>
 				</View>
 			</Pressable>
-			<PostReplyModal open={modalOpen} setOpen={setModalOpen} />
+			<PostReplyModal
+				open={modalOpen}
+				setOpen={setModalOpen}
+				comment={comment}
+			/>
 		</>
 	)
 }

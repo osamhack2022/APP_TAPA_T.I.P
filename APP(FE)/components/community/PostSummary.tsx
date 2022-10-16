@@ -73,7 +73,7 @@ const PostSummary: React.FC<Props> = ({ post, size }) => {
 								flex-direction: row;
 							`}
 						>
-							{size === 'small' && post.image_url ? (
+							{size === 'small' && post.pic_url ? (
 								<>
 									<FontAwesome5
 										name="image"
@@ -105,9 +105,9 @@ const PostSummary: React.FC<Props> = ({ post, size }) => {
 							</Text>
 						)}
 					</View>
-					{size !== 'small' && post.image_url && (
+					{size !== 'small' && post.pic_url && (
 						<Image
-							source={{ uri: post.image_url }}
+							source={{ uri: post.pic_url }}
 							style={{
 								width: 60,
 								height: 48,

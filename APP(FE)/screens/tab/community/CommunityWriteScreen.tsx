@@ -48,6 +48,7 @@ const formSchema = z.object({
 	title: z.string(),
 	content: z.string(),
 	imageURLs: z.array(z.string()).optional(),
+	image: z.any().optional(),
 	tags: z.array(z.string()),
 })
 type FieldValues = z.infer<typeof formSchema>
@@ -108,24 +109,18 @@ const CommunityWriteScreen: React.FC = () => {
 	})
 
 	const onSubmit = useCallback<SubmitHandler<FieldValues>>(
-		async ({ title, tags, content, imageURLs }) => {
+		async ({ title, tags, content, imageURLs, image }) => {
+			const postFormData = new FormData()
+			postFormData.append('title', title)
+			postFormData.append('tags', tags)
+			postFormData.append('content', content)
+			postFormData.append('user_id', user?.uid)
+			postFormData.append('image', image)
+			console.log(postFormData)
 			try {
-				const res = await axios.post('/community/posts/', {
-					title,
-					tags,
-					content,
-					user_id: user?.uid,
-				})
-				console.log({
-					title,
-					tags,
-					content,
-					imageURLs,
-				})
+				const res = await axios.post('/community/posts/', postFormData)
 				navigation.pop()
-			} catch (error) {
-				console.error(error)
-			}
+			} catch (error) {}
 		},
 		[],
 	)
@@ -163,6 +158,7 @@ const CommunityWriteScreen: React.FC = () => {
 			})
 			LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
 			setImageUploading(true)
+			form.setValue('image', imageBlobs)
 			const uploadResults = await Promise.all(
 				imageBlobs.map(blob => uploadImageBlob(blob, '/community')),
 			)
@@ -364,7 +360,6 @@ const CommunityWriteScreen: React.FC = () => {
 												right: 4px;
 												border-radius: 10px;
 												background: #fff;
-
 												justify-content: center;
 												align-items: center;
 											`}
@@ -377,6 +372,7 @@ const CommunityWriteScreen: React.FC = () => {
 															LayoutAnimation.configureNext(
 																LayoutAnimation.Presets.easeInEaseOut,
 															)
+															form.setValue('image', undefined)
 															form.setValue(
 																'imageURLs',
 																form
