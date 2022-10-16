@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
 import os
-from emotions_classifier import predict_text, get_emotion_from
+from emotions_classifier import predict_text, get_top_emotion_from, calculate_weighted_score
 
 app = Flask(__name__)
 
@@ -11,8 +11,9 @@ def index():
     text = parameters["content"]
     avg_scores = predict_text(text)
     resp = {
-        "emotion": get_emotion_from(avg_scores),
-        "avg_scores": avg_scores.tolist()
+        "emotion": get_top_emotion_from(avg_scores),
+        "avg_scores": avg_scores.tolist(),
+        "overall_score": calculate_weighted_score(avg_scores)
     }
     return jsonify(resp)
 
