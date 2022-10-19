@@ -3,11 +3,11 @@ import Spacer from '@components/Spacer'
 import { COLOR } from '@constants/color'
 import { css } from '@emotion/native'
 import { FontAwesome5, MaterialIcons } from '@expo/vector-icons'
-import { getFullTime } from '@utils/time'
+import { DateTime } from 'luxon'
 import React, { useState } from 'react'
 import { Pressable, Text, View } from 'react-native'
 
-import PostReplyModal from './PostReplyModal'
+import CommentMenuModal from './CommentMenuModal'
 import UserProfile from './UserProfile'
 type Props = {
 	comment: CommentType
@@ -74,7 +74,9 @@ const PostComment: React.FC<Props> = ({ comment, type = 'comment' }) => {
 								color: ${COLOR.GRAY.NORMAL(6)};
 							`}
 						>
-							{getFullTime(comment.created_at)}
+							{DateTime.fromMillis(comment.created_at * 1000).toFormat(
+								'MM.dd  hh:mm',
+							)}
 						</Text>
 						<Spacer x={10} />
 						{comment.likes && (
@@ -99,7 +101,7 @@ const PostComment: React.FC<Props> = ({ comment, type = 'comment' }) => {
 					</View>
 				</View>
 			</Pressable>
-			<PostReplyModal
+			<CommentMenuModal
 				open={modalOpen}
 				setOpen={setModalOpen}
 				comment={comment}

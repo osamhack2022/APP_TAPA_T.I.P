@@ -7,7 +7,7 @@ import { FontAwesome5 } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { CommunityNavigationParamList } from '@screens/tab/community/CommunityNavigator'
-import { getFullDate } from '@utils/time'
+import { DateTime } from 'luxon'
 import React from 'react'
 import { Image, Pressable, Text, View } from 'react-native'
 
@@ -53,7 +53,7 @@ const PostSummary: React.FC<Props> = ({ post, size }) => {
 								color: ${COLOR.GRAY.NORMAL(6)};
 							`}
 						>
-							{getFullDate(post.created_at)}
+							{DateTime.fromMillis(post.created_at * 1000).toFormat('MM.dd')}
 						</Text>
 					</View>
 				)}
@@ -134,7 +134,9 @@ const PostSummary: React.FC<Props> = ({ post, size }) => {
 					>
 						질문게시판
 						{size !== 'large' &&
-							` | ${post.username} | ${getFullDate(post.created_at)}`}
+							` | ${post.username} | ${DateTime.fromMillis(
+								post.created_at * 1000,
+							).toFormat('MM.dd')}`}
 					</Text>
 					<PostCountList post={post} />
 				</View>

@@ -1,25 +1,29 @@
 import { COLOR } from '@constants/color'
 import { css } from '@emotion/native'
 import { FontAwesome5 } from '@expo/vector-icons'
-import React from 'react'
+import React, { useState } from 'react'
 import { Pressable, PressableProps, Text, View } from 'react-native'
+
 type Props = Omit<PressableProps, 'disabled' | 'children'> & {
 	title: string
 	iconName: string
 	count: number
-	toggle: boolean
+	active: boolean
 }
 
 const TPToggleButtonWithValue: React.FC<Props> = ({
 	title,
 	iconName,
 	count,
-	toggle,
+	active,
 	style,
 	...passProps
 }) => {
-	const buttonColor = (toggle: boolean, pressed: boolean) => {
-		return toggle
+	const [isPressed, setIsPressed] = useState<boolean>(false)
+	const [isActive, setIsActive] = useState<boolean>(active)
+	const [isCount, setIsCount] = useState<number>(count)
+	const buttonColor = (active: boolean, pressed: boolean) => {
+		return active
 			? pressed
 				? COLOR.BRAND.SHADE(1)
 				: COLOR.BRAND.MAIN
@@ -31,15 +35,21 @@ const TPToggleButtonWithValue: React.FC<Props> = ({
 	return (
 		<Pressable
 			{...passProps}
+			onPressIn={() => {
+				setIsPressed(true)
+				setIsActive(!isActive)
+				setIsCount(isActive ? isCount - 1 : isCount + 1)
+			}}
+			onPressOut={() => setIsPressed(false)}
 			style={({ pressed }) => [
 				css`
-					width: 84px;
+					margin: 10px 0px;
 					align-self: center;
 					align-items: center;
-					align-items: center;
 					flex-direction: row;
-					border-color: ${buttonColor(toggle, pressed)};
-					background-color: ${buttonColor(toggle, pressed)};
+					border-color: ${buttonColor(isActive, isPressed)};
+					background-color: ${buttonColor(isActive, isPressed)};
+					border-radius: 2px;
 					border-width: 1px;
 				`,
 				typeof style === 'function' ? style({ pressed }) : style,
@@ -53,27 +63,49 @@ const TPToggleButtonWithValue: React.FC<Props> = ({
 					justify-content: center;
 				`}
 			>
-				<FontAwesome5 solid name={iconName} />
+				<FontAwesome5
+					solid
+					name={iconName}
+					color={isPressed || isActive ? '#fff' : COLOR.GRAY.NORMAL(6)}
+				/>
 			</View>
-			<Text
+			<View
 				style={css`
 					width: 28px;
-					font-size: 12px;
 					justify-content: center;
 					text-align: center;
 				`}
 			>
-				{title}
-			</Text>
-			<Text
+				<Text
+					style={css`
+						font-size: 12px;
+						color: ${isPressed || isActive ? '#fff' : COLOR.GRAY.NORMAL(6)};
+					`}
+				>
+					{title}
+				</Text>
+			</View>
+			<View
 				style={css`
 					width: 32px;
+					height: 24px;
 					text-align: center;
+					align-items: center;
 					justify-content: center;
+					background-color: white;
 				`}
 			>
-				{count}
-			</Text>
+				<Text
+					style={css`
+						font-size: 12px;
+						color: ${isActive || isPressed
+							? buttonColor(isActive, isPressed)
+							: COLOR.GRAY.NORMAL(6)};
+					`}
+				>
+					{isCount}
+				</Text>
+			</View>
 		</Pressable>
 	)
 }

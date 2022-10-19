@@ -1,7 +1,12 @@
 import { CommentType } from '@app-types/community'
 import Spacer from '@components/Spacer'
+import { COLOR } from '@constants/color'
 import { css } from '@emotion/native'
 import useAxios from '@hooks/axios'
+import {
+	useDeleteCommentMutation,
+	useLikeCommentMutation,
+} from '@hooks/data/community'
 import { userAtom } from '@store/atoms'
 import { useAtomValue } from 'jotai'
 import React from 'react'
@@ -14,16 +19,12 @@ type Props = {
 	setOpen: (open: boolean) => void
 }
 
-const PostReplyModal: React.FC<Props> = ({ comment, open, setOpen }) => {
+const CommentMenuModal: React.FC<Props> = ({ comment, open, setOpen }) => {
 	const axios = useAxios()
 	const user = useAtomValue(userAtom)
-	const onPressLikeComment = async () => {
-		try {
-			await axios.post(`/community/comment/${comment.id}/like`)
-		} catch (e) {
-			console.error(e)
-		}
-	}
+
+	const likeComment = useLikeCommentMutation(comment.id)
+	const deleteComment = useDeleteCommentMutation(comment.id)
 	return (
 		<Modal
 			isVisible={open}
@@ -47,7 +48,10 @@ const PostReplyModal: React.FC<Props> = ({ comment, open, setOpen }) => {
 					style={css`
 						padding: 16px 20px;
 					`}
-					onPress={onPressLikeComment}
+					onPress={() => {
+						likeComment.mutate()
+						setOpen(false)
+					}}
 				>
 					<Text
 						style={css`
@@ -70,10 +74,30 @@ const PostReplyModal: React.FC<Props> = ({ comment, open, setOpen }) => {
 						메세지 보내기
 					</Text>
 				</Pressable>
+				{comment.user_id == user?.uid && (
+					<Pressable
+						style={css`
+							padding: 16px 20px;
+						`}
+						onPress={() => {
+							deleteComment.mutate()
+							setOpen(false)
+						}}
+					>
+						<Text
+							style={css`
+								font-size: 14px;
+								color: ${COLOR.ERROR};
+							`}
+						>
+							삭제
+						</Text>
+					</Pressable>
+				)}
 				<Spacer y={10} />
 			</View>
 		</Modal>
 	)
 }
 
-export default PostReplyModal
+export default CommentMenuModal
