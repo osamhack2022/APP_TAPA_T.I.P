@@ -21,7 +21,12 @@
 
 ### Server(back-end)
 
-- To Be Added
+서버 배포
+
+<img src="https://img.shields.io/badge/Google Cloud-4285F4??style=for-the-badge&logo=Google Cloud&logoColor=white"/>내 App Engine을 활용해 API 서버를 배포했습니다. 서버 URL은 https://tapa-tip.du.r.appspot.com/ 입니다.
+
+<img src="https://img.shields.io/badge/Gunicorn-499848??style=for-the-badge&logo=Gunicorn&logoColor=white"/>을 활용해 제공된 VM 서버로 AI 코드를 배포했습니다. 서버 URL은 http://20.214.182.219:8080 입니다. 
+
 
 ### Front-end
 
