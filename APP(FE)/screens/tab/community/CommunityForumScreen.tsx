@@ -1,13 +1,14 @@
 import { PostType } from '@app-types/community'
 import PostSummary from '@components/community/PostSummary'
 import PostWriteButton from '@components/community/PostWriteButton'
+import FadingDots from '@components/FadingDots'
 import FocusAwareStatusBar from '@components/FocusAwareStatusBar'
 import { css } from '@emotion/native'
-import useAxios from '@hooks/axios'
+import { usePostListQuery } from '@hooks/data/community'
 import { useNavigation } from '@react-navigation/core'
 import { StackNavigationProp } from '@react-navigation/stack'
-import { atom, useAtom } from 'jotai'
-import React, { useEffect } from 'react'
+import { atom } from 'jotai'
+import React from 'react'
 import { ScrollView, View } from 'react-native'
 
 import { CommunityNavigationParamList } from './CommunityNavigator'
@@ -21,21 +22,23 @@ const postListAtom = atom<PostType[]>([])
 
 const CommunityForumScreen: React.FC = () => {
 	const navigation = useNavigation<NavigationProp>()
-	const [postList, setPostList] = useAtom(postListAtom)
-	const axios = useAxios()
+	// const [postList, setPostList] = useAtom(postListAtom)
+	// const axios = useAxios()
 
-	const getPostList = async () => {
-		const res = await axios.get(`/community/posts/`)
-		setPostList(
-			Object.keys(res.data).map((key, _) => {
-				return { id: key, ...res.data[key] }
-			}),
-		)
-	}
+	const postListQuery = usePostListQuery()
 
-	useEffect(() => {
-		getPostList()
-	}, [])
+	// const getPostList = async () => {
+	// 	const res = await axios.get(`/community/posts/`)
+	// 	setPostList(
+	// 		Object.keys(res.data).map((key, _) => {
+	// 			return { id: key, ...res.data[key] }
+	// 		}),
+	// 	)
+	// }
+
+	// useEffect(() => {
+	// 	postListQuery()
+	// }, [])
 
 	return (
 		<View
@@ -49,10 +52,13 @@ const CommunityForumScreen: React.FC = () => {
 					bottom: 24,
 				}}
 			>
-				{postList &&
-					postList.map(item => {
+				{!postListQuery.isLoading && postListQuery.data ? (
+					postListQuery.data.map(item => {
 						return <PostSummary post={item} size="default" key={item.id} />
-					})}
+					})
+				) : (
+					<FadingDots />
+				)}
 				<FocusAwareStatusBar style="dark" />
 			</ScrollView>
 		</View>
