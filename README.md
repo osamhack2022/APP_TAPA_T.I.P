@@ -42,6 +42,7 @@
 >TAPA는 AI 기반 **병영 부조리 사고 예측** 및 예방 솔루션입니다.
 ### 🌻 개발 동기
 3년 전 같은 과 선배가 군대에서 병영 부조리와 과도한 당직 업무 스트레스로 인해 자살로 생을 마감했다는 [뉴스](https://www.joongang.co.kr/article/25077377#home)가 몇 달 전 화제가 되었습니다. 이 사건을 통해 **병영 사고라는 것이 멀리 떨어져 있는 일이 아니라, 정말 가까이에서 벌어질 수 있는 일**이라는 것을 깨달았습니다.
+
 그리고 이러한 *끔찍한 사고가 다시는 일어나지 않도록* 부조리, 가혹행위를 사전에 예측하여 조치를 취해 병영 사고를 예방하고 싶었습니다.
 
 ### :rocket: 우리의 미션 (Mission)
@@ -82,7 +83,9 @@
 
 ### Server(back-end)
 
-- To Be Added
+<img src="https://img.shields.io/badge/Google Cloud-4285F4??style=for-the-badge&logo=Google Cloud&logoColor=white"/> 내 App Engine을 활용해 API 서버를 배포했습니다. 서버 URL은 https://tapa-tip.du.r.appspot.com/ 입니다.
+
+<img src="https://img.shields.io/badge/Gunicorn-499848??style=for-the-badge&logo=Gunicorn&logoColor=white"/> 을 활용해 제공된 VM 서버로 AI 코드를 배포했습니다. 서버 URL은 http://20.214.182.219:8080 입니다. 
 
 ### ML
 
