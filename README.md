@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-	<a>
+	<a href="https://tapa-1.gitbook.io/tapa-./">
 		<img src="/assets/GITBOOK Button.png" width="220" height="45"/>
 	</a>
 	<a href="https://www.notion.so/oxcarxierra/OSAM-c776ec4881834059bac27abebb713d3a">
