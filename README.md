@@ -1,4 +1,4 @@
-# 타파 TAPA
+<h1 align="center">TAPA</h1>
 
 <p align="center">
     <img src="assets/app-icon.svg" width="100" />
