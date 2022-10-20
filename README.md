@@ -1,9 +1,8 @@
 <h1 align="center">TAPA</h1>
 
 <p align="center">
-    <img src="assets/app-icon.svg" width="100" />
+    <img src="assets/TAPAexplain.gif" width="70%" />
 </p>
-
 <p align="center">
 	<a href="https://tapa-1.gitbook.io/tapa-./">
 		<img src="/assets/GITBOOK Button.png" width="220" height="45"/>
