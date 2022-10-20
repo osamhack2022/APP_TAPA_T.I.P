@@ -11,7 +11,14 @@
 	<a href="https://www.notion.so/oxcarxierra/OSAM-c776ec4881834059bac27abebb713d3a">
 		<img src="/assets/NOTION Button.png" width="220" height="45"/>
 	</a>
+</p>
 
+<p align="center">
+	<a href="https://github.com/osamhack2022-v2/APP_TAPA_T.I.P/search?l=TSX&type=code"><img alt="GitHub language count" src="https://img.shields.io/github/languages/count/osamhack2022-v2/APP_TAPA_T.I.P"></a>
+	<a href="https://github.com/osamhack2022-v2/APP_TAPA_T.I.P/graphs/contributors"><img alt="GitHub contributors" src="https://img.shields.io/github/contributors/osamhack2022-v2/APP_TAPA_T.I.P"></a>
+	<a href="https://github.com/osamhack2022-v2/APP_TAPA_T.I.P/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/osamhack2022-v2/APP_TAPA_T.I.P"></a>
+	<a href="https://github.com/osamhack2022-v2/APP_TAPA_T.I.Pn/network"><img alt="GitHub forks" src="https://img.shields.io/github/forks/osamhack2022-v2/APP_TAPA_T.I.P"></a>
+	<a href="https://github.com/osamhack2022-v2/APP_TAPA_T.I.P/blob/master/LICENSE"><img alt="GitHub license" src="https://img.shields.io/github/license/osamhack2022-v2/APP_TAPA_T.I.P"></a>
 </p>
 
 ## 목차
