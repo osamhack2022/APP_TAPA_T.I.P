@@ -67,6 +67,13 @@
 
 <h2 id="benefits"> 군, TAPA 전과 후로 나뉘다 </h2>
 
+### 기대 효과
+**To Be Added**
+
+### 경쟁력
+**To Be Added**
+
+### 활용 분야
 **To Be Added**
 
 <h2 id="userflow"> 유저 플로우 / DB 다이어그램 </h2>
@@ -116,15 +123,15 @@ $ yarn start or npm run start
 
 <h2 id="team"> 팀 정보 (Team Information) </h2>
 
-|  팀원  |         소속          |     GitHub     |         Email         |
-| :----: | :-------------------: | :------------: | :-------------------: |
-| 이재훈 |  국군지휘통신사령부   | jaehoonlee0829 |    xrong@naver.com    |
-| 오승석 | 주한미8군한국군지원단 |  oxcarxierra   | oxcarxierra@gmail.com |
-| 최용훈 |      공군 2여단       |    ygr4789     | yonghunjoe@gmail.com  |
-| 민거홍 | 주한미8군한국군지원단 |  placidmoon1   | placidmoon1@gmail.com |
-| 임정우 |      육군 15사단      |   realizedd    | themcman12@gmail.com  |
-| 신은수 |  육군 제2작전사령부   |     esinx      |     me@esinx.net      |
-| 이민석 |    공군 작전사령부    |    mscwrd02    | ehdtodvodl@naver.com  |
+|  팀원  |         소속          |     역할     |     GitHub     |         Email         |
+| :----: | :-------------------: | :------------: | :------------: | :-------------------: |
+| 이재훈 |  국군지휘통신사령부   | PM, ML | jaehoonlee0829 |    xrong@naver.com    |
+| 오승석 | 주한미8군한국군지원단 | Frontend |  oxcarxierra   | oxcarxierra@gmail.com |
+| 최용훈 |      공군 2여단       | UI/UX Design |    ygr4789     | yonghunjoe@gmail.com  |
+| 민거홍 | 주한미8군한국군지원단 | Backend |  placidmoon1   | placidmoon1@gmail.com |
+| 임정우 |      육군 15사단      | Backend |   realizedd    | themcman12@gmail.com  |
+| 신은수 |  육군 제2작전사령부   | Frontend |     esinx      |     me@esinx.net      |
+| 이민석 |    공군 작전사령부    | Frontend |    mscwrd02    | ehdtodvodl@naver.com  |
 
 <h2 id="license"> 저작권 및 사용권 정보 (Copyleft / End User License) </h2>
 - [MIT](https://github.com/osam2020-WEB/Sample-ProjectName-TeamName/blob/master/license.md)
