@@ -12,9 +12,7 @@ import { css } from '@emotion/native'
 import { MaterialIcons } from '@expo/vector-icons'
 import useAxios from '@hooks/axios'
 import {
-	useDeletePostMutation,
 	useLikeMutation,
-	usePostCommentMutation,
 	usePostQuery,
 	useViewMutation,
 } from '@hooks/data/community'
@@ -60,8 +58,6 @@ const CommunityPostScreen: React.FC = () => {
 
 	const view = useViewMutation(postId)
 	const like = useLikeMutation(postId)
-	const deletePost = useDeletePostMutation(postId)
-	const postComment = usePostCommentMutation()
 
 	useEffect(() => {
 		view.mutate()

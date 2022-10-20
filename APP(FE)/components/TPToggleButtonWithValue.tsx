@@ -20,8 +20,6 @@ const TPToggleButtonWithValue: React.FC<Props> = ({
 	...passProps
 }) => {
 	const [isPressed, setIsPressed] = useState<boolean>(false)
-	const [isActive, setIsActive] = useState<boolean>(active)
-	const [isCount, setIsCount] = useState<number>(count)
 	const buttonColor = (active: boolean, pressed: boolean) => {
 		return active
 			? pressed
@@ -37,8 +35,6 @@ const TPToggleButtonWithValue: React.FC<Props> = ({
 			{...passProps}
 			onPressIn={() => {
 				setIsPressed(true)
-				setIsActive(!isActive)
-				setIsCount(isActive ? isCount - 1 : isCount + 1)
 			}}
 			onPressOut={() => setIsPressed(false)}
 			style={({ pressed }) => [
@@ -47,8 +43,8 @@ const TPToggleButtonWithValue: React.FC<Props> = ({
 					align-self: center;
 					align-items: center;
 					flex-direction: row;
-					border-color: ${buttonColor(isActive, isPressed)};
-					background-color: ${buttonColor(isActive, isPressed)};
+					border-color: ${buttonColor(active, isPressed)};
+					background-color: ${buttonColor(active, isPressed)};
 					border-radius: 2px;
 					border-width: 1px;
 				`,
@@ -66,7 +62,7 @@ const TPToggleButtonWithValue: React.FC<Props> = ({
 				<FontAwesome5
 					solid
 					name={iconName}
-					color={isPressed || isActive ? '#fff' : COLOR.GRAY.NORMAL(6)}
+					color={isPressed || active ? '#fff' : COLOR.GRAY.NORMAL(6)}
 				/>
 			</View>
 			<View
@@ -79,7 +75,7 @@ const TPToggleButtonWithValue: React.FC<Props> = ({
 				<Text
 					style={css`
 						font-size: 12px;
-						color: ${isPressed || isActive ? '#fff' : COLOR.GRAY.NORMAL(6)};
+						color: ${isPressed || active ? '#fff' : COLOR.GRAY.NORMAL(6)};
 					`}
 				>
 					{title}
@@ -98,12 +94,12 @@ const TPToggleButtonWithValue: React.FC<Props> = ({
 				<Text
 					style={css`
 						font-size: 12px;
-						color: ${isActive || isPressed
-							? buttonColor(isActive, isPressed)
+						color: ${active || isPressed
+							? buttonColor(active, isPressed)
 							: COLOR.GRAY.NORMAL(6)};
 					`}
 				>
-					{isCount}
+					{count}
 				</Text>
 			</View>
 		</Pressable>

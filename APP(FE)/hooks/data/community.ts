@@ -80,14 +80,12 @@ export const useViewMutation = (postId: string) => {
 		() => {
 			return axios.post(`/community/posts/${postId}/views`)
 		},
-		// {
-		// 	onSuccess: () => {
-		// 		queryClient.invalidateQueries([
-		// 			'postList',
-		// 			'`/community/posts/${postId}`',
-		// 		])
-		// 	},
-		// },
+		{
+			onSuccess: () => {
+				queryClient.invalidateQueries(['postList'])
+				queryClient.invalidateQueries(['postDetail'])
+			},
+		},
 	)
 	return res
 }
@@ -102,6 +100,7 @@ export const useLikeMutation = (postId: string) => {
 		{
 			onSuccess: () => {
 				queryClient.invalidateQueries(['postList'])
+				queryClient.invalidateQueries(['postDetail'])
 			},
 		},
 	)
