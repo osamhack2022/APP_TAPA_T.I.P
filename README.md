@@ -26,8 +26,8 @@
 <details open="open">
   <ol>
     <li><a href="#overview"> ➤ 프로젝트 개요 (Overview)</a></li>
-    <li><a href="#features"> ➤ 기능 설명 </a></li>
-    <li><a href="#benefits"> ➤ 장점 및 기대효과 </a></li>
+    <li><a href="#features"> ➤ 기능 스케치 </a></li>
+    <li><a href="#benefits"> ➤ 군, TAPA 전과 후로 나뉘다 </a></li>
     <li><a href="#userflow"> ➤ 유저 플로우 / DB 다이어그램 </a></li>
     <li><a href="#prerequisites"> ➤ 컴퓨터 구성 / 필수 조건 안내 (Prerequisites)</a></li>
     <li><a href="#stacks"> ➤ 기술 스택 (Techniques Used) </a></li>
@@ -50,11 +50,23 @@
 저희 TAPA 프로젝트 및 앱의 미션은
 **“병사들의 안위와 건강을 위협하는 병영 부조리(가혹행위)의 효율적인 예방 및 대처를 통한 인명 피해 감소”** 입니다.
 
-<h2 id="features"> 기능 설명 </h2>
+<h2 id="features"> :iphone: 기능 스케치 </h2>
 
-**To Be Added**
+**TAPA**의 모든 기능은 다음 세 가지 목표 중 한 가지 이상을 달성하기 위해 설계되었습니다.
 
-<h2 id="benefits"> 장점 및 기대효과 </h2>
+>**첫째**, 부조리, 가혹행위 등 부당한 일을 당한 병사를 도와주어 *부조리에 효과적으로 대처*하는 것,
+- [또래 장병 커뮤니티 소통 기능](https://tapa-1.gitbook.io/tapa-./features/undefined)
+- [전문가 상담 및 매칭, DM 기능](https://tapa-1.gitbook.io/tapa-./features/dm)
+
+>**둘째**, 모인 데이터를 바탕으로 *병영 사고를 예측하고 예방*하는 것,
+- [AI 기반 처벌 수위 예측 서비스](https://tapa-1.gitbook.io/tapa-./features/ai)
+- [NLP 활용 다중 감정 분석 서비스](https://tapa-1.gitbook.io/tapa-./features/nlp)
+
+>**셋째**, 군 차원에서 *병사들의 정신 건강 상태를 관리*하고 앱 사용을 장려하는 것 입니다.
+- [통계 및 리더보드 시각화 서비스](https://tapa-1.gitbook.io/tapa-./features/undefined-1)
+- [앱 사용 인센티브 부여 기능](https://tapa-1.gitbook.io/tapa-./features/undefined-2)
+
+<h2 id="benefits"> 군, TAPA 전과 후로 나뉘다 </h2>
 
 **To Be Added**
 
