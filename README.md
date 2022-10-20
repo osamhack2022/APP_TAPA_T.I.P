@@ -3,18 +3,15 @@
 <p align="center">
     <img src="assets/app-icon.svg" width="100" />
 </p>
-<br><br>
 
 <p align="center">
 	<a>
-		<img src="/assets/GITBOOK Button.png" />
+		<img src="/assets/GITBOOK Button.png" width="220" height="45"/>
 	</a>
 	<a href="https://www.notion.so/oxcarxierra/OSAM-c776ec4881834059bac27abebb713d3a">
-		<img src="/assets/NOTION Button.png" />
+		<img src="/assets/NOTION Button.png" width="220" height="45"/>
 	</a>
-	<a href="https://github.com/dsvp/WEB_KookbangFriends_Woowahan/issues?page=1&q=is%3Aissue+is%3Aclosed">
-		<img src="/image/ISSUE_BUTTON.png" />
-	</a>
+
 </p>
 
 ## 목차
