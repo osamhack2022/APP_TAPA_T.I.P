@@ -53,8 +53,7 @@ const CommentInput: React.FC<Props> = ({ isKeyboardVisible, postId }) => {
 	return (
 		<View
 			style={css`
-				padding: 0px 20px;
-				height: 54px;
+				padding: 10px 20px;
 				padding-bottom: ${(isKeyboardVisible ? 8 : insets.bottom) + 'px'};
 				flex-direction: row;
 				align-items: center;
