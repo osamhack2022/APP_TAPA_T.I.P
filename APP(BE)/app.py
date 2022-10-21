@@ -7,7 +7,7 @@ from flask_cors import CORS
 import os
 import time
 import datetime
-from mySecrets import app_secret_key
+from config import app_secret_key
 
 app = Flask(__name__)
 app.secret_key = app_secret_key
