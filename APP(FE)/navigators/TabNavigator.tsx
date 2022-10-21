@@ -6,6 +6,7 @@ import CommunityNavigator from '@screens/tab/community/CommunityNavigator'
 import ConsultScreen from '@screens/tab/ConsultScreen'
 import HomeScreen from '@screens/tab/HomeScreen'
 import UserScreen from '@screens/tab/UserScreen'
+import { Pressable } from 'react-native'
 
 import { RootStackScreenProps } from './RootStack'
 
@@ -22,6 +23,7 @@ export const Tab = createBottomTabNavigator<TabParamList>()
 const TabNavigator: React.FC<RootStackScreenProps<'Tab'>> = ({
 	navigation,
 	route,
+<<<<<<< Updated upstream
 }) => (
 	<Tab.Navigator
 		screenOptions={{
@@ -38,6 +40,35 @@ const TabNavigator: React.FC<RootStackScreenProps<'Tab'>> = ({
 				tabBarIcon: ({ color, focused, size }) => (
 					<FontAwesome5 name="home" {...{ color, size }} />
 				),
+=======
+}) => {
+	const getTabBarVisibility = (route: RouteProp<TabParamList, 'Community'>) => {
+		const routeName = getFocusedRouteNameFromRoute(route)
+		const hideOnScreens = ['CommunityWrite', 'CommunityForum']
+		return routeName ? hideOnScreens.indexOf(routeName) <= -1 : true
+	}
+	return (
+		<Tab.Navigator
+			screenOptions={{
+				headerTitleStyle: {
+					fontFamily: FONT.Pretendard.BOLD,
+				},
+				headerRightContainerStyle: {
+					paddingRight: 12,
+				},
+				headerRight: props => {
+					return (
+						<Pressable
+							onPress={() => {
+								navigation.navigate('DM')
+							}}
+						>
+							<FontAwesome5 name="envelope" solid size={20} />
+						</Pressable>
+					)
+				},
+				tabBarShowLabel: false,
+>>>>>>> Stashed changes
 			}}
 			component={HomeScreen}
 		/>
