@@ -114,7 +114,7 @@ def post_a_post():
     db.child("users").child(user_id).child("posts").update({
         res["name"]: u_created_at
     })
-    db.child("posts").child(res["name"]).update({'pic_url': pic_url})
+    db.child("posts").child(res["name"]).update({'pic_url': u_pic_url})
     return {"status": "post success", "post_id": res["name"]}, 200
 
 # 게시물 수정, login required.
