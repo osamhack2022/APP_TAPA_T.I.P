@@ -31,7 +31,8 @@ type Props = RootStackScreenProps<'SignUp'>
 
 const formSchema = z
 	.object({
-		name: z.string(),
+		name: z.string().min(1, '이름을 입력해주세요!'),
+		username: z.string().min(1, '닉네임을 입력해주세요!'),
 		email: z.string().email('이메일 형식을 확인해주세요!'),
 		password: z
 			.string()
@@ -57,6 +58,7 @@ type FieldValues = z.infer<typeof formSchema>
 
 const DEFAULT_VALUES: FieldValues = {
 	name: '신은수',
+	username: 'esinx',
 	email: 'me@esinx.net',
 	password: 'password123',
 	confirmPassword: 'password123',
@@ -88,6 +90,7 @@ const SignupScreen: React.FC<Props> = props => {
 	const onSubmit = useCallback<SubmitHandler<FieldValues>>(
 		async ({
 			name,
+			username,
 			email,
 			password,
 			serviceNumber,
@@ -116,7 +119,7 @@ const SignupScreen: React.FC<Props> = props => {
 					id: credentials.user.uid,
 					email: credentials.user.email,
 					name,
-					username: name,
+					username,
 					service_number: serviceNumber,
 					rank,
 					position,
@@ -173,6 +176,14 @@ const SignupScreen: React.FC<Props> = props => {
 							control={control}
 							label="이름"
 							placeholder="이름을 입력해주세요"
+						/>
+						<Spacer y={16} />
+						<ControlledTPTextInput
+							name="username"
+							control={control}
+							label="닉네임"
+							placeholder="커뮤니티에서 사용될 닉네임을 입력해주세요"
+							autoCapitalize="none"
 						/>
 						<Spacer y={16} />
 						<ControlledTPTextInput

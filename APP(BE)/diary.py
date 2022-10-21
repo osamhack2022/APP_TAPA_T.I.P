@@ -25,8 +25,12 @@ def get_diary_list():
     user_id = decoded["localId"]
     data = db.child("diaries").order_by_child(
         "user_id").equal_to(user_id).get().val()
+
     if data is None:
         return {}, 500
+    if isinstance(data, list):
+        return [], 200
+
     entries = list(
         map(lambda key: {**data[key], 'key': key}, list(data.keys())))
     sorted_entries = sorted(
