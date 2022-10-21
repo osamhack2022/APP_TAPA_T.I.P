@@ -17,8 +17,12 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
+
+    - name: Checkout
+      uses: actions/checkout@v2
+
     - name: Make envfile
-      uses: SpicyPizza/create-envfile@v1.2
+      uses: SpicyPizza/create-envfile@master
       with:
         envkey_FIREBASE_API_KEY: ${{ secrets.FIREBASE_API_KEY }}
         envkey_FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
@@ -29,11 +33,8 @@ jobs:
         envkey_FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
         envkey_FIREBASE_STORAGE_BUCKET: ${{ secrets.FIREBASE_STORAGE_BUCKET }}
         envkey_FLASK_SECRET_KEY: ${{ secrets.FLASK_SECRET_KEY }}
-        directory: 'APP(BE)'
+        directory: 'APP(BE)/'
         fail_on_empty: false
-
-    - name: Checkout
-      uses: actions/checkout@v2
 
     - name: Deploy to App Engine
       id: deploy
