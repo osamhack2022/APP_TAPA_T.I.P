@@ -1,4 +1,3 @@
-import TPButton from '@components/TPButton'
 import { FONT } from '@constants/font'
 import { css } from '@emotion/native'
 import { Entypo } from '@expo/vector-icons'
@@ -59,6 +58,7 @@ const CommunityNavigator: React.FC = () => {
 				component={CommunityWriteScreen}
 				options={{
 					title: '글 작성',
+					presentation: 'modal',
 					headerBackImage: () => (
 						<Entypo
 							name="cross"
@@ -67,17 +67,6 @@ const CommunityNavigator: React.FC = () => {
 								padding: 10px;
 							`}
 						/>
-					),
-					headerRight: () => (
-						<TPButton
-							variant="primary"
-							size="small"
-							style={css`
-								margin-right: 15px;
-							`}
-						>
-							등록
-						</TPButton>
 					),
 				}}
 			/>

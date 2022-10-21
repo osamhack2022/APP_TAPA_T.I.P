@@ -29,7 +29,7 @@ const PostWriteButton: React.FC = () => {
 				z-index: 1;
 			`}
 		>
-			<Entypo name="pencil" size={25} />
+			<Entypo name="pencil" size={24} color="#fff" />
 		</TPButton>
 	)
 }

@@ -10,22 +10,49 @@ import {
 	useNavigationContainerRef,
 } from '@react-navigation/native'
 import { userAtom } from '@store/atoms'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import extra from '@utils/extra'
+import { sanitizeKey } from '@utils/firebase'
 import { useFonts } from 'expo-font'
+import * as SecureStore from 'expo-secure-store'
 import { Provider as JotaiProvider, useAtomValue } from 'jotai'
-import { useEffect } from 'react'
-import { View } from 'react-native'
+import { PropsWithChildren, useEffect, useState } from 'react'
+import { Platform, UIManager, View } from 'react-native'
 import { setCustomText, setCustomTextInput } from 'react-native-global-props'
 
 import 'react-native-gesture-handler'
 import 'intl'
 import 'intl/locale-data/jsonp/en'
 
+if (
+	Platform.OS === 'android' &&
+	UIManager.setLayoutAnimationEnabledExperimental
+) {
+	UIManager.setLayoutAnimationEnabledExperimental(true)
+}
+
+const queryClient = new QueryClient()
+
+const Splash: React.FC = () => {
+	return (
+		<View
+			style={css`
+				flex: 1;
+				align-items: center;
+				justify-content: center;
+			`}
+		>
+			<TAPASquareIcon />
+		</View>
+	)
+}
+
 const RootNavigationContainer: React.FC = () => {
-	useAuthListener()
 	const navigationContainerRef = useNavigationContainerRef<RootStackParamList>()
 	const firebaseUser = useAtomValue(userAtom)
 	return (
 		<NavigationContainer<RootStackParamList>
+			key={firebaseUser?.uid ?? 'RootNavigationContainer'}
 			ref={navigationContainerRef}
 			theme={{
 				dark: false,
@@ -39,19 +66,49 @@ const RootNavigationContainer: React.FC = () => {
 				},
 			}}
 			initialState={{
-				routes: [
-					{
-						name: 'Tab',
-					},
-					{
-						name: 'OnBoarding',
-					},
-				],
+				routes: firebaseUser
+					? [
+							{
+								name: 'Tab',
+							},
+					  ]
+					: [
+							{
+								name: 'Tab',
+							},
+							{
+								name: 'OnBoarding',
+							},
+					  ],
 			}}
 		>
 			<RootStackNavigator key={firebaseUser?.uid ?? 'RootStackNavigator'} />
 		</NavigationContainer>
 	)
+}
+
+const AuthGuard: React.FC<PropsWithChildren> = ({ children }) => {
+	const [hasSavedCredentials, setHasSavedCredentials] = useState<boolean>()
+	const firebaseUser = useAtomValue(userAtom)
+	useAuthListener()
+
+	useEffect(() => {
+		;(async () => {
+			const item = await SecureStore.getItemAsync(
+				sanitizeKey(`firebase:authUser:${extra.firebase?.apiKey}:tapa`),
+			)
+			setHasSavedCredentials(!!item)
+		})()
+	}, [])
+
+	if (
+		typeof hasSavedCredentials === 'undefined' ||
+		(hasSavedCredentials && !firebaseUser)
+	) {
+		return <Splash />
+	}
+
+	return <>{children}</>
 }
 
 const App: React.FC = () => {
@@ -76,20 +133,17 @@ const App: React.FC = () => {
 	}, [fontsLoaded])
 
 	if (!fontsLoaded) {
-		return (
-			<View
-				style={css`
-					flex: 1;
-					align-items: center;
-					justify-content: center;
-				`}
-			>
-				<TAPASquareIcon />
-			</View>
-		)
+		return <Splash />
 	}
+
 	return (
-		<MultiProvider providers={[<JotaiProvider />]}>
+		<MultiProvider
+			providers={[
+				<JotaiProvider />,
+				<QueryClientProvider client={queryClient} />,
+				<AuthGuard />,
+			]}
+		>
 			<RootNavigationContainer />
 		</MultiProvider>
 	)

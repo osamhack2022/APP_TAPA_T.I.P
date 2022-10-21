@@ -1,6 +1,8 @@
 import { FONT } from '@constants/font'
 import { FontAwesome5 } from '@expo/vector-icons'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { getFocusedRouteNameFromRoute } from '@react-navigation/core'
+import { RouteProp } from '@react-navigation/native'
 import AIScreen from '@screens/tab/AIScreen'
 import CommunityNavigator from '@screens/tab/community/CommunityNavigator'
 import ConsultScreen from '@screens/tab/ConsultScreen'
@@ -23,7 +25,7 @@ export const Tab = createBottomTabNavigator<TabParamList>()
 const TabNavigator: React.FC<RootStackScreenProps<'Tab'>> = ({
 	navigation,
 	route,
-<<<<<<< Updated upstream
+
 }) => (
 	<Tab.Navigator
 		screenOptions={{
@@ -40,7 +42,6 @@ const TabNavigator: React.FC<RootStackScreenProps<'Tab'>> = ({
 				tabBarIcon: ({ color, focused, size }) => (
 					<FontAwesome5 name="home" {...{ color, size }} />
 				),
-=======
 }) => {
 	const getTabBarVisibility = (route: RouteProp<TabParamList, 'Community'>) => {
 		const routeName = getFocusedRouteNameFromRoute(route)
@@ -53,22 +54,7 @@ const TabNavigator: React.FC<RootStackScreenProps<'Tab'>> = ({
 				headerTitleStyle: {
 					fontFamily: FONT.Pretendard.BOLD,
 				},
-				headerRightContainerStyle: {
-					paddingRight: 12,
-				},
-				headerRight: props => {
-					return (
-						<Pressable
-							onPress={() => {
-								navigation.navigate('DM')
-							}}
-						>
-							<FontAwesome5 name="envelope" solid size={20} />
-						</Pressable>
-					)
-				},
-				tabBarShowLabel: false,
->>>>>>> Stashed changes
+
 			}}
 			component={HomeScreen}
 		/>
@@ -115,5 +101,67 @@ const TabNavigator: React.FC<RootStackScreenProps<'Tab'>> = ({
 		/>
 	</Tab.Navigator>
 )
+=======
+				tabBarShowLabel: false,
+			}}
+		>
+			<Tab.Screen
+				name="Home"
+				options={{
+					title: '홈',
+					tabBarIcon: ({ color, focused, size }) => (
+						<FontAwesome5 name="home" {...{ color, size }} />
+					),
+				}}
+				component={HomeScreen}
+			/>
+			<Tab.Screen
+				name="Expert"
+				options={{
+					title: '전문가',
+					tabBarIcon: ({ color, focused, size }) => (
+						<FontAwesome5 name="user-tie" {...{ color, size }} />
+					),
+				}}
+				component={ExpertScreen}
+			/>
+			<Tab.Screen
+				name="Community"
+				options={({ route, navigation }) => ({
+					headerShown: false,
+					title: '커뮤니티',
+					tabBarIcon: ({ color, focused, size }) => (
+						<FontAwesome5 name="comment-alt" solid {...{ color, size }} />
+					),
+					tabBarStyle: {
+						display: getTabBarVisibility(route) ? 'flex' : 'none',
+					},
+				})}
+				component={CommunityNavigator}
+			/>
+			<Tab.Screen
+				name="AI"
+				options={{
+					title: 'AI 상담',
+					tabBarIcon: ({ color, focused, size }) => (
+						<FontAwesome5 name="robot" {...{ color, size }} />
+					),
+				}}
+				component={AIScreen}
+			/>
+			<Tab.Screen
+				name="User"
+				options={{
+					title: '마이페이지',
+					tabBarIcon: ({ color, focused, size }) => (
+						<FontAwesome5 name="id-card" {...{ color, size }} />
+					),
+				}}
+				component={UserScreen}
+			/>
+		</Tab.Navigator>
+	)
+}
+>>>>>>> frontend
 
 export default TabNavigator

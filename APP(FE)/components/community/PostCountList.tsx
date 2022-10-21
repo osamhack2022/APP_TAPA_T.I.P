@@ -8,9 +8,10 @@ import { Text, View } from 'react-native'
 
 type Props = {
 	post: PostType
+	type?: 'default' | 'simple'
 }
 
-const PostCountList: React.FC<Props> = ({ post }) => {
+const PostCountList: React.FC<Props> = ({ post, type = 'default' }) => {
 	return (
 		<View
 			style={css`
@@ -20,38 +21,40 @@ const PostCountList: React.FC<Props> = ({ post }) => {
 		>
 			<Text
 				style={css`
-					font-size: 12px;
+					font-size: 10px;
 					color: ${COLOR.BRAND.MAIN};
 				`}
 			>
 				{post.views}
 			</Text>
 			<Spacer x={4} />
-			<FontAwesome5 name="eye" solid color={COLOR.BRAND.MAIN} />
+			<FontAwesome5 size={10} name="eye" solid color={COLOR.BRAND.MAIN} />
+			{type === 'default' && (
+				<>
+					<Spacer x={4} />
+					<Text
+						style={css`
+							font-size: 10px;
+							color: ${COLOR.ERROR};
+						`}
+					>
+						{post.likes}
+					</Text>
+					<Spacer x={4} />
+					<FontAwesome5 size={10} name="thumbs-up" solid color={COLOR.ERROR} />
+				</>
+			)}
 			<Spacer x={4} />
 			<Text
 				style={css`
-					font-size: 12px;
-					color: ${COLOR.ERROR};
-				`}
-			>
-				{/* {post.likes} */}
-				{10}
-			</Text>
-			<Spacer x={4} />
-			<FontAwesome5 name="thumbs-up" solid color={COLOR.ERROR} />
-			<Spacer x={4} />
-			<Text
-				style={css`
-					font-size: 12px;
+					font-size: 10px;
 					color: #3e68ff;
 				`}
 			>
-				{/* {post.comments} */}
-				{10}
+				{post.comments}
 			</Text>
 			<Spacer x={4} />
-			<FontAwesome5 name="comment" solid color="#3E68FF" />
+			<FontAwesome5 size={10} name="comment" solid color="#3E68FF" />
 		</View>
 	)
 }
