@@ -68,7 +68,7 @@ def post_a_post():
   user_id = decoded["localId"]
   username = db.child("users").child(user_id).child("username").get().val()
 
-  params = request.get_json()
+  params = request.form
   u_title = params["title"]
   u_content = params["content"]
   u_tags = params["tags"]
@@ -76,6 +76,9 @@ def post_a_post():
   CUR_TIME = int(time.time())
   u_created_at = CUR_TIME
   u_updated_at = CUR_TIME
+
+
+  #print("filesize", size)
 
   res = db.child("posts").push({
     "username": username,
@@ -85,7 +88,6 @@ def post_a_post():
     "tags": u_tags,
     "created_at": u_created_at,
     "updated_at": u_updated_at,
-    "likes": 0,
     "views": 0,
     "comment_num": 0
   })
@@ -94,6 +96,21 @@ def post_a_post():
   db.child("users").child(user_id).child("posts").update({
     res["name"]: u_created_at
   })
+  pic_url = ""
+  try:
+    print(request.files['image'])
+    request.files['image'].save('/tmp/foo'+user_id)
+    size = os.stat('/tmp/foo').st_size
+    if (size > 1100000): # about 1mb
+      return "file size too large", 403
+    storage.child("images").child(res["name"]).child("profile_pic").put('/tmp/foo'+user_id) 
+    pic_url = storage.child("images").child(res["name"]).child("pic").get_url(None)
+    os.remove('/tmp/foo'+user_id)
+  except:
+    pass
+ 
+  db.child("posts").child(res["name"]).update({'pic_url': pic_url})
+
 
   return {"status": "post success", "post_id": res["name"]}, 200
 
@@ -149,6 +166,15 @@ def delete_post(post_id):
 
   if (user_id != post_user_id):
     return {"status": "Not owner of post"}, 403
+  try:
+    associated_comments = db.child("posts").child(post_id).child("comments").get().val().keys()
+    for comment_id in associated_comments:
+      c_user_id = db.child("comments").child(comment_id).child("user_id").get().val()
+      db.child("comments").child(comment_id).remove()
+      db.child("users").child(c_user_id).child("comments").child(comment_id).remove()
+  except: 
+    pass
+
 
   db.child("posts").child(post_id).remove()
   db.child("users").child(user_id).child("posts").child(post_id).remove()
@@ -180,7 +206,6 @@ def post_a_comment(post_id):
     "user_id": user_id,
     "content": u_content,
     "created_at": u_created_at,
-    "likes": 0,
   })
 
   db.child("posts").child(post_id).child("comments").update({
@@ -237,3 +262,45 @@ def delete_comment(comment_id):
     "comment_num": len_comments
   })
   return {"status": "delete success"}, 200
+
+@bp.route("/comment/<comment_id>/like", methods=["POST"])
+def like_this_comment(comment_id):
+  token = request.headers.get("Authorization") 
+  decoded = check_token(token)
+  if decoded == "invalid token":
+    return {"status": "Invalid token, requires login again"}, 403
+  
+  user_id = decoded["localId"]
+  
+  like = db.child("users").child(user_id).child("likes").child(comment_id).get().val()
+  if like is None:
+    db.child("users").child(user_id).child("likes").child(comment_id).set(1)
+    db.child("comments").child(comment_id).child("likes").child(user_id).set(1)
+  else: 
+    db.child("users").child(user_id).child("likes").child(comment_id).remove()
+    db.child("comments").child(comment_id).child("likes").child(user_id).remove()
+  return {"status": "like success"}, 200
+
+@bp.route("/posts/<post_id>/views", methods=["POST"])
+def update_views(post_id):
+  """remote_addr = request.remote_addr
+  timestamp = int(time.time())
+  try:
+    is_there_view = db.child("views").child(post_id).order_by_key().get().val().keys()
+    if remote_addr.replace(".", " ") not in is_there_view:
+      raise Exception("remote addr not in view!")
+  except: 
+    db.child("views").child(post_id).update({
+      remote_addr.replace(".", " "): timestamp
+    })
+    past_view = db.child("posts").child(post_id).child("views").get().val()
+    past_view += 1
+    db.child("posts").child(post_id).update({
+      "views": past_view
+    })"""
+  past_view = db.child("posts").child(post_id).child("views").get().val()
+  past_view += 1
+  db.child("posts").child(post_id).update({
+    "views": past_view
+  })
+  return {"status": "update view success"}, 200

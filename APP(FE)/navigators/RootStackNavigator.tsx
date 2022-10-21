@@ -1,4 +1,5 @@
 import OnBoarding from '@screens/onboarding'
+import ResetPasswordScreen from '@screens/ResetPasswordScreen'
 import SigninScreen from '@screens/SigninScreen'
 import SignupScreen from '@screens/SignupScreen'
 
@@ -31,6 +32,18 @@ const RootStackNavigator: React.FC = () => {
 					component={SigninScreen}
 					options={{
 						title: '로그인',
+						headerShadowVisible: false,
+						headerTitle: '',
+						cardStyle: {
+							backgroundColor: '#fff',
+						},
+					}}
+				/>
+				<RootStack.Screen
+					name="ResetPassword"
+					component={ResetPasswordScreen}
+					options={{
+						title: '비밀번호 초기화',
 						headerShadowVisible: false,
 						headerTitle: '',
 						cardStyle: {

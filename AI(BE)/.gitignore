@@ -1,6 +1,10 @@
+model/*.pt
+model/*.pth
+.cache/
+
 env/
 node_modules/
-mySecrets.py
+venv_ai/
 
 *.pyc
 __pycache__/
@@ -14,5 +18,3 @@ htmlcov/
 dist/
 build/
 *.egg-info/
-
-.env
