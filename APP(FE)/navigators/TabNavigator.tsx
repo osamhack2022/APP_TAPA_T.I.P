@@ -45,7 +45,7 @@ const TabNavigator: React.FC<RootStackScreenProps<'Tab'>> = ({
 }) => {
 	const getTabBarVisibility = (route: RouteProp<TabParamList, 'Community'>) => {
 		const routeName = getFocusedRouteNameFromRoute(route)
-		const hideOnScreens = ['CommunityWrite', 'CommunityForum']
+		const hideOnScreens = ['CommunityWrite', 'CommunityForum', 'CommunityPost']
 		return routeName ? hideOnScreens.indexOf(routeName) <= -1 : true
 	}
 	return (

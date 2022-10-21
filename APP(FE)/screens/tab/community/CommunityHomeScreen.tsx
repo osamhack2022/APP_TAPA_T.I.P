@@ -1,10 +1,15 @@
 import PostSummary from '@components/community/PostSummary'
+import FadingDots from '@components/FadingDots'
 import FocusAwareStatusBar from '@components/FocusAwareStatusBar'
 import Spacer from '@components/Spacer'
 import { COLOR } from '@constants/color'
-import { samplePost } from '@constants/community'
 import { FONT } from '@constants/font'
 import { css } from '@emotion/native'
+import useAxios from '@hooks/axios'
+import {
+	useBestPostListQuery,
+	useNewPostListQuery,
+} from '@hooks/data/community'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import React from 'react'
@@ -16,8 +21,11 @@ type NavigationProp = StackNavigationProp<
 	CommunityNavigationParamList,
 	'CommunityHome'
 >
-
 const CommunityHomeScreen: React.FC = () => {
+	const axios = useAxios()
+	const newPostListQuery = useNewPostListQuery()
+	const bestPostListQuery = useBestPostListQuery()
+
 	const navigation = useNavigation<NavigationProp>()
 	return (
 		<ScrollView
@@ -48,9 +56,19 @@ const CommunityHomeScreen: React.FC = () => {
 					>
 						BEST
 					</Text>
-					<PostSummary size="large" post={samplePost} />
-					<PostSummary size="large" post={samplePost} />
-					<PostSummary size="large" post={samplePost} />
+					{newPostListQuery.isLoading ? (
+						<View
+							style={css`
+								align-items: center;
+							`}
+						>
+							<FadingDots />
+						</View>
+					) : (
+						bestPostListQuery.data?.map(item => {
+							return <PostSummary size="large" post={item} key={item.id} />
+						})
+					)}
 				</View>
 				<Spacer y={4} />
 				<View
@@ -70,9 +88,19 @@ const CommunityHomeScreen: React.FC = () => {
 					>
 						NEW
 					</Text>
-					<PostSummary size="small" post={samplePost} />
-					<PostSummary size="small" post={samplePost} />
-					<PostSummary size="small" post={samplePost} />
+					{newPostListQuery.isLoading ? (
+						<View
+							style={css`
+								align-items: center;
+							`}
+						>
+							<FadingDots />
+						</View>
+					) : (
+						newPostListQuery.data?.map(item => {
+							return <PostSummary size="default" post={item} key={item.id} />
+						})
+					)}
 				</View>
 				<Spacer y={4} />
 				<Pressable onPress={() => navigation.navigate('CommunityForum')}>
