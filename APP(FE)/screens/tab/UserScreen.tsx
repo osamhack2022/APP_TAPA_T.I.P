@@ -18,7 +18,7 @@ import firebase from '@utils/firebase'
 import { useAtomValue } from 'jotai'
 import { DateTime } from 'luxon'
 import React, { useCallback } from 'react'
-import { ScrollView, Text, View } from 'react-native'
+import { Alert, ScrollView, Text, View } from 'react-native'
 
 const UserScreen: React.FC = () => {
 	const navigation = useRootStackNavigation()
@@ -223,7 +223,18 @@ const UserScreen: React.FC = () => {
 				<Spacer y={24} />
 				<TPButton
 					onPress={() => {
-						firebase.auth.signOut()
+						Alert.alert('로그아웃', '정말로 로그아웃 하시겠어요?', [
+							{
+								text: '네, 로그아웃 할게요',
+								style: 'destructive',
+								onPress: () => {
+									firebase.auth.signOut()
+								},
+							},
+							{
+								text: '아니요!',
+							},
+						])
 					}}
 				>
 					로그아웃
