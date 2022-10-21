@@ -16,7 +16,7 @@ import { userAtom } from '@store/atoms'
 import { getPublicStorageURL } from '@utils/firebase'
 import {
 	ImagePickerCancelledError,
-	openImagePickerAsBlobMultiple,
+	openImagePickerAsBlob,
 	uploadImageBlob,
 } from '@utils/image-picker'
 import * as ImagePicker from 'expo-image-picker'
@@ -47,8 +47,7 @@ type NavigationProp = StackNavigationProp<
 const formSchema = z.object({
 	title: z.string(),
 	content: z.string(),
-	imageURLs: z.array(z.string()).optional(),
-	image: z.any().optional(),
+	imageURL: z.string().optional(),
 	tags: z.array(z.string()),
 })
 type FieldValues = z.infer<typeof formSchema>
@@ -109,18 +108,21 @@ const CommunityWriteScreen: React.FC = () => {
 	})
 
 	const onSubmit = useCallback<SubmitHandler<FieldValues>>(
-		async ({ title, tags, content, imageURLs, image }) => {
-			const postFormData = new FormData()
-			postFormData.append('title', title)
-			postFormData.append('tags', tags)
-			postFormData.append('content', content)
-			postFormData.append('user_id', user?.uid)
-			postFormData.append('image', image)
-			console.log(postFormData)
-			try {
-				const res = await axios.post('/community/posts/', postFormData)
-				navigation.pop()
-			} catch (error) {}
+		async ({ title, tags, content, imageURL }) => {
+			console.log({ title, tags: tags.join(','), content, imageURL })
+			const res = await axios.post(
+				'/community/posts/',
+				{
+					title: title,
+					tags: tags.join(','),
+					content: content,
+					pic_url: imageURL,
+				},
+				{
+					headers: { 'Content-Type': `multipart/form-data` },
+				},
+			)
+			navigation.pop()
 		},
 		[],
 	)
@@ -146,32 +148,23 @@ const CommunityWriteScreen: React.FC = () => {
 		}, [isValid, handleSubmit, onSubmit]),
 	)
 
-	const imageURLs = form.watch('imageURLs')
+	const imageURL = form.watch('imageURL')
 	const tags = form.watch('tags')
 
 	const openImagePicker = useCallback(async () => {
 		try {
-			const imageBlobs = await openImagePickerAsBlobMultiple({
-				allowsMultipleSelection: true,
+			const imageBlob = await openImagePickerAsBlob({
+				allowsMultipleSelection: false,
 				mediaTypes: ImagePicker.MediaTypeOptions.Images,
 				quality: 0,
 			})
 			LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
 			setImageUploading(true)
-			form.setValue('image', imageBlobs)
-			const uploadResults = await Promise.all(
-				imageBlobs.map(blob => uploadImageBlob(blob, '/community')),
-			)
-			const urls = uploadResults.map(uploadRes =>
-				getPublicStorageURL(uploadRes.ref),
-			)
-			form.setValue(
-				'imageURLs',
-				[...(form.getValues('imageURLs') ?? []), ...urls],
-				{
-					shouldValidate: true,
-				},
-			)
+			const uploadResult = await uploadImageBlob(imageBlob, '/community')
+			const url = getPublicStorageURL(uploadResult.ref)
+			form.setValue('imageURL', url, {
+				shouldValidate: true,
+			})
 		} catch (error) {
 			console.error(error)
 			if (!(error instanceof ImagePickerCancelledError)) {
@@ -296,7 +289,7 @@ const CommunityWriteScreen: React.FC = () => {
 						</View>
 					</ScrollView>
 				</View>
-				{(imageURLs?.length || imageUploading) && (
+				{(imageURL || imageUploading) && (
 					<View
 						style={css`
 							position: relative;
@@ -336,80 +329,71 @@ const CommunityWriteScreen: React.FC = () => {
 							}}
 						>
 							<AnimatePresence presenceAffectsLayout>
-								{imageURLs?.map(url => (
-									<MotiView
-										from={{ scale: 0.3, opacity: 0.3 }}
-										animate={{ scale: 1, opacity: 1 }}
-										exit={{
-											scale: 0.3,
-											opacity: 0,
-										}}
-										key={url}
+								<MotiView
+									from={{ scale: 0.3, opacity: 0.3 }}
+									animate={{ scale: 1, opacity: 1 }}
+									exit={{
+										scale: 0.3,
+										opacity: 0,
+									}}
+									key={imageURL}
+									style={css`
+										position: relative;
+										margin-right: 8px;
+									`}
+								>
+									<PressableOpacity
 										style={css`
-											position: relative;
-											margin-right: 8px;
+											position: absolute;
+											z-index: 1;
+											width: 20px;
+											height: 20px;
+											top: 4px;
+											right: 4px;
+											border-radius: 10px;
+											background: #fff;
+											justify-content: center;
+											align-items: center;
 										`}
+										onPress={() => {
+											Alert.alert('사진 삭제', '정말로 사진을 삭제할까요?', [
+												{
+													text: '네, 삭제할래요',
+													style: 'destructive',
+													onPress: () => {
+														LayoutAnimation.configureNext(
+															LayoutAnimation.Presets.easeInEaseOut,
+														)
+														form.setValue('imageURL', undefined, {
+															shouldValidate: true,
+														})
+													},
+												},
+												{
+													text: '아니요!',
+													style: 'default',
+												},
+											])
+										}}
 									>
-										<PressableOpacity
-											style={css`
-												position: absolute;
-												z-index: 1;
-												width: 20px;
-												height: 20px;
-												top: 4px;
-												right: 4px;
-												border-radius: 10px;
-												background: #fff;
-												justify-content: center;
-												align-items: center;
-											`}
-											onPress={() => {
-												Alert.alert('사진 삭제', '정말로 사진을 삭제할까요?', [
-													{
-														text: '네, 삭제할래요',
-														style: 'destructive',
-														onPress: () => {
-															LayoutAnimation.configureNext(
-																LayoutAnimation.Presets.easeInEaseOut,
-															)
-															form.setValue('image', undefined)
-															form.setValue(
-																'imageURLs',
-																form
-																	.getValues('imageURLs')!
-																	.filter(_url => _url !== url),
-																{
-																	shouldValidate: true,
-																},
-															)
-														},
-													},
-													{
-														text: '아니요!',
-														style: 'default',
-													},
-												])
-											}}
-										>
-											<MaterialIcons
-												name="clear"
-												size={12}
-												color={COLOR.BLACK(4)}
-											/>
-										</PressableOpacity>
-										<AsyncImage
-											style={css`
-												width: 96px;
-												height: 96px;
-												border-radius: 12px;
-												overflow: hidden;
-											`}
-											source={{
-												uri: url,
-											}}
+										<MaterialIcons
+											name="clear"
+											size={12}
+											color={COLOR.BLACK(4)}
 										/>
-									</MotiView>
-								))}
+									</PressableOpacity>
+									<AsyncImage
+										style={css`
+											width: 96px;
+											height: 96px;
+											border-radius: 12px;
+											overflow: hidden;
+										`}
+										source={{
+											uri: imageURL,
+										}}
+									/>
+								</MotiView>
 							</AnimatePresence>
 						</ScrollView>
 					</View>

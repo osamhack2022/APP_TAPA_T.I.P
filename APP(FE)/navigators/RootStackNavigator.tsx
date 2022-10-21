@@ -1,3 +1,4 @@
+import DiaryScreen from '@screens/DiaryScreen'
 import OnBoarding from '@screens/onboarding'
 import ResetPasswordScreen from '@screens/ResetPasswordScreen'
 import SigninScreen from '@screens/SigninScreen'
@@ -57,6 +58,11 @@ const RootStackNavigator: React.FC = () => {
 					name="Tab"
 					component={TabNavigator}
 					options={{ headerShown: false, title: '메인' }}
+				/>
+				<RootStack.Screen
+					name="Diary"
+					component={DiaryScreen}
+					options={{ title: '나의 기록 돌아보기', headerTitle: '' }}
 				/>
 			</RootStack.Group>
 			<RootStack.Group
