@@ -7,11 +7,12 @@ import { FontAwesome5 } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { CommunityNavigationParamList } from '@screens/tab/community/CommunityNavigator'
-import { getFullDate } from '@utils/time'
+import { DateTime } from 'luxon'
 import React from 'react'
 import { Image, Pressable, Text, View } from 'react-native'
 
 import PostCountList from './PostCountList'
+import UserProfile from './UserProfile'
 
 type NavigationProp = StackNavigationProp<
 	CommunityNavigationParamList,
@@ -45,21 +46,14 @@ const PostSummary: React.FC<Props> = ({ post, size }) => {
 							margin-bottom: 4px;
 						`}
 					>
-						<Text
-							style={css`
-								font-size: 14px;
-								font-family: ${FONT.Pretendard.BOLD};
-							`}
-						>
-							{post.author}
-						</Text>
+						<UserProfile userName={post.username} size="small" />
 						<Text
 							style={css`
 								font-size: 10px;
 								color: ${COLOR.GRAY.NORMAL(6)};
 							`}
 						>
-							{getFullDate(post.created_at)}
+							{DateTime.fromMillis(post.created_at * 1000).toFormat('MM.dd')}
 						</Text>
 					</View>
 				)}
@@ -79,7 +73,7 @@ const PostSummary: React.FC<Props> = ({ post, size }) => {
 								flex-direction: row;
 							`}
 						>
-							{size === 'small' && post.image_url ? (
+							{size === 'small' && post.pic_url ? (
 								<>
 									<FontAwesome5
 										name="image"
@@ -111,9 +105,9 @@ const PostSummary: React.FC<Props> = ({ post, size }) => {
 							</Text>
 						)}
 					</View>
-					{size !== 'small' && post.image_url && (
+					{size !== 'small' && post.pic_url && (
 						<Image
-							source={{ uri: post.image_url }}
+							source={{ uri: post.pic_url }}
 							style={{
 								width: 60,
 								height: 48,
@@ -140,7 +134,9 @@ const PostSummary: React.FC<Props> = ({ post, size }) => {
 					>
 						질문게시판
 						{size !== 'large' &&
-							` | ${post.author} | ${getFullDate(post.created_at)}`}
+							` | ${post.username} | ${DateTime.fromMillis(
+								post.created_at * 1000,
+							).toFormat('MM.dd')}`}
 					</Text>
 					<PostCountList post={post} />
 				</View>
