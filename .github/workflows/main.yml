@@ -18,7 +18,7 @@ jobs:
     
     steps:
     - name: Make envfile
-      uses: SpicyPizza/create-envfile@v1.3
+      uses: SpicyPizza/create-envfile@v1.2
       with:
         envkey_FIREBASE_API_KEY: ${{ secrets.FIREBASE_API_KEY }}
         envkey_FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
