@@ -9,8 +9,10 @@ import { FONT } from '@constants/font'
 import styled, { css } from '@emotion/native'
 import { FontAwesome5, MaterialIcons } from '@expo/vector-icons'
 import { zodResolver } from '@hookform/resolvers/zod'
+import useAxios from '@hooks/axios'
 import { useFocusEffect, useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
+import { userAtom } from '@store/atoms'
 import { getPublicStorageURL } from '@utils/firebase'
 import {
 	ImagePickerCancelledError,
@@ -18,6 +20,7 @@ import {
 	uploadImageBlob,
 } from '@utils/image-picker'
 import * as ImagePicker from 'expo-image-picker'
+import { useAtomValue } from 'jotai'
 import { AnimatePresence, MotiView } from 'moti'
 import React, { useCallback, useState } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
@@ -45,6 +48,7 @@ const formSchema = z.object({
 	title: z.string(),
 	content: z.string(),
 	imageURLs: z.array(z.string()).optional(),
+	image: z.any().optional(),
 	tags: z.array(z.string()),
 })
 type FieldValues = z.infer<typeof formSchema>
@@ -87,6 +91,8 @@ const CommunityWriteScreen: React.FC = () => {
 	const navigation = useNavigation<NavigationProp>()
 	const insets = useSafeAreaInsets()
 	const [imageUploading, setImageUploading] = useState(false)
+	const axios = useAxios()
+	const user = useAtomValue(userAtom)
 
 	const {
 		control,
@@ -103,18 +109,16 @@ const CommunityWriteScreen: React.FC = () => {
 	})
 
 	const onSubmit = useCallback<SubmitHandler<FieldValues>>(
-		async ({ title, tags, content, imageURLs }) => {
+		async ({ title, tags, content, imageURLs, image }) => {
+			const postFormData = new FormData()
+			postFormData.append('title', title)
+			postFormData.append('tags', tags)
+			postFormData.append('content', content)
+			postFormData.append('user_id', user?.uid)
+			postFormData.append('image', image)
+			console.log(postFormData)
 			try {
-				/**
-				 * TODO: implement posting
-				 */
-				console.log({
-					title,
-
-					tags,
-					content,
-					imageURLs,
-				})
+				const res = await axios.post('/community/posts/', postFormData)
 				navigation.pop()
 			} catch (error) {}
 		},
@@ -154,6 +158,7 @@ const CommunityWriteScreen: React.FC = () => {
 			})
 			LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
 			setImageUploading(true)
+			form.setValue('image', imageBlobs)
 			const uploadResults = await Promise.all(
 				imageBlobs.map(blob => uploadImageBlob(blob, '/community')),
 			)
@@ -355,7 +360,6 @@ const CommunityWriteScreen: React.FC = () => {
 												right: 4px;
 												border-radius: 10px;
 												background: #fff;
-
 												justify-content: center;
 												align-items: center;
 											`}
@@ -368,6 +372,7 @@ const CommunityWriteScreen: React.FC = () => {
 															LayoutAnimation.configureNext(
 																LayoutAnimation.Presets.easeInEaseOut,
 															)
+															form.setValue('image', undefined)
 															form.setValue(
 																'imageURLs',
 																form

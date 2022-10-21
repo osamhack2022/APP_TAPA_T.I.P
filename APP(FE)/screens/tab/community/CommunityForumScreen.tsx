@@ -1,12 +1,11 @@
-import { PostType } from '@app-types/community'
 import PostSummary from '@components/community/PostSummary'
 import PostWriteButton from '@components/community/PostWriteButton'
+import FadingDots from '@components/FadingDots'
 import FocusAwareStatusBar from '@components/FocusAwareStatusBar'
-import { samplePost } from '@constants/community'
 import { css } from '@emotion/native'
+import { usePostListQuery } from '@hooks/data/community'
 import { useNavigation } from '@react-navigation/core'
 import { StackNavigationProp } from '@react-navigation/stack'
-import { atom, useAtom } from 'jotai'
 import React from 'react'
 import { ScrollView, View } from 'react-native'
 
@@ -17,11 +16,11 @@ type NavigationProp = StackNavigationProp<
 	'CommunityHome'
 >
 
-const postListAtom = atom<PostType[]>([])
-
 const CommunityForumScreen: React.FC = () => {
 	const navigation = useNavigation<NavigationProp>()
-	const [postList, setPostList] = useAtom(postListAtom)
+
+	const postListQuery = usePostListQuery()
+
 	return (
 		<View
 			style={css`
@@ -34,7 +33,19 @@ const CommunityForumScreen: React.FC = () => {
 					bottom: 24,
 				}}
 			>
-				<PostSummary post={samplePost} size="default" />
+				{!postListQuery.isLoading && postListQuery.data ? (
+					postListQuery.data.map(item => {
+						return <PostSummary post={item} size="default" key={item.id} />
+					})
+				) : (
+					<View
+						style={css`
+							align-items: center;
+						`}
+					>
+						<FadingDots />
+					</View>
+				)}
 				<FocusAwareStatusBar style="dark" />
 			</ScrollView>
 		</View>

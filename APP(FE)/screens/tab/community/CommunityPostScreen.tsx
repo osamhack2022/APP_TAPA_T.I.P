@@ -1,19 +1,35 @@
-import { PostType } from '@app-types/community'
+import { CommentType } from '@app-types/community'
+import CommentInput from '@components/community/CommentInput'
+import PostComment from '@components/community/PostComment'
 import PostCountList from '@components/community/PostCountList'
-import FocusAwareStatusBar from '@components/FocusAwareStatusBar'
+import UserProfile from '@components/community/UserProfile'
+import FadingDots from '@components/FadingDots'
 import Spacer from '@components/Spacer'
-import { samplePost } from '@constants/community'
+import TPToggleButtonWithValue from '@components/TPToggleButtonWithValue'
+import { COLOR } from '@constants/color'
 import { FONT } from '@constants/font'
 import { css } from '@emotion/native'
+import { MaterialIcons } from '@expo/vector-icons'
+import useAxios from '@hooks/axios'
+import {
+	useLikeMutation,
+	usePostQuery,
+	useViewMutation,
+} from '@hooks/data/community'
 import { useNavigation } from '@react-navigation/core'
 import { RouteProp, useRoute } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
-import { getFullTime } from '@utils/time'
-import { atom, useAtom } from 'jotai'
-import { Dimensions, ScrollView, Text, View } from 'react-native'
+import { userAtom } from '@store/atoms'
+import { useAtomValue } from 'jotai'
+import { DateTime } from 'luxon'
+import React, { useEffect, useState } from 'react'
+import { Pressable, ScrollView } from 'react-native'
+import { Dimensions, KeyboardAvoidingView, Text, View } from 'react-native'
 import AutoHeightImage from 'react-native-auto-height-image'
+import { KeyboardAccessoryView } from 'react-native-keyboard-accessory'
 
 import { CommunityNavigationParamList } from './CommunityNavigator'
+import PostMenuModal from './PostMenuModal'
 
 type NavigationProp = StackNavigationProp<
 	CommunityNavigationParamList,
@@ -24,75 +40,195 @@ type CommunityPostRouteProp = RouteProp<
 	'CommunityPost'
 >
 
-const currentPostAtom = atom<PostType | null>(null)
-
 const CommunityPostScreen: React.FC = () => {
 	const navigation = useNavigation<NavigationProp>()
+	const axios = useAxios()
 	const {
 		params: { postId },
 	} = useRoute<CommunityPostRouteProp>()
-	const [currentPost, setCurrentPost] = useAtom(currentPostAtom)
-	const post: PostType = samplePost
+	const [modalOpen, setModalOpen] = useState<boolean>(false)
+	const user = useAtomValue(userAtom)
+	const postQuery = usePostQuery(postId)
+	const commentList: CommentType[] =
+		!postQuery.isLoading && postQuery.data
+			? Object.keys(postQuery.data.comments).map((key, _) => {
+					return { id: key, ...postQuery.data?.comments[key] }
+			  })
+			: []
 
-	return (
-		<ScrollView
-			contentInset={{
-				bottom: 24,
-			}}
-		>
+	const view = useViewMutation(postId)
+	const like = useLikeMutation(postId)
+
+	useEffect(() => {
+		view.mutate()
+	}, [])
+
+	// const onSubmitComment = async (content: string) => {
+	// 	if (content === '') {
+	// 		Alert.alert('댓글을 입력해 주세요!')
+	// 		return
+	// 	}
+	// 	try {
+	// 		const res = await axios.post(`/community/comment/${postId}`, {
+	// 			user_id: user?.uid,
+	// 			content,
+	// 		})
+	// 	} catch (e) {}
+	// }
+
+	if (postQuery.isLoading) {
+		return (
+			<View
+				style={css`
+					align-items: center;
+				`}
+			>
+				<FadingDots />
+			</View>
+		)
+	} else if (!postQuery.data) {
+		return null
+	} else
+		return (
 			<View
 				style={css`
 					flex: 1;
-					padding: 20px 20px;
 				`}
 			>
-				<Text
+				<KeyboardAvoidingView
+					behavior="padding"
 					style={css`
-						font-family: ${FONT.Pretendard.BOLD};
-						font-size: 20px;
+						flex: 1;
 					`}
 				>
-					{post.title}
-				</Text>
-				<Spacer y={6} />
-				<View
-					style={css`
-						flex-direction: row;
-						justify-content: space-between;
-					`}
-				>
-					<Text
-						style={css`
-							font-size: 10px;
-						`}
+					<ScrollView
+						contentInset={{
+							bottom: 140,
+						}}
 					>
-						{getFullTime(post.created_at)}
-					</Text>
-					<PostCountList post={post} type="simple" />
-				</View>
-				<Spacer y={6} />
-				{post.image_url && (
-					<>
-						<Spacer y={10} />
-						<AutoHeightImage
-							source={{ uri: post.image_url }}
-							width={Dimensions.get('window').width - 40}
+						<View
+							style={css`
+								flex: 1;
+								padding: 20px 20px;
+							`}
+						>
+							<Pressable
+								onPress={() => setModalOpen(true)}
+								style={css`
+									position: absolute;
+									top: 20px;
+									right: 20px;
+									z-index: 1;
+								`}
+							>
+								<MaterialIcons name="more-vert" size={20} />
+							</Pressable>
+							<UserProfile
+								userName={postQuery.data.post.username}
+								size="large"
+							/>
+							<Spacer y={6} />
+							<Text
+								style={css`
+									font-family: ${FONT.Pretendard.BOLD};
+									font-size: 20px;
+								`}
+							>
+								{postQuery.data.post.title}
+							</Text>
+							<Spacer y={6} />
+							<View
+								style={css`
+									flex-direction: row;
+									justify-content: space-between;
+								`}
+							>
+								<Text
+									style={css`
+										font-size: 10px;
+									`}
+								>
+									{DateTime.fromMillis(
+										postQuery.data.post.created_at * 1000,
+									).toFormat('yyyy.MM.dd  hh:mm')}
+								</Text>
+								<PostCountList post={postQuery.data.post} type="simple" />
+							</View>
+							<Spacer y={6} />
+							{postQuery.data.post.pic_url && (
+								<>
+									<Spacer y={10} />
+									<AutoHeightImage
+										source={{ uri: postQuery.data.post.pic_url }}
+										width={Dimensions.get('window').width - 40}
+									/>
+									<Spacer y={10} />
+								</>
+							)}
+							<Text
+								style={css`
+									font-family: ${FONT.Pretendard.REGULAR};
+									font-size: 14px;
+								`}
+							>
+								{postQuery.data.post.content}
+							</Text>
+							<TPToggleButtonWithValue
+								count={
+									postQuery.data.post.likes
+										? Object.keys(postQuery.data.post.likes).length
+										: 0
+								}
+								title={'추천'}
+								iconName="thumbs-up"
+								active={
+									user &&
+									postQuery.data.post.likes &&
+									Object.keys(postQuery.data.post.likes).includes(user.uid)
+										? true
+										: false
+								}
+								onPress={() => like.mutate()}
+							/>
+						</View>
+						<View
+							style={css`
+								height: 6px;
+								width: 100%;
+								background-color: ${COLOR.GRAY.NORMAL(1)};
+							`}
 						/>
-						<Spacer y={10} />
-					</>
-				)}
-				<Text
+						{commentList.map(comment => {
+							return (
+								<PostComment
+									comment={comment}
+									key={comment.id}
+									type="comment"
+								/>
+							)
+						})}
+					</ScrollView>
+				</KeyboardAvoidingView>
+				<KeyboardAccessoryView
+					alwaysVisible
 					style={css`
-						font-family: ${FONT.Pretendard.REGULAR};
-						font-size: 14px;
+						background: #fff;
 					`}
 				>
-					{post.content}
-				</Text>
+					{({ isKeyboardVisible }) => (
+						<CommentInput
+							isKeyboardVisible={isKeyboardVisible}
+							postId={postId}
+						/>
+					)}
+				</KeyboardAccessoryView>
+				<PostMenuModal
+					post={postQuery.data.post}
+					open={modalOpen}
+					setOpen={setModalOpen}
+				/>
 			</View>
-			<FocusAwareStatusBar style="dark" />
-		</ScrollView>
-	)
+		)
 }
 
 export default CommunityPostScreen
