@@ -175,15 +175,17 @@ def delete_post(post_id):
 
     if (user_id != post_user_id):
         return {"status": "Not owner of post"}, 403
-
-    associated_comments = db.child("posts").child(
-        post_id).child("comments").get().val().keys()
-    for comment_id in associated_comments:
-        c_user_id = db.child("comments").child(
-            comment_id).child("user_id").get().val()
-        db.child("comments").child(comment_id).remove()
-        db.child("users").child(c_user_id).child(
-            "comments").child(comment_id).remove()
+    try: 
+        associated_comments = db.child("posts").child(
+            post_id).child("comments").get().val().keys()
+        for comment_id in associated_comments:
+            c_user_id = db.child("comments").child(
+                comment_id).child("user_id").get().val()
+            db.child("comments").child(comment_id).remove()
+            db.child("users").child(c_user_id).child(
+                "comments").child(comment_id).remove()
+    except:
+        pass
 
     db.child("posts").child(post_id).remove()
     db.child("users").child(user_id).child("posts").child(post_id).remove()
