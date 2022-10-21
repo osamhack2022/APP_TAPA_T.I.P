@@ -1,5 +1,6 @@
 import { UserType } from '@app-types/user'
 import AnimatedProgressBar from '@components/AnimatedProgressBar'
+import DiaryList from '@components/DiaryList'
 import FocusAwareStatusBar from '@components/FocusAwareStatusBar'
 import Spacer from '@components/Spacer'
 import Spinner from '@components/Spinner'
@@ -17,65 +18,7 @@ import firebase from '@utils/firebase'
 import { useAtomValue } from 'jotai'
 import { DateTime } from 'luxon'
 import React, { useCallback } from 'react'
-import { Text, View } from 'react-native'
-
-const DiaryList: React.FC = () => {
-	const firebaseUser = useAtomValue(userAtom)
-	const axios = useAxios()
-
-	const diaryListQuery = useQuery<
-		{
-			key: string
-			content: string
-			created_at: number
-		}[]
-	>(
-		['tapa', '/diary/list'],
-		async () => {
-			const res = await axios.get('/diary/list')
-			return res.data
-		},
-		{
-			enabled: !!firebaseUser,
-		},
-	)
-
-	const refetch = (force?: boolean) => {
-		if (force || diaryListQuery.data) diaryListQuery.refetch()
-	}
-
-	useFocusEffect(
-		useCallback(() => {
-			refetch()
-		}, []),
-	)
-
-	if (diaryListQuery.isLoading || !diaryListQuery.data) return <Spinner />
-	return (
-		<View>
-			{diaryListQuery.data.map(entry => (
-				<View
-					key={entry.key}
-					style={css`
-						margin-bottom: 12px;
-						padding: 8px;
-						border-radius: 8px;
-						background: ${COLOR.GRAY.NORMAL(1)};
-					`}
-				>
-					<Text
-						style={css`
-							font-family: ${FONT.Pretendard.BOLD};
-						`}
-					>
-						{DateTime.fromMillis(entry.created_at * 1000).toFormat('MM.dd.')}
-					</Text>
-					<Text>{entry.content}</Text>
-				</View>
-			))}
-		</View>
-	)
-}
+import { ScrollView, Text, View } from 'react-native'
 
 const UserScreen: React.FC = () => {
 	const navigation = useRootStackNavigation()
@@ -172,10 +115,9 @@ const UserScreen: React.FC = () => {
 
 	return (
 		<>
-			<View
+			<ScrollView
 				style={css`
 					flex: 1;
-					justify-content: center;
 					padding: 20px;
 				`}
 			>
@@ -260,6 +202,25 @@ const UserScreen: React.FC = () => {
 					)}
 				</View>
 				<Spacer y={12} />
+				<Text
+					style={css`
+						font-size: 18px;
+						font-family: ${FONT.Pretendard.BOLD};
+					`}
+				>
+					📔 나의 기록 돌아보기
+				</Text>
+				<Spacer y={8} />
+				<DiaryList limit={3} />
+				<Spacer y={8} />
+				<TPButton
+					onPress={() => {
+						navigation.push('Diary')
+					}}
+				>
+					더 보기
+				</TPButton>
+				<Spacer y={24} />
 				<TPButton
 					onPress={() => {
 						firebase.auth.signOut()
@@ -268,8 +229,7 @@ const UserScreen: React.FC = () => {
 					로그아웃
 				</TPButton>
 				<Spacer y={12} />
-				<DiaryList />
-			</View>
+			</ScrollView>
 			<FocusAwareStatusBar style="dark" />
 		</>
 	)
