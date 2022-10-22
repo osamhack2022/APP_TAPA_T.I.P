@@ -1,6 +1,7 @@
 from flask import Blueprint, request
 import pyrebase
 import time
+from operator import itemgetter
 
 from config import config
 from users import check_token
@@ -13,6 +14,29 @@ blueprint = Blueprint("channels", __name__, url_prefix="/channels")
 
 
 # todo: add validation & comments
+@blueprint.route("/", methods=["GET"])
+def get_all_channels():
+    token = request.headers.get("Authorization")
+    decoded = check_token(token)
+
+    if decoded == "invalid token":
+        return {"status": "Invalid token, requires login again"}, 403
+
+    self_id = decoded["localId"]
+    res = database.child("users").child(self_id).child("channels").get().val()
+    channels = []
+
+    if res is None:
+        return channels, 200
+
+    for key, value in res.items():
+        obj = database.child("channels").child(value).get().val()
+        obj["user_id"] = key
+        channels.append(obj)
+
+    channels.sort(key=itemgetter('updated_at'), reverse=True)
+    return channels, 200
+
 
 @blueprint.route("/", methods=["POST"])
 def create_channel():

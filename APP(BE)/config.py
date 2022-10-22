@@ -11,3 +11,4 @@ config = {
 }
 
 app_secret_key = os.environ["FLASK_SECRET_KEY"]
+classifier_server_url = os.environ["CLASSIFIER_SERVER_URL"]
