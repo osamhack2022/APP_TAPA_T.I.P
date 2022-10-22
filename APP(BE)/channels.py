@@ -2,7 +2,7 @@ from flask import Blueprint, request
 import pyrebase
 import time
 
-from mySecrets import config
+from config import config
 from users import check_token
 
 firebase = pyrebase.initialize_app(config)

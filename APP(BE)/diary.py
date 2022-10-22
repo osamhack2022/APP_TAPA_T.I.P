@@ -5,7 +5,7 @@ import requests
 import time
 import datetime
 
-from mySecrets import config
+from config import config
 from users import check_token
 
 firebase = pyrebase.initialize_app(config)
