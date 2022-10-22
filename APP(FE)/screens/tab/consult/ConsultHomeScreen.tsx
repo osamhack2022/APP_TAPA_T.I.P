@@ -5,12 +5,36 @@ import Spacer from '@components/Spacer'
 import TPButton from '@components/TPButton'
 import { FONT } from '@constants/font'
 import { css } from '@emotion/native'
+import { FontAwesome5 } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/core'
-import React from 'react'
-import { ScrollView, Text, View } from 'react-native'
+import { StackNavigationProp } from '@react-navigation/stack'
+import React, { useEffect } from 'react'
+import { Pressable, ScrollView, Text, View } from 'react-native'
 
-const ConsultScreen: React.FC = () => {
-	const navigation = useNavigation()
+import { ConsultNavigationParamList } from './ConsultNavigator'
+
+type NavigationProp = StackNavigationProp<
+	ConsultNavigationParamList,
+	'ConsultHome'
+>
+
+const ConsultHomeScreen: React.FC = () => {
+	const navigation = useNavigation<NavigationProp>()
+
+	useEffect(() => {
+		navigation.setOptions({
+			headerRightContainerStyle: {
+				paddingRight: 12,
+			},
+			headerRight: props => {
+				return (
+					<Pressable onPress={() => navigation.navigate('DMList')}>
+						<FontAwesome5 name="envelope" solid size={16} />
+					</Pressable>
+				)
+			},
+		})
+	}, [])
 
 	return (
 		<>
@@ -39,7 +63,7 @@ const ConsultScreen: React.FC = () => {
 						<ConsultantBox profile={undefined} />
 						<Spacer y={10} />
 						<TPButton
-							variant="border"
+							variant="inline"
 							size="small"
 							style={css`
 								height: 32px;
@@ -71,7 +95,7 @@ const ConsultScreen: React.FC = () => {
 						<ConsultHistoryBox profile={undefined} />
 						<Spacer y={10} />
 						<TPButton
-							variant="border"
+							variant="inline"
 							size="small"
 							style={css`
 								height: 32px;
@@ -89,4 +113,4 @@ const ConsultScreen: React.FC = () => {
 	)
 }
 
-export default ConsultScreen
+export default ConsultHomeScreen

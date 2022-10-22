@@ -5,10 +5,9 @@ import { getFocusedRouteNameFromRoute } from '@react-navigation/core'
 import { RouteProp } from '@react-navigation/native'
 import AIScreen from '@screens/tab/AIScreen'
 import CommunityNavigator from '@screens/tab/community/CommunityNavigator'
-import ConsultScreen from '@screens/tab/ConsultScreen'
+import ConsultNavigator from '@screens/tab/consult/ConsultNavigator'
 import HomeScreen from '@screens/tab/HomeScreen'
 import UserScreen from '@screens/tab/UserScreen'
-import { Pressable } from 'react-native'
 
 import { RootStackScreenProps } from './RootStack'
 
@@ -25,23 +24,6 @@ export const Tab = createBottomTabNavigator<TabParamList>()
 const TabNavigator: React.FC<RootStackScreenProps<'Tab'>> = ({
 	navigation,
 	route,
-
-}) => (
-	<Tab.Navigator
-		screenOptions={{
-			headerTitleStyle: {
-				fontFamily: FONT.Pretendard.BOLD,
-			},
-			tabBarShowLabel: false,
-		}}
-	>
-		<Tab.Screen
-			name="Home"
-			options={{
-				title: '홈',
-				tabBarIcon: ({ color, focused, size }) => (
-					<FontAwesome5 name="home" {...{ color, size }} />
-				),
 }) => {
 	const getTabBarVisibility = (route: RouteProp<TabParamList, 'Community'>) => {
 		const routeName = getFocusedRouteNameFromRoute(route)
@@ -54,54 +36,6 @@ const TabNavigator: React.FC<RootStackScreenProps<'Tab'>> = ({
 				headerTitleStyle: {
 					fontFamily: FONT.Pretendard.BOLD,
 				},
-
-			}}
-			component={HomeScreen}
-		/>
-		<Tab.Screen
-			name="Consult"
-			options={{
-				title: '상담',
-				tabBarIcon: ({ color, focused, size }) => (
-					<FontAwesome5 name="user-tie" {...{ color, size }} />
-				),
-			}}
-			component={ConsultScreen}
-		/>
-		<Tab.Screen
-			name="Community"
-			options={{
-				headerShown: false,
-				title: '커뮤니티',
-				tabBarIcon: ({ color, focused, size }) => (
-					<FontAwesome5 name="comment-alt" solid {...{ color, size }} />
-				),
-			}}
-			component={CommunityNavigator}
-		/>
-		<Tab.Screen
-			name="AI"
-			options={{
-				title: 'AI 상담',
-				tabBarIcon: ({ color, focused, size }) => (
-					<FontAwesome5 name="robot" {...{ color, size }} />
-				),
-			}}
-			component={AIScreen}
-		/>
-		<Tab.Screen
-			name="User"
-			options={{
-				title: '마이페이지',
-				tabBarIcon: ({ color, focused, size }) => (
-					<FontAwesome5 name="id-card" {...{ color, size }} />
-				),
-			}}
-			component={UserScreen}
-		/>
-	</Tab.Navigator>
-)
-=======
 				tabBarShowLabel: false,
 			}}
 		>
@@ -116,14 +50,15 @@ const TabNavigator: React.FC<RootStackScreenProps<'Tab'>> = ({
 				component={HomeScreen}
 			/>
 			<Tab.Screen
-				name="Expert"
+				name="Consult"
 				options={{
-					title: '전문가',
+					title: '전문 상담',
+					headerShown: false,
 					tabBarIcon: ({ color, focused, size }) => (
 						<FontAwesome5 name="user-tie" {...{ color, size }} />
 					),
 				}}
-				component={ExpertScreen}
+				component={ConsultNavigator}
 			/>
 			<Tab.Screen
 				name="Community"
@@ -162,6 +97,5 @@ const TabNavigator: React.FC<RootStackScreenProps<'Tab'>> = ({
 		</Tab.Navigator>
 	)
 }
->>>>>>> frontend
 
 export default TabNavigator
