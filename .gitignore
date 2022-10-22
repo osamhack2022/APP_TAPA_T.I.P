@@ -1,2 +1,4 @@
 .DS_Store
 dataset
+.gitsecret/keys/random_seed
+.vscode

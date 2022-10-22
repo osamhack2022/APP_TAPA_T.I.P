@@ -8,7 +8,7 @@ import time
 import datetime
 import base64
 
-from mySecrets import config
+from config import config
 
 firebase = pyrebase.initialize_app(config)
 auth = firebase.auth()
