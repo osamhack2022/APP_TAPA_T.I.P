@@ -4,7 +4,7 @@ import { Text, View } from 'react-native'
 
 import AnimatedProgressBar from './AnimatedProgressBar'
 
-type EmotionData = {
+export type EmotionData = {
 	happiness: number
 	sadness: number
 	anger: number
@@ -40,6 +40,7 @@ const EmotionPanel: React.FC<Props> = ({ emotionData }) => {
 		<View>
 			{Object.keys(emotionData).map(emotion => (
 				<View
+					key={emotion}
 					style={css`
 						flex-direction: row;
 						margin-bottom: 12px;
