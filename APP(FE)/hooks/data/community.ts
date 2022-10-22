@@ -9,8 +9,7 @@ import { useCallback } from 'react'
 export const useBestPostListQuery = () => {
 	const axios = useAxios()
 	const postListQuery = useQuery<PostType[]>(['bestPostList'], async () => {
-		const res = await axios.get(`/community/new/`)
-		// const res = await axios.get(`/community/best/`)
+		const res = await axios.get(`/community/best/`)
 		const data: PostType[] = Object.keys(res.data).map((key, _) => {
 			return { id: key, ...res.data[key] }
 		})
