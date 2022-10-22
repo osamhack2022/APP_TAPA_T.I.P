@@ -17,6 +17,8 @@ def get_all_counselors():
         return counselor_list, 200
 
     for uid in res:
-        counselor_list.append(database.child("users").child(uid).get().val())
+        obj = database.child("users").child(uid).get().val()
+        obj["user_id"] = uid
+        counselor_list.append(obj)
 
     return counselor_list, 200
