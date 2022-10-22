@@ -1,7 +1,6 @@
 from flask import Blueprint
 import pyrebase
-
-from mySecrets import config
+from config import config
 
 firebase = pyrebase.initialize_app(config)
 database = firebase.database()
@@ -9,7 +8,7 @@ database = firebase.database()
 blueprint = Blueprint("counselors", __name__, url_prefix="/counselors")
 
 
-@blueprint.route("/all", methods=["GET"])
+@blueprint.route("/", methods=["GET"])
 def get_all_counselors():
     res = database.child("counselors").shallow().get().val()
 
