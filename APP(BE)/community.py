@@ -21,7 +21,29 @@ bp = Blueprint("community", __name__, url_prefix="/community")
 
 @bp.route("/best/", methods=["GET"])
 def get_best_list():
-    return db.child("posts").order_by_child("updated_at").get().val(), 200
+    posts_dic = db.child("posts").get().val()
+    likes = []
+    post_keys = []
+    final_dict = {}
+    for post_key, post_val in posts_dic.items():
+        post_keys.append(post_key)
+        if "likes" in post_val:
+            likes.append(len(post_val["likes"]))
+        else:
+            likes.append(0)    
+
+    #prevention of empty data
+    if (len(post_keys) == 0):
+        return {}, 200
+
+    #NOTE: use of zip to create tuple :)
+    sorted_val = sorted(zip(likes, post_keys), reverse=True)[:3]
+
+    
+    for i in sorted_val:
+        final_dict[i[1]] = posts_dic[i[1]]
+
+    return json.dumps(final_dict), 200
 # new 게시물 목록
 
 
