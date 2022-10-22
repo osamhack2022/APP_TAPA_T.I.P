@@ -32,6 +32,7 @@ def get_all_channels():
     for key, value in res.items():
         obj = database.child("channels").child(value).get().val()
         obj["user_id"] = key
+        obj["channel_id"] = value
         channels.append(obj)
 
     channels.sort(key=itemgetter('updated_at'), reverse=True)
