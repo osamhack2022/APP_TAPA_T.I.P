@@ -8,7 +8,7 @@ import { useCallback } from 'react'
 
 export const useBestPostListQuery = () => {
 	const axios = useAxios()
-	const postListQuery = useQuery<PostType[]>(['bestPostList'], async () => {
+	const bestPostListQuery = useQuery<PostType[]>(['bestPostList'], async () => {
 		const res = await axios.get(`/community/best/`)
 		const data: PostType[] = Object.keys(res.data).map((key, _) => {
 			return { id: key, ...res.data[key] }
@@ -17,15 +17,15 @@ export const useBestPostListQuery = () => {
 	})
 	useFocusEffect(
 		useCallback(() => {
-			if (postListQuery.data) postListQuery.refetch()
+			if (bestPostListQuery.data) bestPostListQuery.refetch()
 		}, []),
 	)
-	return postListQuery
+	return bestPostListQuery
 }
 
 export const useNewPostListQuery = () => {
 	const axios = useAxios()
-	const postListQuery = useQuery<PostType[]>(['newPostList'], async () => {
+	const newPostListQuery = useQuery<PostType[]>(['newPostList'], async () => {
 		const res = await axios.get(`/community/new/`)
 		const data: PostType[] = Object.keys(res.data).map((key, _) => {
 			return { id: key, ...res.data[key] }
@@ -34,19 +34,25 @@ export const useNewPostListQuery = () => {
 	})
 	useFocusEffect(
 		useCallback(() => {
-			if (postListQuery.data) postListQuery.refetch()
+			if (newPostListQuery.data) newPostListQuery.refetch()
 		}, []),
 	)
-	return postListQuery
+	return newPostListQuery
 }
 
-export const usePostListQuery = () => {
+export const usePostListQuery = (tag: string | undefined) => {
 	const axios = useAxios()
 	const postListQuery = useQuery<PostType[]>(['postList'], async () => {
-		const res = await axios.get('/community/posts/')
-		const data: PostType[] = Object.keys(res.data).map((key, _) => {
-			return { id: key, ...res.data[key] }
+		const res = await axios.get('/community/posts/', {
+			params: {
+				tags: tag,
+			},
 		})
+		const data: PostType[] = Object.keys(res.data)
+			.reverse()
+			.map((key, _) => {
+				return { id: key, ...res.data[key] }
+			})
 		return data
 	})
 	useFocusEffect(
