@@ -2,6 +2,7 @@ import users
 import diary
 import channels
 import community
+import counselors
 from flask import Flask, render_template
 from flask_cors import CORS
 import os
@@ -36,6 +37,8 @@ app.register_blueprint(community.bp)
 app.register_blueprint(channels.blueprint)
 
 app.register_blueprint(diary.bp)
+
+app.register_blueprint(counselors.blueprint)
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=int(os.environ.get('PORT', 8080)))
