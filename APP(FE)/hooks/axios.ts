@@ -14,7 +14,7 @@ const useAxios = () => {
 			const token = await user?.getIdToken()
 			console.log(config.url)
 			// console.log(config.data)
-			// console.log(token)
+			console.log(token)
 			return {
 				...config,
 				headers: {

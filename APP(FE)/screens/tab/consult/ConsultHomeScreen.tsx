@@ -5,11 +5,12 @@ import Spacer from '@components/Spacer'
 import TPButton from '@components/TPButton'
 import { FONT } from '@constants/font'
 import { css } from '@emotion/native'
-import { FontAwesome5 } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/core'
 import { StackNavigationProp } from '@react-navigation/stack'
-import React, { useEffect } from 'react'
-import { Pressable, ScrollView, Text, View } from 'react-native'
+import { userAtom } from '@store/atoms'
+import { useAtomValue } from 'jotai'
+import React from 'react'
+import { ScrollView, Text, View } from 'react-native'
 
 import { ConsultNavigationParamList } from './ConsultNavigator'
 
@@ -20,21 +21,22 @@ type NavigationProp = StackNavigationProp<
 
 const ConsultHomeScreen: React.FC = () => {
 	const navigation = useNavigation<NavigationProp>()
-
-	useEffect(() => {
-		navigation.setOptions({
-			headerRightContainerStyle: {
-				paddingRight: 12,
-			},
-			headerRight: props => {
-				return (
-					<Pressable onPress={() => navigation.navigate('DMList')}>
-						<FontAwesome5 name="envelope" solid size={16} />
-					</Pressable>
-				)
-			},
-		})
-	}, [])
+	const user = useAtomValue(userAtom)
+	// useEffect(() => {
+	// 	navigation.setOptions({
+	// 		headerRightContainerStyle: {
+	// 			paddingRight: 12,
+	// 		},
+	// 		headerRight: props => {
+	// 			return (
+	// 				<Pressable onPress={() => navigation.navigate('')}>
+	// 					<FontAwesome5 name="envelope" solid size={16} />
+	// 				</Pressable>
+	// 			)
+	// 		},
+	// 	})
+	// 	console.log(user?.uid)
+	// }, [])
 
 	return (
 		<>

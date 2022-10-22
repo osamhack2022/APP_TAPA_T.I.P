@@ -4,14 +4,13 @@ import { Entypo } from '@expo/vector-icons'
 import { createStackNavigator } from '@react-navigation/stack'
 import React from 'react'
 
-import DMScreen from '../DMScreen'
-
+import ConsultantDetailScreen from './ConsultantDetailScreen'
+import ConsultDMScreen from './ConsultDMScreen'
 import ConsultHomeScreen from './ConsultHomeScreen'
-import DMListScreen from './DMListScreen'
 export type ConsultNavigationParamList = {
 	ConsultHome: undefined
-	DMList: undefined
-	DM: { userId: string }
+	ConsultantDetail: { userId: string }
+	ConsultDM: { userId: string }
 }
 
 const Stack = createStackNavigator<ConsultNavigationParamList>()
@@ -44,11 +43,15 @@ const ConsultNavigator: React.FC = () => {
 				}}
 			/>
 			<Stack.Screen
-				name="DMList"
-				component={DMListScreen}
+				name="ConsultantDetail"
+				component={ConsultantDetailScreen}
+				options={{ title: '상담사' }}
+			/>
+			<Stack.Screen
+				name="ConsultDM"
+				component={ConsultDMScreen}
 				options={{ title: 'DM' }}
 			/>
-			<Stack.Screen name="DM" component={DMScreen} options={{ title: 'DM' }} />
 		</Stack.Navigator>
 	)
 }
