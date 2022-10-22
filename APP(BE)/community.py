@@ -4,6 +4,7 @@ import pyrebase
 import requests
 import time
 import datetime
+import json
 
 from config import config
 from users import check_token
@@ -20,8 +21,7 @@ bp = Blueprint("community", __name__, url_prefix="/community")
 
 @bp.route("/best/", methods=["GET"])
 def get_best_list():
-    pass
-
+    return db.child("posts").order_by_child("updated_at").get().val(), 200
 # new 게시물 목록
 
 
@@ -34,7 +34,18 @@ def get_new_list():
 
 @bp.route("/posts/", methods=["GET"])
 def get_post_list():
-    return db.child("posts").get().val(), 200
+    if (request.args.get('tags') is not None):
+        tag = request.args.get('tags')
+        posts_dic = db.child("posts").get().val()
+        tag_posts = {}
+        for post_id, post_val in posts_dic.items():
+            tags = post_val["tags"].split(",")
+            if tag in tags:
+                tag_posts[post_id] = post_val
+        return json.dumps(tag_posts), 200        
+        pass
+    else:
+        return db.child("posts").get().val(), 200
 
 # 게시물 상세 내용 + comments
 
