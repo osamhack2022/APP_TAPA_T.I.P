@@ -4,6 +4,7 @@ model/*.pth
 
 env/
 node_modules/
+venv_ai/
 
 *.pyc
 __pycache__/
