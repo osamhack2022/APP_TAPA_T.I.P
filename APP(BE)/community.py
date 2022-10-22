@@ -4,6 +4,7 @@ import pyrebase
 import requests
 import time
 import datetime
+import json
 
 from config import config
 from users import check_token
@@ -20,8 +21,29 @@ bp = Blueprint("community", __name__, url_prefix="/community")
 
 @bp.route("/best/", methods=["GET"])
 def get_best_list():
-    pass
+    posts_dic = db.child("posts").get().val()
+    likes = []
+    post_keys = []
+    final_dict = {}
+    for post_key, post_val in posts_dic.items():
+        post_keys.append(post_key)
+        if "likes" in post_val:
+            likes.append(len(post_val["likes"]))
+        else:
+            likes.append(0)    
 
+    #prevention of empty data
+    if (len(post_keys) == 0):
+        return {}, 200
+
+    #NOTE: use of zip to create tuple :)
+    sorted_val = sorted(zip(likes, post_keys), reverse=True)[:3]
+
+    
+    for i in sorted_val:
+        final_dict[i[1]] = posts_dic[i[1]]
+
+    return json.dumps(final_dict), 200
 # new 게시물 목록
 
 
@@ -34,7 +56,18 @@ def get_new_list():
 
 @bp.route("/posts/", methods=["GET"])
 def get_post_list():
-    return db.child("posts").get().val(), 200
+    if (request.args.get('tags') is not None):
+        tag = request.args.get('tags')
+        posts_dic = db.child("posts").get().val()
+        tag_posts = {}
+        for post_id, post_val in posts_dic.items():
+            tags = post_val["tags"].split(",")
+            if tag in tags:
+                tag_posts[post_id] = post_val
+        return json.dumps(tag_posts), 200        
+        pass
+    else:
+        return db.child("posts").get().val(), 200
 
 # 게시물 상세 내용 + comments
 

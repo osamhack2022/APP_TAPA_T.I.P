@@ -13,6 +13,8 @@ const useAxios = () => {
 		instance.interceptors.request.use(async config => {
 			const token = await user?.getIdToken()
 			console.log(config.url)
+			// console.log(config.data)
+			// console.log(token)
 			return {
 				...config,
 				headers: {
