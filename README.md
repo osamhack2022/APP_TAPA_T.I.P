@@ -112,12 +112,12 @@
 	<tr>
    	    <td width="50%">
 	    	<h4 align="center"><img src="/assets/figma.png" width="95%" height="95%">
-		<h4 align="center"><img src="/assets/figma.png" width="95%" height="95%">
+		<h4 align="center"><img src="/assets/figma2.png" width="95%" height="95%">
 		<br><br><a href="https://www.figma.com/file/g7vSDk24I0zirYffGMAA3Z/TAPA-UI%2FUX?node-id=1441%3A585">UI/UX 와이어프레임</a></h4>
 	    </td>
    	    <td width="50%">
 	    	<h4 align="center"><img src="/assets/kanban.png" width="100%" height="80%">
-		<br><br><a href="https://www.notion.so/oxcarxierra/TO-DO-Lists-819ccd9a5a724bcebd801ef0e28f7df3">칸반 보드</a></h4>
+		<br><br><br><a href="https://www.notion.so/oxcarxierra/TO-DO-Lists-819ccd9a5a724bcebd801ef0e28f7df3">칸반 보드</a></h4>
 	    </td>
     	</tr>
 	<tr>
@@ -131,7 +131,7 @@
 	<tr>
    	    <td width="50%">
 	    	<h4 align="center"><img src="/assets/dbdiagram.png" width="95%" height="95%">
-		<br><br><a href="https://dbdiagram.io/d/6329c9c50911f91ba5f5095b/?utm_source=dbdiagram_embed&utm_medium=bottom_open">Database 설계</a></h4>
+		<br><br><br><br><br><a href="https://dbdiagram.io/d/6329c9c50911f91ba5f5095b/?utm_source=dbdiagram_embed&utm_medium=bottom_open">Database 설계</a></h4>
 	    </td>
    	    <td width="50%">
 	    	<h4 align="center"><img src="/assets/apidocument.png" width="95%" height="95%">
