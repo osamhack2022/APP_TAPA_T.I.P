@@ -29,6 +29,7 @@ const DiaryList: React.FC<{ limit?: number }> = ({ limit }) => {
 		},
 		{
 			enabled: !!firebaseUser,
+			refetchOnMount: true,
 		},
 	)
 

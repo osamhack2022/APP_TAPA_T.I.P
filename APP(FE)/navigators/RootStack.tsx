@@ -16,6 +16,8 @@ export type RootStackParamList = {
 	}
 	ResetPassword: undefined
 	Diary: undefined
+	UserPostList: undefined
+	CommunityPost: { postId: string }
 }
 export type RootStackScreenProps<T extends keyof RootStackParamList> =
 	StackScreenProps<RootStackParamList, T>

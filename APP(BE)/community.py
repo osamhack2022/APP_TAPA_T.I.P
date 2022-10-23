@@ -375,7 +375,7 @@ def update_views(post_id):
         "views": past_view
       })"""
     past_view = db.child("posts").child(post_id).child("views").get().val()
-    past_view += 1
+    past_view = 1 if past_view is None else past_view + 1
     db.child("posts").child(post_id).update({
         "views": past_view
     })
