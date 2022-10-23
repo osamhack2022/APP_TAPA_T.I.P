@@ -42,7 +42,7 @@ def handle_content_task(args):
     now = int(time.time())
 
     # Pushes the new emotion data into 'emotion_data/all'.
-    res = database.child("emotion_data").child("all").push({
+    res = database.child("emotion_data").push({
         "top_emotion": top_emotion,
         "weighted_emotion_score": weighted_emotion_score,
         "user_id": user_id,
@@ -53,10 +53,9 @@ def handle_content_task(args):
 
     # Adds the new emotion data to user.emotion_data.
     emotion_id = res["name"]
-    user_ref = database.child("users").child(user_id)
-    user_ref.child("emotion_data").child(emotion_id).set(now)
+    database.child("users").child(user_id).child("emotion_data").child(emotion_id).set(now)
 
     # Adds the new emotion data to unit.emotion_data.
-    user = user_ref.get().val()
+    user = database.child("users").child(user_id).get().val()
     unit = user["affiliated_unit"]
     database.child("units").child(unit).child("emotion_data").child(emotion_id).set(now)
