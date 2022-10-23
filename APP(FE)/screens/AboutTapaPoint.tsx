@@ -33,8 +33,6 @@ const AboutTapaPointScreen: React.FC<Props> = props => {
 				<View
 					style={css`
 						margin-top: 8px;
-						border-radius: 12px;
-						background: ${COLOR.GRAY.NORMAL(1)};
 						padding: 12px;
 					`}
 				>
@@ -42,12 +40,13 @@ const AboutTapaPointScreen: React.FC<Props> = props => {
 						style={css`
 							font-size: 14px;
 							line-height: 20px;
+							color: ${COLOR.BLACK(2)};
 						`}
 					>
 						타파가 부조리를 더 효과적으로 이겨내기 위해선 커뮤니티의 도움이 많이
-						필요해요! 커뮤니티의 활성화와 유용한 정보 및 데이터 공유가 활발하게
-						이뤄질 수 있도록, 타파 커뮤니티에서 활동하는 국군 장병 사용자들에게
-						타파 POINT를 제공하고 있어요.
+						필요해요!{'\n\n'}커뮤니티의 활성화와 유용한 정보 및 데이터 공유가
+						활발하게 이뤄질 수 있도록, 타파 커뮤니티에서 활동하는 국군 장병
+						사용자들에게 타파 POINT를 제공하고 있어요.
 					</Text>
 				</View>
 				<Spacer y={24} />
