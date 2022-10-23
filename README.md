@@ -115,8 +115,8 @@
 		<br><br><a href="https://www.figma.com/file/g7vSDk24I0zirYffGMAA3Z/TAPA-UI%2FUX?node-id=1441%3A585">UI/UX 와이어프레임</a></h4>
 	    </td>
    	    <td width="50%">
-	    	<h4 align="center"><img src="/assets/kanban.png" width="95%" height="95%">
-		<br><br><a href="https://tapa22.slack.com/">Slack을 통한 소통</a></h4>
+	    	<h4 align="center"><img src="/assets/kanban.png" width="100%" height="80%">
+		<br><br><a href="https://www.notion.so/oxcarxierra/TO-DO-Lists-819ccd9a5a724bcebd801ef0e28f7df3">칸반 보드</a></h4>
 	    </td>
     	</tr>
 	<tr>
@@ -129,20 +129,20 @@
     	</tr>
 	<tr>
    	    <td width="50%">
-	    	<h4 align="center"><img src="/assets/IA.png" width="95%" height="95%">
-		<br><br><a href="https://docs.google.com/spreadsheets/d/1zp-69nqf8FW6XucL7nF_fgEJ4Tz38R_EyGi1Nn9n1DE/edit?usp=sharing">I.A(인포메이션 아키텍쳐)</a></h4>
+	    	<h4 align="center"><img src="/assets/dbdiagram.png" width="95%" height="95%">
+		<br><br><a href="https://dbdiagram.io/d/6329c9c50911f91ba5f5095b/?utm_source=dbdiagram_embed&utm_medium=bottom_open">Database 설계</a></h4>
 	    </td>
    	    <td width="50%">
-	    	<h4 align="center"><img src="/assets/slack.png" width="95%" height="95%">
-		<br><br><a href="https://tapa22.slack.com/">Slack을 통한 소통</a></h4>
+	    	<h4 align="center"><img src="/assets/apidocument.png" width="95%" height="95%">
+		<br><br><a href="https://www.notion.so/oxcarxierra/API-Documentation-098de65b04484c35a5e810595cc96db5">API 문서</a></h4>
 	    </td>
     	</tr>
 	<tr>
    	    <td width="50%">
-	    	<p align="center">Google Spreadsheet을 이용해 초창기 앱의 기획 구조를 작성해 보았습니다.</p>
+	    	<p align="center">dbdiagram.io 를 이용해 데이터베이스 구성을 시각화한 ER 다이어그램(Entity Relationship Diagram)을 그려 보았습니다.</p>
 	    </td>
    	    <td width="50%">
-	    	<p align="center">Slack을 활용해 ML/Front/Back/Design 각 분야별로 소통 창구를 마련하고, 팀원 모두가 상호 협조적인 자세로 서로의 작업을 피드백하고 응원했습니다.</p>
+	    	<p align="center">프론트-백 간의 원활한 협업을 위해 개발하면서 필요한 API 목록을 Notion API Documentation 페이지를 만들어 구체적으로 .</p>
 	    </td>
     	</tr>
     </tbody>
