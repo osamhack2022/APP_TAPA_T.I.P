@@ -51,11 +51,11 @@ const CommunityHomeScreen: React.FC = () => {
 						style={css`
 							margin-bottom: 10px;
 							padding: 0px 20px;
-							font-size: 16px;
+							font-size: 20px;
 							font-family: ${FONT.Pretendard.BOLD};
 						`}
 					>
-						BEST
+						👑 BEST
 					</Text>
 					{newPostListQuery.isLoading ? (
 						<View
@@ -83,11 +83,11 @@ const CommunityHomeScreen: React.FC = () => {
 						style={css`
 							margin-bottom: 10px;
 							padding: 0px 20px;
-							font-size: 16px;
+							font-size: 20px;
 							font-family: ${FONT.Pretendard.BOLD};
 						`}
 					>
-						NEW
+						🪖 NEW
 					</Text>
 					{newPostListQuery.isLoading ? (
 						<View
