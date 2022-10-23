@@ -1,3 +1,4 @@
+import AboutTapaPointScreen from '@screens/AboutTapaPoint'
 import DiaryScreen from '@screens/DiaryScreen'
 import OnBoarding from '@screens/onboarding'
 import ResetPasswordScreen from '@screens/ResetPasswordScreen'
@@ -71,6 +72,12 @@ const RootStackNavigator: React.FC = () => {
 					name="UserPostList"
 					component={UserPostListScreen}
 					options={{ title: '나의 게시글', headerTitle: '' }}
+				/>
+
+				<RootStack.Screen
+					name="AboutTapaPoint"
+					component={AboutTapaPointScreen}
+					options={{ title: '타파 포인트', headerTitle: '' }}
 				/>
 
 				<RootStack.Screen

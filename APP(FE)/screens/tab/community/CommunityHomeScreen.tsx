@@ -1,6 +1,7 @@
 import PostSummary from '@components/community/PostSummary'
 import FadingDots from '@components/FadingDots'
 import FocusAwareStatusBar from '@components/FocusAwareStatusBar'
+import SmartRefreshControl from '@components/SmartRefreshControl'
 import Spacer from '@components/Spacer'
 import { COLOR } from '@constants/color'
 import { FONT } from '@constants/font'
@@ -13,8 +14,8 @@ import {
 } from '@hooks/data/community'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
-import React, { useState } from 'react'
-import { Pressable, RefreshControl, ScrollView, Text, View } from 'react-native'
+import React from 'react'
+import { Pressable, ScrollView, Text, View } from 'react-native'
 
 import { CommunityNavigationParamList } from './CommunityNavigator'
 
@@ -29,26 +30,19 @@ const CommunityHomeScreen: React.FC = () => {
 
 	const navigation = useNavigation<NavigationProp>()
 
-	const [isRefetchedByUserAction, setIsRefetchedByUserAction] = useState(false)
-
 	return (
 		<ScrollView
 			contentInset={{
 				bottom: 24,
 			}}
 			refreshControl={
-				<RefreshControl
-					onRefresh={() => {
-						setIsRefetchedByUserAction(true)
-						;(async () => {
-							await newPostListQuery.refetch()
-							await bestPostListQuery.refetch()
-							setIsRefetchedByUserAction(false)
-						})()
+				<SmartRefreshControl
+					onRefresh={async () => {
+						await newPostListQuery.refetch()
+						await bestPostListQuery.refetch()
 					}}
 					refreshing={
-						isRefetchedByUserAction &&
-						(newPostListQuery.isRefetching || bestPostListQuery.isRefetching)
+						newPostListQuery.isRefetching || bestPostListQuery.isRefetching
 					}
 				/>
 			}

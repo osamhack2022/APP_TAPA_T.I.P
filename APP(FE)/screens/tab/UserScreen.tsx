@@ -4,6 +4,7 @@ import AnimatedProgressBar from '@components/AnimatedProgressBar'
 import PostSummary from '@components/community/PostSummary'
 import DiaryList from '@components/DiaryList'
 import FocusAwareStatusBar from '@components/FocusAwareStatusBar'
+import SmartRefreshControl from '@components/SmartRefreshControl'
 import Spacer from '@components/Spacer'
 import Spinner from '@components/Spinner'
 import TPButton from '@components/TPButton'
@@ -21,6 +22,7 @@ import { useAtomValue } from 'jotai'
 import { DateTime } from 'luxon'
 import React, { useCallback } from 'react'
 import { Alert, ScrollView, Text, View } from 'react-native'
+import Svg, { Defs, LinearGradient, Rect, Stop } from 'react-native-svg'
 
 const SectionHeader: React.FC<{
 	title: string
@@ -74,7 +76,6 @@ const UserScreen: React.FC = () => {
 		['tapa', '/users/get/myself/detail'],
 		async () => {
 			const res = await axios.get('/users/get/myself/detail')
-			console.log(res.data)
 			return res.data
 		},
 		{
@@ -163,6 +164,20 @@ const UserScreen: React.FC = () => {
 		.filter((_, idx) => idx < 3)
 		.sort((a, b) => b.updated_at - a.updated_at)
 
+	// 백엔드에서 하는게 더 좋은 로직이지만, 일단 빠르게 구현하기 위해서 여기서 할게요!
+	const points =
+		Object.values(userQuery.data.posts).reduce(
+			(acc, cur) =>
+				acc +
+				Object.keys(cur.likes ?? {}).length * 10 +
+				Object.keys(cur.views ?? {}).length * 1,
+			0,
+		) +
+		Object.values(userQuery.data.comments).reduce(
+			(acc, cur) => acc + 5 + Object.keys(cur.likes ?? {}).length * 10,
+			0,
+		)
+
 	const serviceProgress =
 		DateTime.now().diff(DateTime.fromMillis(user.enlisted_at)).as('seconds') /
 		DateTime.fromMillis(user.discharged_at)
@@ -180,6 +195,14 @@ const UserScreen: React.FC = () => {
 					flex: 1;
 					padding: 20px;
 				`}
+				refreshControl={
+					<SmartRefreshControl
+						onRefresh={async () => {
+							await userQuery.refetch()
+						}}
+						refreshing={userQuery.isRefetching}
+					/>
+				}
 			>
 				<View
 					style={css`
@@ -261,7 +284,211 @@ const UserScreen: React.FC = () => {
 						</View>
 					)}
 				</View>
-				<Spacer y={12} />
+				<Spacer y={24} />
+				<SectionHeader
+					title="🌡 타파 POINT"
+					rightButtonLabel="자세히 알아보기"
+					rightButtonAction={() => navigation.push('AboutTapaPoint')}
+				/>
+				<Spacer y={8} />
+				<View
+					style={css`
+						position: relative;
+						border-radius: 12px;
+						overflow: hidden;
+					`}
+				>
+					<Svg
+						style={css`
+							position: absolute;
+							top: 0;
+							left: 0;
+							width: 100%;
+							height: 100%;
+							padding: 20px;
+						`}
+					>
+						<Defs>
+							{/* @ts-ignore */}
+							<LinearGradient id="grad" x1="0%" y1="0%" x2="0%" y2="100%">
+								<Stop offset="0" stopColor={COLOR.BRAND.TINT(3)} />
+								<Stop offset="1" stopColor={COLOR.BRAND.MAIN} />
+							</LinearGradient>
+						</Defs>
+						<Rect width="100%" height="100%" fill="url(#grad)" />
+					</Svg>
+					<View
+						style={css`
+							padding: 20px;
+						`}
+					>
+						<View
+							style={css`
+								flex-direction: row;
+								align-items: center;
+								justify-content: space-between;
+							`}
+						>
+							<Text
+								style={css`
+									font-size: 14px;
+									font-family: ${FONT.Pretendard.BOLD};
+									opacity: 0.7;
+									color: #fff;
+								`}
+							>
+								나의 현재 포인트
+							</Text>
+							<Text
+								style={css`
+									font-size: 24px;
+									font-family: ${FONT.Pretendard.BOLD};
+									color: #fff;
+								`}
+							>
+								{points}pt
+							</Text>
+						</View>
+						<Spacer y={12} />
+						<View
+							style={css`
+								flex-direction: row;
+								align-items: center;
+								justify-content: space-between;
+								align-items: center;
+							`}
+						>
+							<View
+								style={css`
+									flex: 1;
+									align-items: center;
+								`}
+							>
+								<Text
+									style={css`
+										font-size: 14px;
+										font-family: ${FONT.Pretendard.BOLD};
+										opacity: 0.7;
+										color: #fff;
+									`}
+								>
+									현재 누적 가점
+								</Text>
+								<Text
+									style={css`
+										font-size: 24px;
+										font-family: ${FONT.Pretendard.BOLD};
+										color: #fff;
+									`}
+								>
+									{Math.floor(points / 100)}점
+								</Text>
+							</View>
+
+							<View
+								style={css`
+									flex: 1;
+									align-items: center;
+								`}
+							>
+								<Text
+									style={css`
+										font-size: 14px;
+										font-family: ${FONT.Pretendard.BOLD};
+										opacity: 0.7;
+										color: #fff;
+									`}
+								>
+									현재 누적 위로휴가
+								</Text>
+								<Text
+									style={css`
+										font-size: 24px;
+										font-family: ${FONT.Pretendard.BOLD};
+										color: #fff;
+									`}
+								>
+									{Math.floor(points / 2000)}일
+								</Text>
+							</View>
+						</View>
+						<Spacer y={12} />
+						<View>
+							<View
+								style={css`
+									flex-direction: row;
+									align-items: center;
+									justify-content: space-between;
+								`}
+							>
+								<Text
+									style={css`
+										font-size: 14px;
+										font-family: ${FONT.Pretendard.BOLD};
+										opacity: 0.7;
+										color: #fff;
+									`}
+								>
+									다음 가점까지
+								</Text>
+								<Text
+									style={css`
+										font-size: 14px;
+										font-family: ${FONT.Pretendard.BOLD};
+										color: #fff;
+									`}
+								>
+									{100 - (points % 100)}pt
+								</Text>
+							</View>
+							<Spacer y={4} />
+							<AnimatedProgressBar
+								value={(points % 100) / 100}
+								color="#FFF"
+								backgroundColor="#FFFFFF66"
+							/>
+							<Spacer y={4} />
+						</View>
+						<Spacer y={8} />
+						<View>
+							<View
+								style={css`
+									flex-direction: row;
+									align-items: center;
+									justify-content: space-between;
+								`}
+							>
+								<Text
+									style={css`
+										font-size: 14px;
+										font-family: ${FONT.Pretendard.BOLD};
+										opacity: 0.7;
+										color: #fff;
+									`}
+								>
+									다음 위로휴가까지
+								</Text>
+								<Text
+									style={css`
+										font-size: 14px;
+										font-family: ${FONT.Pretendard.BOLD};
+										color: #fff;
+									`}
+								>
+									{2000 - (points % 2000)}pt
+								</Text>
+							</View>
+							<Spacer y={4} />
+							<AnimatedProgressBar
+								value={(points % 2000) / 2000}
+								color="#FFF"
+								backgroundColor="#FFFFFF66"
+							/>
+							<Spacer y={4} />
+						</View>
+					</View>
+				</View>
+				<Spacer y={24} />
 				<SectionHeader
 					title="📔 나의 기록 돌아보기"
 					rightButtonLabel="더보기"

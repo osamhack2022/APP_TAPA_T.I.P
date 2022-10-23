@@ -8,9 +8,15 @@ type Props = {
 	value: number
 	style?: StyleProp<ViewStyle>
 	color?: string
+	backgroundColor?: string
 }
 
-const AnimatedProgressBar: React.FC<Props> = ({ value, style, color }) => {
+const AnimatedProgressBar: React.FC<Props> = ({
+	value,
+	style,
+	color,
+	backgroundColor,
+}) => {
 	const progressValue = useRef(new Animated.Value(0)).current
 
 	useFocusEffect(
@@ -30,7 +36,7 @@ const AnimatedProgressBar: React.FC<Props> = ({ value, style, color }) => {
 			style={[
 				css`
 					height: 12px;
-					background: ${COLOR.GRAY.NORMAL(3)};
+					background: ${backgroundColor ?? COLOR.GRAY.NORMAL(3)};
 					border-radius: 4px;
 					overflow: hidden;
 				`,
