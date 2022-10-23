@@ -1,3 +1,5 @@
+import time
+
 import pyrebase
 import requests
 from threading import Thread
@@ -19,9 +21,12 @@ def execute_async(task, args):
     thread.start()
 
 
+SECONDS_IN_A_WEEK = 60 * 60 * 24 * 7
+
+
 def handle_content_task(args):
     """
-    Calculates the score of a given content and recalculates the user's score if needed.
+    Calculates the emotion score of a content and populates the data to the database.
 
     To prevent Flask from blocking, call this function asynchronously using :func:`execute_async`.
 
@@ -31,6 +36,27 @@ def handle_content_task(args):
     content_type = args[1]
     content_id = args[2]
     content = args[3]
-    score = requests.post(classifier_server_url, json={'content': content}).json()
-    user = database.child("users").child(user_id).get().val()
-    # TODO: Populate emotion_data/by_unit, emotion_data/time_based, users/<user>/emotion_data and more
+    res = requests.post(classifier_server_url, json={'content': content}).json()
+    top_emotion = res["emotion"]
+    weighted_emotion_score = res["overall_score"]
+    now = int(time.time())
+
+    # Pushes the new emotion data into 'emotion_data/all'.
+    res = database.child("emotion_data").child("all").push({
+        "top_emotion": top_emotion,
+        "weighted_emotion_score": weighted_emotion_score,
+        "user_id": user_id,
+        "content_type": content_type,
+        "content_id": content_id,
+        "created_at": now
+    })
+
+    # Adds the new emotion data to user.emotion_data.
+    emotion_id = res["name"]
+    user_ref = database.child("users").child(user_id)
+    user_ref.child("emotion_data").child(emotion_id).set(now)
+
+    # Adds the new emotion data to unit.emotion_data.
+    user = user_ref.get().val()
+    unit = user["affiliated_unit"]
+    database.child("units").child(unit).child("emotion_data").child(emotion_id).set(now)

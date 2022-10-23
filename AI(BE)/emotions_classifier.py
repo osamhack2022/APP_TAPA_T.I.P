@@ -120,7 +120,7 @@ def predict_text(text):
     return sums
 
 
-emotions = ["기쁨", "불안", "당황", "분노", "상처", "슬픔"]
+emotions = ["happiness", "anxious", "surprise", "anger", "hurt", "sadness"]
 
 
 def get_top_emotion_from(avg_scores):
