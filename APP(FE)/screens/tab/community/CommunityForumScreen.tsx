@@ -81,6 +81,7 @@ const CommunityForumScreen: React.FC = () => {
 					return (
 						<Tag
 							value={item}
+							key={item}
 							selected={tag === item}
 							onPress={() => {
 								setTag(tag === item ? undefined : item)
