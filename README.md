@@ -112,6 +112,7 @@
 	<tr>
    	    <td width="50%">
 	    	<h4 align="center"><img src="/assets/figma.png" width="95%" height="95%">
+		<h4 align="center"><img src="/assets/figma.png" width="95%" height="95%">
 		<br><br><a href="https://www.figma.com/file/g7vSDk24I0zirYffGMAA3Z/TAPA-UI%2FUX?node-id=1441%3A585">UI/UX 와이어프레임</a></h4>
 	    </td>
    	    <td width="50%">
@@ -134,7 +135,7 @@
 	    </td>
    	    <td width="50%">
 	    	<h4 align="center"><img src="/assets/apidocument.png" width="95%" height="95%">
-		<br><br><a href="https://www.notion.so/oxcarxierra/API-Documentation-098de65b04484c35a5e810595cc96db5">API 문서</a></h4>
+		<br><br><a href="https://www.notion.so/oxcarxierra/API-Documentation-098de65b04484c35a5e810595cc96db5">API 문서화</a></h4>
 	    </td>
     	</tr>
 	<tr>
@@ -142,7 +143,7 @@
 	    	<p align="center">dbdiagram.io 를 이용해 데이터베이스 구성을 시각화한 ER 다이어그램(Entity Relationship Diagram)을 그려 보았습니다.</p>
 	    </td>
    	    <td width="50%">
-	    	<p align="center">프론트-백 간의 원활한 협업을 위해 개발하면서 필요한 API 목록을 Notion API Documentation 페이지를 만들어 구체적으로 .</p>
+	    	<p align="center">프론트-백 간의 원활한 협업을 위해 개발하면서 필요한 API 목록을 Notion API Documentation 페이지를 만들어 구체적으로 기록하였습니다.</p>
 	    </td>
     	</tr>
     </tbody>
