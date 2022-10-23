@@ -97,8 +97,52 @@
 		<br><br><a href="https://docs.google.com/spreadsheets/d/1zp-69nqf8FW6XucL7nF_fgEJ4Tz38R_EyGi1Nn9n1DE/edit?usp=sharing">I.A(인포메이션 아키텍쳐)</a></h4>
 	    </td>
    	    <td width="50%">
+	    	<h4 align="center"><img src="/assets/slack.png" width="95%" height="95%">
+		<br><br><a href="https://tapa22.slack.com/">Slack을 통한 소통</a></h4>
+	    </td>
+    	</tr>
+	<tr>
+   	    <td width="50%">
+	    	<p align="center">Google Spreadsheet을 이용해 초창기 앱의 기획 구조를 작성해 보았습니다.</p>
+	    </td>
+   	    <td width="50%">
+	    	<p align="center">Slack을 활용해 ML/Front/Back/Design 각 분야별로 소통 창구를 마련하고, 팀원 모두가 상호 협조적인 자세로 서로의 작업을 피드백하고 응원했습니다.</p>
+	    </td>
+    	</tr>
+	<tr>
+   	    <td width="50%">
+	    	<h4 align="center"><img src="/assets/figma.png" width="95%" height="95%">
+		<br><br><a href="https://www.figma.com/file/g7vSDk24I0zirYffGMAA3Z/TAPA-UI%2FUX?node-id=1441%3A585">UI/UX 와이어프레임</a></h4>
+	    </td>
+   	    <td width="50%">
+	    	<h4 align="center"><img src="/assets/kanban.png" width="95%" height="95%">
+		<br><br><a href="https://tapa22.slack.com/">Slack을 통한 소통</a></h4>
+	    </td>
+    	</tr>
+	<tr>
+   	    <td width="50%">
+	    	<p align="center">Figma를 이용해 앱의 뼈대가 될 UI/UX의 프로토타입과 와이어프레임을 디자인해 보았습니다.</p>
+	    </td>
+   	    <td width="50%">
+	    	<p align="center">Notion의 칸반 보드를 이용해 진행 중인 작업을 시각화하였습니다. 주로 1~2주일 단위의 스프린트로 주어진 문제를 해결해 나갔습니다</p>
+	    </td>
+    	</tr>
+	<tr>
+   	    <td width="50%">
 	    	<h4 align="center"><img src="/assets/IA.png" width="95%" height="95%">
-		<br><br>I.A(인포메이션 아키텍쳐)</h4>
+		<br><br><a href="https://docs.google.com/spreadsheets/d/1zp-69nqf8FW6XucL7nF_fgEJ4Tz38R_EyGi1Nn9n1DE/edit?usp=sharing">I.A(인포메이션 아키텍쳐)</a></h4>
+	    </td>
+   	    <td width="50%">
+	    	<h4 align="center"><img src="/assets/slack.png" width="95%" height="95%">
+		<br><br><a href="https://tapa22.slack.com/">Slack을 통한 소통</a></h4>
+	    </td>
+    	</tr>
+	<tr>
+   	    <td width="50%">
+	    	<p align="center">Google Spreadsheet을 이용해 초창기 앱의 기획 구조를 작성해 보았습니다.</p>
+	    </td>
+   	    <td width="50%">
+	    	<p align="center">Slack을 활용해 ML/Front/Back/Design 각 분야별로 소통 창구를 마련하고, 팀원 모두가 상호 협조적인 자세로 서로의 작업을 피드백하고 응원했습니다.</p>
 	    </td>
     	</tr>
     </tbody>
