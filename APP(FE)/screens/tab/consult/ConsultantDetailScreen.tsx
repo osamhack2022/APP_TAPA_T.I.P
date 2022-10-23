@@ -46,6 +46,7 @@ const ConsultantDetailScreen: React.FC = () => {
 				align-items: center;
 			`}
 		>
+			<Spacer y={20} />
 			<Image
 				source={images.consultantProfile[consultant.name]}
 				style={{ width: 200, height: 200 }}
@@ -61,9 +62,15 @@ const ConsultantDetailScreen: React.FC = () => {
 			</Text>
 			<Spacer y={10} />
 			<Text>{consultant.affiliated_unit}</Text>
-			<Spacer y={10} />
+			<Spacer y={20} />
 			<TPButton variant="primary" size="small" onPress={onPressDM}>
-				<Text>1:1 상담하기</Text>
+				<Text
+					style={css`
+						color: #fff;
+					`}
+				>
+					1:1 상담하기
+				</Text>
 			</TPButton>
 		</View>
 	)

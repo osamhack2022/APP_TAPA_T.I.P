@@ -1,4 +1,5 @@
 import { MessageType } from '@app-types/consult'
+import Spacer from '@components/Spacer'
 import { COLOR } from '@constants/color'
 import { css } from '@emotion/native'
 import { userAtom } from '@store/atoms'
@@ -16,19 +17,30 @@ const DMMessage: React.FC<Props> = ({ message }) => {
 		<View
 			style={css`
 				width: 100%;
-				padding: 10px 20px;
 				align-items: ${message.sender_id === user?.uid
 					? 'flex-end'
 					: 'flex-start'};
+				padding: 4px 0px;
 			`}
 		>
-			<Text
+			<View
 				style={css`
-					color: ${message.sender_id === user?.uid ? COLOR.BRAND.MAIN : '#000'};
+					max-width: 80%;
+					padding: 8px 12px;
+					background-color: ${COLOR.BRAND.MAIN};
+					border-radius: 8px;
 				`}
 			>
-				{message.content}
-			</Text>
+				<Text
+					style={css`
+						font-size: 16px;
+						color: #fff;
+					`}
+				>
+					{message.content}
+				</Text>
+			</View>
+			<Spacer y={4} />
 			<Text
 				style={css`
 					color: ${COLOR.GRAY.NORMAL(6)};

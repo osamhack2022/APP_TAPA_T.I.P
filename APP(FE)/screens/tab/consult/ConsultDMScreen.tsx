@@ -84,6 +84,7 @@ const ConsultDMScreen: React.FC = () => {
 							<View
 								style={css`
 									flex: 1;
+									padding: 10px;
 								`}
 							>
 								{messageQuery.data.map((message, index) => (
