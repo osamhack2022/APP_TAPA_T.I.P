@@ -7,9 +7,10 @@ import { Animated, Easing, StyleProp, View, ViewStyle } from 'react-native'
 type Props = {
 	value: number
 	style?: StyleProp<ViewStyle>
+	color?: string
 }
 
-const AnimatedProgressBar: React.FC<Props> = ({ value, style }) => {
+const AnimatedProgressBar: React.FC<Props> = ({ value, style, color }) => {
 	const progressValue = useRef(new Animated.Value(0)).current
 
 	useFocusEffect(
@@ -41,7 +42,7 @@ const AnimatedProgressBar: React.FC<Props> = ({ value, style }) => {
 					css`
 						height: 100%;
 						border-radius: 4px;
-						background: ${COLOR.BRAND.MAIN};
+						background: ${color ?? COLOR.BRAND.MAIN};
 					`,
 					{
 						width: progressValue.interpolate({
