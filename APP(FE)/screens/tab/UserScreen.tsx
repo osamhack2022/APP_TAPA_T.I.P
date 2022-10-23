@@ -36,6 +36,18 @@ const UserScreen: React.FC = () => {
 		},
 	)
 
+	const userDetailQuery = useQuery(
+		['tapa', '/users/get/myself/detail'],
+		async () => {
+			const res = await axios.get('/users/get/myself/detail')
+			console.log(res.data)
+			return res.data
+		},
+		{
+			enabled: !!firebaseUser,
+		},
+	)
+
 	const refetch = (force?: boolean) => {
 		if (force || userQuery.data) userQuery.refetch()
 	}

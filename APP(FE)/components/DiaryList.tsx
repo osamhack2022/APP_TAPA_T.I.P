@@ -46,6 +46,7 @@ const DiaryList: React.FC<{ limit?: number }> = ({ limit }) => {
 		return (
 			<View
 				style={css`
+					padding: 20px 0px;
 					align-items: center;
 					justify-content: center;
 				`}
