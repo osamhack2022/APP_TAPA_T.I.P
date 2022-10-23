@@ -4,6 +4,7 @@ import AnimatedProgressBar from '@components/AnimatedProgressBar'
 import PostSummary from '@components/community/PostSummary'
 import DiaryList from '@components/DiaryList'
 import FocusAwareStatusBar from '@components/FocusAwareStatusBar'
+import PressableOpacity from '@components/PressableOpacity'
 import SmartRefreshControl from '@components/SmartRefreshControl'
 import Spacer from '@components/Spacer'
 import Spinner from '@components/Spinner'
@@ -195,6 +196,7 @@ const UserScreen: React.FC = () => {
 					flex: 1;
 					padding: 20px;
 				`}
+				contentInset={{ top: 0, bottom: 24 }}
 				refreshControl={
 					<SmartRefreshControl
 						onRefresh={async () => {
@@ -243,11 +245,28 @@ const UserScreen: React.FC = () => {
 							</Text>
 						</View>
 						<View>
-							<Ionicons
-								name="settings"
-								size={24}
-								color={COLOR.GRAY.NORMAL(7)}
-							/>
+							<PressableOpacity
+								onPress={() => {
+									Alert.alert('로그아웃', '정말로 로그아웃 하시겠어요?', [
+										{
+											text: '네, 로그아웃 할게요',
+											style: 'destructive',
+											onPress: () => {
+												firebase.auth.signOut()
+											},
+										},
+										{
+											text: '아니요!',
+										},
+									])
+								}}
+							>
+								<Ionicons
+									name="log-out"
+									size={24}
+									color={COLOR.GRAY.NORMAL(7)}
+								/>
+							</PressableOpacity>
 						</View>
 					</View>
 					{serviceProgress > 0 && (
@@ -516,25 +535,6 @@ const UserScreen: React.FC = () => {
 					/>
 				))}
 				<Spacer y={24} />
-				<TPButton
-					onPress={() => {
-						Alert.alert('로그아웃', '정말로 로그아웃 하시겠어요?', [
-							{
-								text: '네, 로그아웃 할게요',
-								style: 'destructive',
-								onPress: () => {
-									firebase.auth.signOut()
-								},
-							},
-							{
-								text: '아니요!',
-							},
-						])
-					}}
-				>
-					로그아웃
-				</TPButton>
-				<Spacer y={12} />
 			</ScrollView>
 			<FocusAwareStatusBar style="dark" />
 		</>
