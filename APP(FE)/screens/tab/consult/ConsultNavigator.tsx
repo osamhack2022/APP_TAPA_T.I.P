@@ -11,7 +11,7 @@ import ConsultHomeScreen from './ConsultHomeScreen'
 export type ConsultNavigationParamList = {
 	ConsultHome: undefined
 	ConsultantDetail: { consultant: ConsultantType }
-	ConsultDM: { channel: ChannelType }
+	ConsultDM: { consultant: ConsultantType; channel: ChannelType }
 }
 
 const Stack = createStackNavigator<ConsultNavigationParamList>()

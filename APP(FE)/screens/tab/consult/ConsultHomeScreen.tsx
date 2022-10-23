@@ -40,23 +40,28 @@ const ConsultHomeScreen: React.FC = () => {
 					<View
 						style={css`
 							padding: 10px 20px;
-							align-items: center;
 						`}
 					>
 						<Text
 							style={css`
 								font-family: ${FONT.Pretendard.BOLD};
-								font-size: 16px;
+								font-size: 24px;
 							`}
 						>
-							상담 신청
+							📮 상담 신청
 						</Text>
-						<Spacer y={10} />
-						{consultantQuery.data?.map(profile => {
+						<Spacer y={20} />
+						{consultantQuery.data?.map((profile, index) => {
 							return <ConsultantBox profile={profile} key={profile.name} />
 						})}
 						<Spacer y={10} />
-						<TPButton variant="inline" size="small">
+						<TPButton
+							variant="inline"
+							size="medium"
+							style={css`
+								align-self: center;
+							`}
+						>
 							더보기
 						</TPButton>
 						<Spacer y={10} />
@@ -65,23 +70,27 @@ const ConsultHomeScreen: React.FC = () => {
 					<View
 						style={css`
 							padding: 10px 20px;
-							align-items: center;
 						`}
 					>
 						<Text
 							style={css`
 								font-family: ${FONT.Pretendard.BOLD};
-								font-size: 16px;
+								font-size: 24px;
 							`}
 						>
-							내 상담 내역
+							✉️ 내 상담 내역
 						</Text>
-						<Spacer y={10} />
+						<Spacer y={20} />
 						{channelQuery.data &&
 							channelQuery.data.map(channel => {
 								return (
 									<ConsultHistoryBox
 										channel={channel}
+										consultant={consultantQuery.data?.find(consultant =>
+											Object.keys(channel.participants).includes(
+												consultant.user_id,
+											),
+										)}
 										key={channel.channel_id}
 									/>
 								)

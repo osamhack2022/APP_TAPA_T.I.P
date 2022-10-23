@@ -25,13 +25,12 @@ const ConsultIconButton: React.FC<Props> = ({ name, label, ...passProps }) => {
 						width: 30px;
 						height: 30px;
 						border-radius: 15px;
-						border-color: ${COLOR.GRAY.NORMAL(6)};
-						border-width: 1px;
+						background-color: ${COLOR.BRAND.MAIN};
 						justify-content: center;
 						align-items: center;
 					`}
 				>
-					<FontAwesome5 name={name} size={16} />
+					<FontAwesome5 name={name} size={16} color={'#fff'} />
 				</View>
 				<Spacer y={7} />
 				<Text

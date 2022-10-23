@@ -25,9 +25,16 @@ const TabNavigator: React.FC<RootStackScreenProps<'Tab'>> = ({
 	navigation,
 	route,
 }) => {
-	const getTabBarVisibility = (route: RouteProp<TabParamList, 'Community'>) => {
+	const getTabBarVisibility = (
+		route: RouteProp<TabParamList, 'Community' | 'Consult'>,
+	) => {
 		const routeName = getFocusedRouteNameFromRoute(route)
-		const hideOnScreens = ['CommunityWrite', 'CommunityForum', 'CommunityPost']
+		const hideOnScreens = [
+			'CommunityWrite',
+			'CommunityForum',
+			'CommunityPost',
+			'ConsultDM',
+		]
 		return routeName ? hideOnScreens.indexOf(routeName) <= -1 : true
 	}
 	return (
@@ -51,13 +58,16 @@ const TabNavigator: React.FC<RootStackScreenProps<'Tab'>> = ({
 			/>
 			<Tab.Screen
 				name="Consult"
-				options={{
+				options={({ route, navigation }) => ({
 					title: '전문 상담',
 					headerShown: false,
 					tabBarIcon: ({ color, focused, size }) => (
 						<FontAwesome5 name="user-tie" {...{ color, size }} />
 					),
-				}}
+					tabBarStyle: {
+						display: getTabBarVisibility(route) ? 'flex' : 'none',
+					},
+				})}
 				component={ConsultNavigator}
 			/>
 			<Tab.Screen

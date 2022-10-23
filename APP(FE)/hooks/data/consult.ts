@@ -1,10 +1,8 @@
 import { ChannelType, ConsultantType, MessageType } from '@app-types/consult'
 import useAxios from '@hooks/axios'
-import { useFocusEffect } from '@react-navigation/native'
 import { userAtom } from '@store/atoms'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useAtomValue } from 'jotai'
-import { useCallback } from 'react'
 
 export const useConsultantListQuery = () => {
 	const axios = useAxios()
@@ -16,11 +14,7 @@ export const useConsultantListQuery = () => {
 			return res.data
 		},
 	)
-	useFocusEffect(
-		useCallback(() => {
-			if (consultantListQuery.data) consultantListQuery.refetch()
-		}, []),
-	)
+
 	return consultantListQuery
 }
 
@@ -34,11 +28,7 @@ export const useChannelListQuery = () => {
 			return res.data
 		},
 	)
-	useFocusEffect(
-		useCallback(() => {
-			if (channelListQuery.data) channelListQuery.refetch()
-		}, []),
-	)
+
 	return channelListQuery
 }
 
@@ -53,46 +43,28 @@ export const useChannelMessageQuery = (channelId: string) => {
 			return messages
 		},
 	)
-	useFocusEffect(
-		useCallback(() => {
-			if (channelMessageQuery.data) channelMessageQuery.refetch()
-		}, []),
-	)
+
 	return channelMessageQuery
 }
 
 export const useCreateChannelMutation = (userId: string) => {
 	const axios = useAxios()
 	const queryClient = useQueryClient()
-	const res = useMutation(
-		() => {
-			return axios.post(`/channels/`, {
-				user_id: userId,
-			})
-		},
-		{
-			onSuccess: () => {
-				queryClient.invalidateQueries(['channelList'])
-			},
-		},
-	)
+	const res = useMutation(() => {
+		return axios.post(`/channels/`, {
+			user_id: userId,
+		})
+	})
 	return res
 }
 
 export const usePostMessageMutation = (channelId: string, content: string) => {
 	const axios = useAxios()
 	const queryClient = useQueryClient()
-	const res = useMutation(
-		() => {
-			return axios.post(`/channels/${channelId}`, {
-				content,
-			})
-		},
-		{
-			onSuccess: () => {
-				queryClient.invalidateQueries(['channelList'])
-			},
-		},
-	)
+	const res = useMutation(() => {
+		return axios.post(`/channels/${channelId}`, {
+			content,
+		})
+	})
 	return res
 }

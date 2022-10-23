@@ -4,13 +4,14 @@ import { FONT } from '@constants/font'
 import { css } from '@emotion/native'
 import {
 	useChannelListQuery,
-	useConsultantListQuery,
 	useCreateChannelMutation,
 } from '@hooks/data/consult'
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import React from 'react'
-import { Text, View } from 'react-native'
+import { Image, Text, View } from 'react-native'
+
+import images from '@/assets/images'
 
 import { ConsultNavigationParamList } from './ConsultNavigator'
 type NavigationProp = StackNavigationProp<
@@ -29,13 +30,13 @@ const ConsultantDetailScreen: React.FC = () => {
 	} = useRoute<ConsultDMRouteProp>()
 	const channelList = useChannelListQuery()
 	const createChannel = useCreateChannelMutation(consultant.user_id)
-	const consultantQuery = useConsultantListQuery()
 	const onPressDM = async () => {
 		await createChannel.mutate()
 		navigation.navigate('ConsultDM', {
 			channel: channelList.data?.find(channel =>
 				Object.keys(channel.participants).includes(consultant.user_id),
 			),
+			consultant: consultant,
 		})
 	}
 
@@ -45,12 +46,11 @@ const ConsultantDetailScreen: React.FC = () => {
 				align-items: center;
 			`}
 		>
-			<View
-				style={css`
-					width: 200px;
-					height: 200px;
-				`}
-			></View>
+			<Image
+				source={images.consultantProfile[consultant.name]}
+				style={{ width: 200, height: 200 }}
+			/>
+			<Spacer y={20} />
 			<Text
 				style={css`
 					font-family: ${FONT.Pretendard.BOLD};
@@ -61,7 +61,7 @@ const ConsultantDetailScreen: React.FC = () => {
 			</Text>
 			<Spacer y={10} />
 			<Text>{consultant.affiliated_unit}</Text>
-			<Text>{consultant.email}</Text>
+			<Spacer y={10} />
 			<TPButton variant="primary" size="small" onPress={onPressDM}>
 				<Text>1:1 상담하기</Text>
 			</TPButton>

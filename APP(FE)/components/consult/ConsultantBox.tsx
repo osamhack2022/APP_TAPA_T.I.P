@@ -3,12 +3,13 @@ import Spacer from '@components/Spacer'
 import { COLOR } from '@constants/color'
 import { FONT } from '@constants/font'
 import { css } from '@emotion/native'
-import { FontAwesome5 } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { ConsultNavigationParamList } from '@screens/tab/consult/ConsultNavigator'
 import React from 'react'
-import { Pressable, Text, View } from 'react-native'
+import { Image, Pressable, Text, View } from 'react-native'
+
+import images from '@/assets/images'
 
 import ConsultIconButton from './ConsultIconButton'
 
@@ -36,33 +37,14 @@ const ConsultantBox: React.FC<Props> = ({ profile }) => {
 					width: 100%;
 					flex-direction: row;
 					margin-bottom: 20px;
+					border-bottom-width: 1px;
+					border-color: ${COLOR.GRAY.NORMAL(3)};
 				`}
 			>
-				<View>
-					<View
-						style={css`
-							width: 96px;
-							height: 96px;
-							justify-content: center;
-							align-items: center;
-							background-color: ${COLOR.GRAY.NORMAL(2)};
-						`}
-					>
-						<FontAwesome5 name="image" size={32} />
-					</View>
-					<Spacer y={10} />
-					<View
-						style={css`
-							flex-direction: row;
-							justify-content: space-between;
-						`}
-					>
-						<ConsultIconButton name="calendar-check" label="예약" />
-						<Pressable>
-							<ConsultIconButton name="paper-plane" label="1:1 상담" />
-						</Pressable>
-					</View>
-				</View>
+				<Image
+					source={images.consultantProfile[profile.name]}
+					style={{ width: 100, height: 100 }}
+				/>
 				<Spacer x={16} />
 				<View
 					style={css`
@@ -72,13 +54,12 @@ const ConsultantBox: React.FC<Props> = ({ profile }) => {
 				>
 					<Text
 						style={css`
-            font-family: ${FONT.Pretendard.BOLD}
-            font-size: 16px;
-          `}
+							font-family: ${FONT.Pretendard.BOLD};
+							font-size: 16px;
+						`}
 					>
 						{profile.name} {profile.position}
 					</Text>
-
 					<Spacer y={10} />
 					<Text
 						style={css`
@@ -91,10 +72,15 @@ const ConsultantBox: React.FC<Props> = ({ profile }) => {
 					<Spacer y={10} />
 					<View
 						style={css`
-							height: 90px;
-							/* background-color: ${COLOR.GRAY.NORMAL(2)}; */
+							flex-direction: row;
+							justify-content: flex-end;
 						`}
-					/>
+					>
+						<ConsultIconButton name="calendar-check" label="예약" />
+						<Pressable>
+							<ConsultIconButton name="paper-plane" label="1:1 상담" />
+						</Pressable>
+					</View>
 					<Spacer y={12} />
 				</View>
 			</View>
