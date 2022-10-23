@@ -1,13 +1,15 @@
 import FocusAwareStatusBar from '@components/FocusAwareStatusBar'
+import TPButton from '@components/TPButton'
 import {ANSWER} from	'@constants/AI/answer'
 import { QUESTION } from '@constants/AI/question'
+import {COLOR} from '@constants/color'
 import {FONT} from '@constants/font'
 import { css } from '@emotion/native'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import {atom, useAtom} from 'jotai'
 import React from 'react'
-import { Text, TouchableOpacity,View } from 'react-native'
+import { Image,Text, TouchableOpacity,View } from 'react-native'
 
 import { AINaviParamList } from './AINavigator'
 type NavigationProp = StackNavigationProp<
@@ -15,7 +17,8 @@ type NavigationProp = StackNavigationProp<
 	'AICounselor'
 >
 const QueryAtom = atom(0);
-const SelectAtom = atom([[],[],[],[],[]]);
+const SelectAtom = atom([-1, -1, -1, -1, -1]);
+
 const AICounselorScreen: React.FC = () => {
 	const [query, setQuery] = useAtom(QueryAtom);
 	const [select, setSelect] = useAtom(SelectAtom);
@@ -24,17 +27,18 @@ const AICounselorScreen: React.FC = () => {
 	const selection = (q : number, idx : number) =>{
 		// eslint-disable-next-line camelcase
 		let newselect = JSON.parse(JSON.stringify(select));
-		if(q===0 || q===4){
-			//can select multiple answer
-			newselect[q].indexOf(idx)!=-1 ? newselect[q].splice(newselect[q].indexOf(idx),1) : newselect[q].push(idx);
-
-		}else{
 			//can select only one answer
-			newselect[q] = newselect[q].some((i:number) => i === idx) ? [] : [idx]
-		}
+			newselect[q] = newselect[q]===idx ? -1 : idx;
 		setSelect(newselect);
 	}
 	const navigation = useNavigation<NavigationProp>()
+	const MoveCounselorScreen = ()=>{
+		navigation.pop();
+		navigation.navigate('AIResult', {answer : select});
+		setSelect([-1,-1,-1,-1,-1]);
+		setQuery(0);
+	}
+	
 	return (
 		<>    
 			<View style={css`
@@ -45,8 +49,15 @@ const AICounselorScreen: React.FC = () => {
 				<View style = {css`
 					flex : 1;
 					justify-content : center;
+					padding-top : 10px;
 				`}>
-					<Text>Robot IMG</Text>
+					<Image source = {require('../../../assets/AI/AIRobotImage.png')}
+					style={{
+						height : 200,
+						aspectRatio : 0.825
+					}}
+				
+				></Image>
 				</View>
 				
 				<View style = {css`
@@ -59,9 +70,10 @@ const AICounselorScreen: React.FC = () => {
 						align-items: center;
 						justify-content : center;
 					`}>
+						{query>0?
 						<TouchableOpacity onPress ={()=>{
-							if(query > 0) setQuery(q => q-1)
-						}}><Text>이전</Text></TouchableOpacity>
+							setQuery(q => q-1)
+						}}><Text>이전</Text></TouchableOpacity> : null}
 					</View>
 					<View style = {css`
 						flex : 5;
@@ -76,14 +88,17 @@ const AICounselorScreen: React.FC = () => {
 						`}>{QUESTION[query]}</Text>
 
 						{ANSWER[query].map((ans,idx)=> 
-						<TouchableOpacity key = {idx} onPress = {()=>selection(query,idx)}>
+						<TouchableOpacity key = {idx} onPress = {()=>selection(query,idx)}
+							
+						>
 							<Text key = {idx} style = {css`
 								font-family : ${FONT.Pretendard.REGULAR};
 								font-size : 20px;
 								font-weight : 500;
 								padding : 5px;
 								margin: 3px;
-								backgroundColor : ${select[query].some((i:number)=>i===idx) ? 'orange' : 'white'};
+								
+								backgroundColor : ${select[query]===idx ? COLOR.BRAND.TINT(3) : 'white'};
 							`}>{ans}</Text>
 						</TouchableOpacity>)}
 
@@ -93,9 +108,19 @@ const AICounselorScreen: React.FC = () => {
 						align-items : center;
 						justify-content : center;
 					`}>
+						{query<QUESTION.length-2 ? 
 						<TouchableOpacity onPress={()=>{
-							if(query<QUESTION.length-1) setQuery((q)=>q+1)
-						}}><Text>다음</Text></TouchableOpacity>
+							setQuery((q)=>q+1)
+						}}
+						disabled = {select[query]===-1}
+						><Text >다음</Text></TouchableOpacity>:
+						 <TouchableOpacity onPress ={MoveCounselorScreen}
+						disabled = {select[query]===-1}>
+						
+							<Text>제출</Text>	
+						</TouchableOpacity>}
+						
+
 					</View>
 				</View>
 			</View>

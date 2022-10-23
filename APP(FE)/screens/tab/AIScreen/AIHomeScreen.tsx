@@ -3,7 +3,9 @@ import {FONT} from '@constants/font'
 import { css } from '@emotion/native'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
-import { Button, Text, TouchableOpacity, View } from 'react-native'
+import { Text, View } from 'react-native'
+
+import TPButton from '@/components/TPButton'
 
 import { AINaviParamList } from './AINavigator'
 
@@ -54,29 +56,17 @@ const AIHomeScreen: React.FC = () => {
 					margin-top : 300px;
 				`}>
 					<View style = {css`
-						border-style : solid;
-						border-width : 1px;
-						border-color : grey;
-						border-radius : 10px;
+						
 						width : 275px;
 						padding : 10px;
 					`}>
-						<Button title="시작하기" 
-						color="black"
-						onPress={()=>navigation.navigate('AICounselor') }></Button>
+						<TPButton size = "large"
+							onPress = {()=>navigation.navigate('AICounselor')}
+						>
+							AI 상담받기
+						</TPButton>
+
 					</View>
-					<TouchableOpacity style = {css`
-						margin-top : 10px;
-					`} onPress = {()=>navigation.navigate('AIRecord')}>
-						<Text
-						style = {css`
-							font-family : ${FONT.Pretendard.REGULAR};
-							color : black;
-							font-size : 14px;
-						`}
-						>지난 예측 기록 보기</Text>
-					</TouchableOpacity>
-					
 					
 					
 				</View>
