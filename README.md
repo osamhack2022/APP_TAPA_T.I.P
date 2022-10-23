@@ -28,6 +28,7 @@
     <li><a href="#features"> ➤ 기능 스케치 </a></li>
     <li><a href="#benefits"> ➤ 군, TAPA 전과 후로 나뉘다 </a></li>
     <li><a href="#userflow"> ➤ 유저 플로우 / DB 다이어그램 </a></li>
+    <li><a href="#progress"> ➤ 우리 팀의 협업 과정 </a></li>   
     <li><a href="#prerequisites"> ➤ 컴퓨터 구성 / 필수 조건 안내 (Prerequisites)</a></li>
     <li><a href="#stacks"> ➤ 기술 스택 (Techniques Used) </a></li>
     <li><a href="#install"> ➤ 프로젝트 사용법 (Getting Started)</a></li>
@@ -85,6 +86,23 @@
 ### DB Diagram
 
 **To Be Added**
+
+<h2 id="progress"> 우리 팀의 협업 과정 </h2>
+
+<table align="center">
+    <tbody>
+	<tr>
+   	    <td width="50%">
+	    	<h4 align="center"><img src="/assets/IA.png" width="95%" height="95%">
+		<br><br><a href="https://docs.google.com/spreadsheets/d/1zp-69nqf8FW6XucL7nF_fgEJ4Tz38R_EyGi1Nn9n1DE/edit?usp=sharing">I.A(인포메이션 아키텍쳐)</a></h4>
+	    </td>
+   	    <td width="50%">
+	    	<h4 align="center"><img src="/assets/IA.png" width="95%" height="95%">
+		<br><br>I.A(인포메이션 아키텍쳐)</h4>
+	    </td>
+    	</tr>
+    </tbody>
+</table>
 
 <h2 id="prerequisites"> 컴퓨터 구성 / 필수 조건 안내 (Prerequisites) </h2>
 
