@@ -95,7 +95,7 @@ def predict(predict_sentence):
 
 
 # [0. 기쁨, 1. 불안, 2. 당황, 3. 분노, 4. 상처, 5 슬픔]
-weights = [-2.0, 1.5, 0.5, 2, 2.5, 0.5]
+weights = [3.0, -1.5, 1.0, -1.5, -3.0, -2.0]
 max_weighted_score = max(weights)
 
 
