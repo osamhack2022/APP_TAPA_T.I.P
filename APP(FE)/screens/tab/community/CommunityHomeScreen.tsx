@@ -2,10 +2,10 @@ import PostSummary from '@components/community/PostSummary'
 import FadingDots from '@components/FadingDots'
 import FocusAwareStatusBar from '@components/FocusAwareStatusBar'
 import Spacer from '@components/Spacer'
-import TPButton from '@components/TPButton'
 import { COLOR } from '@constants/color'
 import { FONT } from '@constants/font'
 import { css } from '@emotion/native'
+import { Entypo } from '@expo/vector-icons'
 import useAxios from '@hooks/axios'
 import {
 	useBestPostListQuery,
@@ -13,8 +13,8 @@ import {
 } from '@hooks/data/community'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
-import React from 'react'
-import { ScrollView, Text, View } from 'react-native'
+import React, { useState } from 'react'
+import { Pressable, RefreshControl, ScrollView, Text, View } from 'react-native'
 
 import { CommunityNavigationParamList } from './CommunityNavigator'
 
@@ -28,18 +28,83 @@ const CommunityHomeScreen: React.FC = () => {
 	const bestPostListQuery = useBestPostListQuery()
 
 	const navigation = useNavigation<NavigationProp>()
+
+	const [isRefetchedByUserAction, setIsRefetchedByUserAction] = useState(false)
+
 	return (
 		<ScrollView
 			contentInset={{
 				bottom: 24,
 			}}
+			refreshControl={
+				<RefreshControl
+					onRefresh={() => {
+						setIsRefetchedByUserAction(true)
+						;(async () => {
+							await newPostListQuery.refetch()
+							await bestPostListQuery.refetch()
+							setIsRefetchedByUserAction(false)
+						})()
+					}}
+					refreshing={
+						isRefetchedByUserAction &&
+						(newPostListQuery.isRefetching || bestPostListQuery.isRefetching)
+					}
+				/>
+			}
 		>
 			<View
 				style={css`
 					flex: 1;
-					background-color: ${COLOR.GRAY.NORMAL(1)};
 				`}
 			>
+				<Pressable
+					style={({ pressed }) => [
+						css`
+							padding: 40px 20px;
+							flex-direction: row;
+							align-items: center;
+							justify-content: space-between;
+							background: ${COLOR.BRAND.MAIN};
+						`,
+						pressed &&
+							css`
+								background: ${COLOR.BRAND.TINT(3)};
+							`,
+					]}
+					onPress={() => navigation.navigate('CommunityForum')}
+				>
+					<View style={css``}>
+						<Text
+							style={css`
+								font-size: 18px;
+								font-family: ${FONT.Pretendard.BOLD};
+								color: #ffffffcc;
+							`}
+						>
+							도움이 필요한가요?
+						</Text>
+						<Text
+							style={css`
+								font-size: 32px;
+								font-family: ${FONT.Pretendard.BOLD};
+								color: #fff;
+							`}
+						>
+							질문 게시판
+						</Text>
+						<Spacer y={4} />
+						<Text
+							style={css`
+								font-size: 14px;
+								color: #ffffffcc;
+							`}
+						>
+							자신의 경험에 대해 자유롭게 질문하는 공간으로 오세요!
+						</Text>
+					</View>
+					<Entypo name="chevron-right" size={32} color="#FFF" />
+				</Pressable>
 				<View
 					style={css`
 						width: 100%;
@@ -106,43 +171,6 @@ const CommunityHomeScreen: React.FC = () => {
 							})
 					)}
 				</View>
-				<Spacer y={4} />
-				<View
-					style={css`
-						width: 100%;
-						padding: 10px;
-						align-items: center;
-						justify-content: center;
-						background-color: white;
-					`}
-				>
-					<TPButton
-						variant="inline"
-						onPress={() => navigation.navigate('CommunityForum')}
-					>
-						게시판 바로가기
-					</TPButton>
-				</View>
-				{/* <Pressable onPress={() => navigation.navigate('CommunityForum')}>
-					<View
-						style={css`
-							width: 100%;
-							padding: 10px 20px;
-							background-color: white;
-						`}
-					>
-						<Text
-							style={css`
-								font-size: 16px;
-								font-family: ${FONT.Pretendard.BOLD};
-							`}
-						>
-							게시판 글 모두 보기
-						</Text>
-						<Spacer y={5} />
-						<Text>자신이 당한 일에 대해 자유롭게 질문하는 공간</Text>
-					</View>
-				</Pressable> */}
 			</View>
 			<FocusAwareStatusBar style="dark" />
 		</ScrollView>

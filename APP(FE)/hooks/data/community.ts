@@ -27,9 +27,11 @@ export const useNewPostListQuery = () => {
 	const axios = useAxios()
 	const newPostListQuery = useQuery<PostType[]>(['newPostList'], async () => {
 		const res = await axios.get(`/community/new/`)
-		const data: PostType[] = Object.keys(res.data).map((key, _) => {
-			return { id: key, ...res.data[key] }
-		})
+		const data = Object.keys(res.data)
+			.map<PostType>((key, _) => {
+				return { id: key, ...res.data[key] }
+			})
+			.sort((a, b) => b.created_at - a.created_at)
 		return data
 	})
 	useFocusEffect(
