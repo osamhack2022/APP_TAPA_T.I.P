@@ -1,3 +1,4 @@
+import { ConsultantType } from '@app-types/consult'
 import Spacer from '@components/Spacer'
 import { COLOR } from '@constants/color'
 import { FONT } from '@constants/font'
@@ -17,16 +18,16 @@ type NavigationProp = StackNavigationProp<
 >
 
 type Props = {
-	profile: undefined
+	profile: ConsultantType
 }
 
-const ConsultantBox: React.FC<Props> = () => {
+const ConsultantBox: React.FC<Props> = ({ profile }) => {
 	const navigation = useNavigation<NavigationProp>()
 	return (
 		<Pressable
 			onPress={() =>
 				navigation.navigate('ConsultantDetail', {
-					userId: '6pcDkIB19PVy7czW1CLbSzB0Epu2',
+					consultant: profile,
 				})
 			}
 		>
@@ -58,7 +59,7 @@ const ConsultantBox: React.FC<Props> = () => {
 					>
 						<ConsultIconButton name="calendar-check" label="예약" />
 						<Pressable>
-							<ConsultIconButton name="pen" label="글쓰기" />
+							<ConsultIconButton name="paper-plane" label="1:1 상담" />
 						</Pressable>
 					</View>
 				</View>
@@ -69,43 +70,29 @@ const ConsultantBox: React.FC<Props> = () => {
 						flex-direction: column;
 					`}
 				>
-					<View
+					<Text
 						style={css`
-							flex-direction: row;
-							justify-content: space-between;
-						`}
-					>
-						<Text
-							style={css`
             font-family: ${FONT.Pretendard.BOLD}
-            font-size: 14px;
+            font-size: 16px;
           `}
-						>
-							김어쩔 상담사
-						</Text>
-						<Text
-							style={css`
-            font-family: ${FONT.Pretendard.REGULAR}
-            font-size: 12px;
-            `}
-						>
-							2시간 후 상담 가능
-						</Text>
-					</View>
+					>
+						{profile.name} {profile.position}
+					</Text>
+
 					<Spacer y={10} />
 					<Text
 						style={css`
-        font-family: ${FONT.Pretendard.REGULAR}
-        font-size: 12px;
-        `}
+            font-family: ${FONT.Pretendard.REGULAR}
+            font-size: 12px;
+            `}
 					>
-						111사단 법무팀
+						{profile.affiliated_unit}
 					</Text>
 					<Spacer y={10} />
 					<View
 						style={css`
 							height: 90px;
-							background-color: ${COLOR.GRAY.NORMAL(2)};
+							/* background-color: ${COLOR.GRAY.NORMAL(2)}; */
 						`}
 					/>
 					<Spacer y={12} />

@@ -5,6 +5,10 @@ import Spacer from '@components/Spacer'
 import TPButton from '@components/TPButton'
 import { FONT } from '@constants/font'
 import { css } from '@emotion/native'
+import {
+	useChannelListQuery,
+	useConsultantListQuery,
+} from '@hooks/data/consult'
 import { useNavigation } from '@react-navigation/core'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { userAtom } from '@store/atoms'
@@ -22,21 +26,8 @@ type NavigationProp = StackNavigationProp<
 const ConsultHomeScreen: React.FC = () => {
 	const navigation = useNavigation<NavigationProp>()
 	const user = useAtomValue(userAtom)
-	// useEffect(() => {
-	// 	navigation.setOptions({
-	// 		headerRightContainerStyle: {
-	// 			paddingRight: 12,
-	// 		},
-	// 		headerRight: props => {
-	// 			return (
-	// 				<Pressable onPress={() => navigation.navigate('')}>
-	// 					<FontAwesome5 name="envelope" solid size={16} />
-	// 				</Pressable>
-	// 			)
-	// 		},
-	// 	})
-	// 	console.log(user?.uid)
-	// }, [])
+	const channelQuery = useChannelListQuery()
+	const consultantQuery = useConsultantListQuery()
 
 	return (
 		<>
@@ -61,18 +52,11 @@ const ConsultHomeScreen: React.FC = () => {
 							상담 신청
 						</Text>
 						<Spacer y={10} />
-						<ConsultantBox profile={undefined} />
-						<ConsultantBox profile={undefined} />
+						{consultantQuery.data?.map(profile => {
+							return <ConsultantBox profile={profile} key={profile.name} />
+						})}
 						<Spacer y={10} />
-						<TPButton
-							variant="inline"
-							size="small"
-							style={css`
-								height: 32px;
-								width: 100px;
-								border-radius: 16px;
-							`}
-						>
+						<TPButton variant="inline" size="small">
 							더보기
 						</TPButton>
 						<Spacer y={10} />
@@ -93,20 +77,15 @@ const ConsultHomeScreen: React.FC = () => {
 							내 상담 내역
 						</Text>
 						<Spacer y={10} />
-						<ConsultHistoryBox profile={undefined} />
-						<ConsultHistoryBox profile={undefined} />
-						<Spacer y={10} />
-						<TPButton
-							variant="inline"
-							size="small"
-							style={css`
-								height: 32px;
-								width: 100px;
-								border-radius: 16px;
-							`}
-						>
-							더보기
-						</TPButton>
+						{channelQuery.data &&
+							channelQuery.data.map(channel => {
+								return (
+									<ConsultHistoryBox
+										channel={channel}
+										key={channel.channel_id}
+									/>
+								)
+							})}
 					</View>
 				</ScrollView>
 			</View>

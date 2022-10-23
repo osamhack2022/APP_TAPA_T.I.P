@@ -1,3 +1,4 @@
+import { ChannelType, ConsultantType } from '@app-types/consult'
 import { FONT } from '@constants/font'
 import { css } from '@emotion/native'
 import { Entypo } from '@expo/vector-icons'
@@ -9,8 +10,8 @@ import ConsultDMScreen from './ConsultDMScreen'
 import ConsultHomeScreen from './ConsultHomeScreen'
 export type ConsultNavigationParamList = {
 	ConsultHome: undefined
-	ConsultantDetail: { userId: string }
-	ConsultDM: { userId: string }
+	ConsultantDetail: { consultant: ConsultantType }
+	ConsultDM: { channel: ChannelType }
 }
 
 const Stack = createStackNavigator<ConsultNavigationParamList>()

@@ -1,3 +1,4 @@
+import { ChannelType } from '@app-types/consult'
 import Spacer from '@components/Spacer'
 import { COLOR } from '@constants/color'
 import { FONT } from '@constants/font'
@@ -14,66 +15,62 @@ type NavigationProp = StackNavigationProp<
 >
 
 type Props = {
-	profile: undefined
+	channel: ChannelType
 }
 
-const ConsultHistoryBox: React.FC<Props> = () => {
+const ConsultHistoryBox: React.FC<Props> = ({ channel }) => {
 	const navigation = useNavigation<NavigationProp>()
-
 	return (
 		<Pressable
+			style={css`
+				width: 100%;
+				margin-bottom: 20px;
+			`}
 			onPress={() =>
 				navigation.navigate('ConsultDM', {
-					userId: '6pcDkIB19PVy7czW1CLbSzB0Epu2',
+					channel: channel,
 				})
 			}
 		>
 			<View
 				style={css`
-					width: 100%;
-					margin-bottom: 20px;
+					flex-direction: row;
+					justify-content: space-between;
 				`}
 			>
-				<View
+				<Text
 					style={css`
-						flex-direction: row;
-						justify-content: space-between;
-					`}
-				>
-					<Text
-						style={css`
             font-family: ${FONT.Pretendard.BOLD}
             font-size: 14px;
           `}
-					>
-						김어쩔 상담사
-					</Text>
-					<Text
-						style={css`
+				>
+					{channel.participants[0]}
+				</Text>
+				<Text
+					style={css`
             font-family: ${FONT.Pretendard.REGULAR}
             font-size: 12px;
             `}
-					>
-						읽지 않음
-					</Text>
-				</View>
-				<Spacer y={10} />
-				<Text
-					style={css`
+				>
+					읽지 않음
+				</Text>
+			</View>
+			<Spacer y={10} />
+			<Text
+				style={css`
         font-family: ${FONT.Pretendard.REGULAR}
         font-size: 14px;
         `}
-				>
-					이런 경우 부당한 근무 조건으로 볼 수 있을까요?
-				</Text>
-				<Spacer y={10} />
-				<View
-					style={css`
-						height: 90px;
-						background-color: ${COLOR.GRAY.NORMAL(2)};
-					`}
-				/>
-			</View>
+			>
+				{channel.last_message_id}
+			</Text>
+			<Spacer y={10} />
+			<View
+				style={css`
+					height: 90px;
+					background-color: ${COLOR.GRAY.NORMAL(2)};
+				`}
+			/>
 		</Pressable>
 	)
 }

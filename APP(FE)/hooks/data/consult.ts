@@ -1,4 +1,4 @@
-import { ChannelDataType, ChannelType, MessageType } from '@app-types/consult'
+import { ChannelType, ConsultantType, MessageType } from '@app-types/consult'
 import useAxios from '@hooks/axios'
 import { useFocusEffect } from '@react-navigation/native'
 import { userAtom } from '@store/atoms'
@@ -6,16 +6,31 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useAtomValue } from 'jotai'
 import { useCallback } from 'react'
 
+export const useConsultantListQuery = () => {
+	const axios = useAxios()
+	const user = useAtomValue(userAtom)
+	const consultantListQuery = useQuery<ConsultantType[]>(
+		['consultantList'],
+		async () => {
+			const res = await axios.get(`/counselors/`)
+			return res.data
+		},
+	)
+	useFocusEffect(
+		useCallback(() => {
+			if (consultantListQuery.data) consultantListQuery.refetch()
+		}, []),
+	)
+	return consultantListQuery
+}
+
 export const useChannelListQuery = () => {
 	const axios = useAxios()
 	const user = useAtomValue(userAtom)
-	const channelListQuery = useQuery<{ userId: string; channelId: string }[]>(
+	const channelListQuery = useQuery<ChannelType[]>(
 		['channelList'],
 		async () => {
 			const res = await axios.get(`/channels/`)
-			// Object.keys(res.data).map((key)=>{
-			//   return {user_id: key, }
-			// })
 			return res.data
 		},
 	)
@@ -30,28 +45,12 @@ export const useChannelListQuery = () => {
 export const useChannelMessageQuery = (channelId: string) => {
 	const axios = useAxios()
 	const user = useAtomValue(userAtom)
-	const channelMessageQuery = useQuery<ChannelType[]>(
+	const channelMessageQuery = useQuery<MessageType[]>(
 		['channelMessage'],
 		async () => {
-			const channelRes = await axios.get<ChannelDataType>(
-				`/channels/${channelId}`,
-			)
-			const messages: MessageType[] = channelRes.data.messages.map(
-				async (messageId: string) => {
-					const messageRes = await axios.get<MessageType>(
-						`/channels/${channelId}/${messageId}`,
-					)
-					return messageRes.data
-				},
-			)
-			const res: ChannelType = {
-				last_message_id: channelRes.data.last_message_id,
-				participants: channelRes.data.participants,
-				created_at: channelRes.data.created_at,
-				updated_at: channelRes.data.updated_at,
-				messages: messages,
-			}
-			return res
+			const res = await axios.get(`/channels/${channelId}/all`)
+			const messages: MessageType[] = Object.values(res.data)
+			return messages
 		},
 	)
 	useFocusEffect(
