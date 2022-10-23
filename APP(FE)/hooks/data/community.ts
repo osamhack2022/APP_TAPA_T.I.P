@@ -44,7 +44,7 @@ export const useNewPostListQuery = () => {
 
 export const usePostListQuery = (tag: string | undefined) => {
 	const axios = useAxios()
-	const postListQuery = useQuery<PostType[]>(['postList'], async () => {
+	const postListQuery = useQuery<PostType[]>(['postList', tag], async () => {
 		const res = await axios.get('/community/posts/', {
 			params: {
 				tags: tag,
@@ -67,11 +67,14 @@ export const usePostListQuery = (tag: string | undefined) => {
 
 export const usePostQuery = (postId: string) => {
 	const axios = useAxios()
-	const postQuery = useQuery<PostDetailType>([`postDetail`], async () => {
-		const res = await axios.get(`/community/posts/${postId}`)
-		res.data.post.id = postId
-		return res.data
-	})
+	const postQuery = useQuery<PostDetailType>(
+		[`postDetail`, postId],
+		async () => {
+			const res = await axios.get(`/community/posts/${postId}`)
+			res.data.post.id = postId
+			return res.data
+		},
+	)
 	useFocusEffect(
 		useCallback(() => {
 			if (postQuery.data) postQuery.refetch()
