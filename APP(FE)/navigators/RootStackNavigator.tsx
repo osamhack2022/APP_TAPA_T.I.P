@@ -1,4 +1,6 @@
+import DiaryScreen from '@screens/DiaryScreen'
 import OnBoarding from '@screens/onboarding'
+import ResetPasswordScreen from '@screens/ResetPasswordScreen'
 import SigninScreen from '@screens/SigninScreen'
 import SignupScreen from '@screens/SignupScreen'
 
@@ -38,12 +40,29 @@ const RootStackNavigator: React.FC = () => {
 						},
 					}}
 				/>
+				<RootStack.Screen
+					name="ResetPassword"
+					component={ResetPasswordScreen}
+					options={{
+						title: '비밀번호 초기화',
+						headerShadowVisible: false,
+						headerTitle: '',
+						cardStyle: {
+							backgroundColor: '#fff',
+						},
+					}}
+				/>
 			</RootStack.Group>
 			<RootStack.Group key="main-group">
 				<RootStack.Screen
 					name="Tab"
 					component={TabNavigator}
 					options={{ headerShown: false, title: '메인' }}
+				/>
+				<RootStack.Screen
+					name="Diary"
+					component={DiaryScreen}
+					options={{ title: '나의 기록 돌아보기', headerTitle: '' }}
 				/>
 			</RootStack.Group>
 			<RootStack.Group

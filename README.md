@@ -93,8 +93,6 @@
 
 <h2 id="stacks"> 기술 스택 (Techniques Used) </h2>
 
-### 다이어그램
-
 ### Front-end
 
 - Expo
