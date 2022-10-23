@@ -13,7 +13,7 @@ import { ScrollView, Text, View } from 'react-native'
 
 import { FONT } from '@/constants/font'
 
-type Props = RootStackScreenProps<'CommunityPost'>
+type Props = RootStackScreenProps<'UserPostList'>
 
 const UserPostListScreen: React.FC<Props> = props => {
 	const { navigation, route } = props
