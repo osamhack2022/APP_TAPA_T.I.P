@@ -4,8 +4,9 @@ import pyrebase
 import requests
 import time
 import datetime
+from ai_linker import execute_async, handle_content_task
 
-from mySecrets import config
+from config import config
 from users import check_token
 
 firebase = pyrebase.initialize_app(config)
@@ -63,9 +64,14 @@ def post_diary():
         "updated_at": u_updated_at,
     })
 
+    diary_id = res["name"]
+
     # print(res)
     db.child("users").child(user_id).child("diaries").update({
-        res["name"]: u_created_at
+        diary_id: u_created_at
     })
 
-    return {"status": "post success", "diary_id": res["name"]}, 200
+    args = (user_id, "diary", diary_id, u_content)
+    execute_async(handle_content_task, args)
+
+    return {"status": "post success", "diary_id": diary_id}, 200
