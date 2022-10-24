@@ -28,6 +28,7 @@ const AIResultScreen: React.FC = () => {
 			>
 				<Text>AIResultScreen</Text>
 				
+				
 					
 				
 			</View>
