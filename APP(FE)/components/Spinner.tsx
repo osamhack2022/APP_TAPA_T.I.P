@@ -77,4 +77,8 @@ const Spinner: React.FC<Props> = props => {
 	)
 }
 
+<<<<<<< HEAD
 export default Spinner
+=======
+export default Spinner
+>>>>>>> 011cf312e16f93bb00f5636450d5a1b496b54ade

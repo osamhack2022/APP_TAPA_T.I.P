@@ -1,12 +1,11 @@
 import ControlledTPTextInput from '@components/controlled/TPTextInput'
 import Spacer from '@components/Spacer'
 import TPButton from '@components/TPButton'
+import { COLOR } from '@constants/color'
 import { css } from '@emotion/native'
 import { zodResolver } from '@hookform/resolvers/zod'
-import {
-	RootStackScreenProps,
-	useRootStackNavigation,
-} from '@navigators/RootStack'
+import useTrap from '@hooks/trap'
+import { RootStackScreenProps } from '@navigators/RootStack'
 import firebase from '@utils/firebase'
 import { FirebaseError } from 'firebase/app'
 import { signInWithEmailAndPassword } from 'firebase/auth/react-native'
@@ -33,12 +32,16 @@ const formSchema = z.object({
 type FieldValues = z.infer<typeof formSchema>
 
 const SigninScreen: React.FC<Props> = props => {
-	const navigation = useRootStackNavigation()
+	const { navigation, route } = props
+
+	useTrap({
+		enabled: route.params.trap ?? false,
+	})
 
 	const {
 		control,
 		handleSubmit,
-		formState: { isValid },
+		formState: { isValid, isSubmitting },
 		...form
 	} = useForm<FieldValues>({
 		resolver: zodResolver(formSchema),
@@ -118,12 +121,66 @@ const SigninScreen: React.FC<Props> = props => {
 						/>
 					</View>
 					<TPButton
+						loading={isSubmitting}
 						disabled={!isValid}
 						size="large"
 						onPress={handleSubmit(onSubmit)}
 					>
 						로그인
 					</TPButton>
+					<View
+						style={css`
+							margin-top: 24px;
+							align-items: center;
+						`}
+					>
+						<Text
+							style={css`
+								font-size: 16px;
+								color: ${COLOR.BLACK(1)};
+							`}
+						>
+							TAPA가 처음이신가요?
+						</Text>
+						<TPButton
+							style={css`
+								margin-top: 4px;
+							`}
+							variant="inline"
+							onPress={() =>
+								navigation.push('SignUp', {
+									trap: false,
+								})
+							}
+						>
+							계정 만들기
+						</TPButton>
+					</View>
+
+					<View
+						style={css`
+							margin-top: 24px;
+							align-items: center;
+						`}
+					>
+						<Text
+							style={css`
+								font-size: 16px;
+								color: ${COLOR.BLACK(1)};
+							`}
+						>
+							비밀번호를 잊으셨나요?
+						</Text>
+						<TPButton
+							style={css`
+								margin-top: 4px;
+							`}
+							variant="inline"
+							onPress={() => navigation.push('ResetPassword')}
+						>
+							비밀번호 초기화
+						</TPButton>
+					</View>
 				</View>
 			</ScrollView>
 		</KeyboardAvoidingView>
