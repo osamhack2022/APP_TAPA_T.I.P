@@ -180,7 +180,7 @@
     	</tr>
 	<tr>
    	    <td width="50%">
-	    	<p align="center">dbdiagram.io 를 이용해 데이터베이스 구성을 시각화한 ER 다이어그램(Entity Relationship Diagram)을 그려 보았습니다.</p>
+	    	<p align="center">main.yml을 통해 Github Actions와 Google Cloud를 연계하였습니다. 그 때문에 백엔드 코드를 서버에 수동으로 배포할 필요없이 `server` 브랜치에 push하거나 pull request을 하면 서버에 자동으로 배포하도록 설계했습니다. </p>
 	    </td>
    	    <td width="50%">
 	    	<p align="center">개발한 API 실행이 되는지 확인 및 테스트할 수 있도록 도와주며, 프런트 및 백이 어디서든지 API 작동여부를 확인할 수 있습니다.</p>
