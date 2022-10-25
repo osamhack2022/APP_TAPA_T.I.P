@@ -1,13 +1,9 @@
 import { FONT } from '@constants/font'
 import { FontAwesome5 } from '@expo/vector-icons'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-<<<<<<< HEAD
-import AINavigator from '@screens/tab/AIScreen/AINavigator'
-=======
 import { getFocusedRouteNameFromRoute } from '@react-navigation/core'
 import { RouteProp } from '@react-navigation/native'
-import AIScreen from '@screens/tab/AIScreen'
->>>>>>> 011cf312e16f93bb00f5636450d5a1b496b54ade
+import AINavigator from '@screens/tab/AIScreen/AINavigator'
 import CommunityNavigator from '@screens/tab/community/CommunityNavigator'
 import ConsultNavigator from '@screens/tab/consult/ConsultNavigator'
 import HomeScreen from '@screens/tab/HomeScreen'
@@ -49,52 +45,6 @@ const TabNavigator: React.FC<RootStackScreenProps<'Tab'>> = ({
 				},
 				tabBarShowLabel: false,
 			}}
-<<<<<<< HEAD
-			component={HomeScreen}
-		/>
-		<Tab.Screen
-			name="Expert"
-			options={{
-				title: '전문가',
-				tabBarIcon: ({ color, focused, size }) => (
-					<Fontisto name="persons" {...{ color, size }} />
-				),
-			}}
-			component={ExpertScreen}
-		/>
-		<Tab.Screen
-			name="Community"
-			options={{
-				title: '커뮤니티',
-				tabBarIcon: ({ color, focused, size }) => (
-					<Entypo name="chat" {...{ color, size }} />
-				),
-			}}
-			component={CommunityNavigator}
-		/>
-		<Tab.Screen
-			name="AI"
-			options={{
-				title: 'AI 상담',
-				tabBarIcon: ({ color, focused, size }) => (
-					<FontAwesome5 name="robot" {...{ color, size }} />
-				),
-			}}
-			component={AINavigator}
-		/>
-		<Tab.Screen
-			name="User"
-			options={{
-				title: '마이페이지',
-				tabBarIcon: ({ color, focused, size }) => (
-					<FontAwesome5 name="id-card" {...{ color, size }} />
-				),
-			}}
-			component={UserScreen}
-		/>
-	</Tab.Navigator>
-)
-=======
 		>
 			<Tab.Screen
 				name="Home"
@@ -142,7 +92,7 @@ const TabNavigator: React.FC<RootStackScreenProps<'Tab'>> = ({
 						<FontAwesome5 name="robot" {...{ color, size }} />
 					),
 				}}
-				component={AIScreen}
+				component={AINavigator}
 			/>
 			<Tab.Screen
 				name="User"
@@ -157,6 +107,5 @@ const TabNavigator: React.FC<RootStackScreenProps<'Tab'>> = ({
 		</Tab.Navigator>
 	)
 }
->>>>>>> 011cf312e16f93bb00f5636450d5a1b496b54ade
 
 export default TabNavigator
