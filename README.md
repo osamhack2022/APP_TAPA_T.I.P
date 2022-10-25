@@ -24,16 +24,16 @@
 
 <details open="open">
   <ol>
-    <li><a href="#overview"> ➤ 프로젝트 개요 (Overview)</a></li>
-    <li><a href="#features"> ➤ 기능 스케치 </a></li>
-    <li><a href="#benefits"> ➤ 군, TAPA 전과 후로 나뉘다 </a></li>
-    <li><a href="#userflow"> ➤ 유저 플로우 </a></li>
-    <li><a href="#progress"> ➤ 우리 팀의 협업 과정 </a></li>   
-    <li><a href="#prerequisites"> ➤ 컴퓨터 구성 / 필수 조건 안내 (Prerequisites)</a></li>
-    <li><a href="#stacks"> ➤ 사용한 기술 스택 (Techniques Used) </a></li>
-    <li><a href="#install"> ➤ 프로젝트 사용법 (Getting Started)</a></li>
-    <li><a href="#team"> ➤ 팀 정보 (Team Information)</a></li>
-    <li><a href="#license"> ➤ 저작권 및 사용권 정보 (Copyleft / End User License)</a></li>
+    <li><a href="#overview"> ◈ 프로젝트 개요 (Overview)</a></li>
+    <li><a href="#features"> ◈ 기능 스케치 </a></li>
+    <li><a href="#benefits"> ◈ 군, TAPA 전과 후로 나뉘다 </a></li>
+    <li><a href="#userflow"> ◈ 유저 플로우 </a></li>
+    <li><a href="#progress"> ◈ 우리 팀의 협업 과정 </a></li>   
+    <li><a href="#prerequisites"> ◈ 컴퓨터 구성 / 필수 조건 안내 (Prerequisites)</a></li>
+    <li><a href="#stacks"> ◈ 사용한 기술 스택 (Techniques Used) </a></li>
+    <li><a href="#install"> ◈ 프로젝트 사용법 (Getting Started)</a></li>
+    <li><a href="#team"> ◈ 팀 정보 (Team Information)</a></li>
+    <li><a href="#license"> ◈ 저작권 및 사용권 정보 (Copyleft / End User License)</a></li>
   </ol>
 </details>
 
@@ -69,13 +69,39 @@
 <h2 id="benefits"> ⚔️ 3. 군, TAPA 전과 후로 나뉘다 </h2>
 
 ### 기대 효과
-**To Be Added**
+
+- **병영 부조리 예측 및 예방**
+	- AI 기반 위험도 및 예상 징계 수위 예측 서비스를 통해 병사에게 도움 제공
+	- 위험도 높은 게시글 / AI 상담 결과 발생 시 바로 전문가에게 알림 문자 전송
+	- 군법 가이드를 통해 진입장벽이 높은 관련 군법을 병사에게 알기 쉽고 친숙하게 제공
+
+- **군(軍) 내 소통의 증가**
+	- 커뮤니티를 활용한 병 상호 간 경험 공유와 위로, 공감을 통해 유대감 형성
+	- 태그를 활용해 유사한 사례 검색에 용이
+	- 전문가 (상담사, 법무관)과의 1대1 상담으로 따뜻한 소통 분위기 형성
+	- TAPA 포인트 제도를 활용해 활발한 소통에 대한 인센티브 부여
+	
+- **용사 정신 건강 상태 개선 및 모니터링 및 실질적, 정신적 도움받기**
+	- 부조리 관련 AI / 상담 / 커뮤니티 게시글 많은 부대 확인 가능
+	- 무사고 기록 랭킹 등 리더보드 시각화를 통해 부조리 타파에 대한 동기부여
+	- 군 관계자에게 다양한 통계 데이터 제공
 
 ### 경쟁력
-**To Be Added**
+- 
 
-### 활용 분야
-**To Be Added**
+### 활용 분야 / 추후 확장
+
+- NLP, AI 모델 오픈소스 활용
+	- ㅇ
+	- 
+- **군법 길라잡이 확장**
+	- 프로젝트 초기에 구상했던 과거 유사한 사례와 처벌, 신고된 사례에 대한 군법 안내 서비스 제공
+	- 1303, 마음의 편지 등으로 신고된 부조리 데이터 판례 크롤링 (네이버 지식in 등)
+
+- **MLOps 분야 추후 확장**
+	- TAPA AI 위험도 견적 분석 서비스 / 실제 결과를 통해 새로운 데이터셋 확보 가능
+	- 확보한 데이터셋을 바탕으로 모델을 재훈련하고 모델 성능을 개선
+	- 알림과 자동화 툴을 생성하여 자동 모델 재훈련
 
 <h2 id="userflow"> :bulb: 4. 유저 플로우 </h2>
 
@@ -145,11 +171,11 @@
 	<tr>
    	    <td width="50%">
 	    	<h4 align="center"><img src="/assets/githubactions.png" width="95%" height="95%">
-		<a href="https://github.com/osamhack2022/APP_TAPA_T.I.P/actions">서버 배포 자동화</a></h4>
+		<br><br><a href="https://github.com/osamhack2022/APP_TAPA_T.I.P/actions">서버 배포 자동화</a></h4>
 	    </td>
    	    <td width="50%">
 	    	<h4 align="center"><img src="/assets/apitest.png" width="95%" height="95%">
-		<a href="https://www.postman.com/restless-equinox-690545-1/workspace/tapa-tip/request/12977747-a87ac77d-93b4-4e4e-b233-85661eab7f48">API 테스트</a></h4>
+		<br><br><a href="https://www.postman.com/restless-equinox-690545-1/workspace/tapa-tip/request/12977747-a87ac77d-93b4-4e4e-b233-85661eab7f48">API 테스트</a></h4>
 	    </td>
     	</tr>
 	<tr>
