@@ -142,6 +142,24 @@
 	    	<p align="center">프론트-백 간의 원활한 협업을 위해 개발하면서 필요한 API 목록을 Notion API Documentation 페이지를 만들어 구체적으로 기록하였습니다.</p>
 	    </td>
     	</tr>
+	<tr>
+   	    <td width="50%">
+	    	<h4 align="center"><img src="/assets/githubactions.png" width="95%" height="95%">
+		<a href="https://github.com/osamhack2022/APP_TAPA_T.I.P/actions">서버 배포 자동화</a></h4>
+	    </td>
+   	    <td width="50%">
+	    	<h4 align="center"><img src="/assets/apitest.png" width="95%" height="95%">
+		<a href="https://www.postman.com/restless-equinox-690545-1/workspace/tapa-tip/request/12977747-a87ac77d-93b4-4e4e-b233-85661eab7f48">API 테스트</a></h4>
+	    </td>
+    	</tr>
+	<tr>
+   	    <td width="50%">
+	    	<p align="center">dbdiagram.io 를 이용해 데이터베이스 구성을 시각화한 ER 다이어그램(Entity Relationship Diagram)을 그려 보았습니다.</p>
+	    </td>
+   	    <td width="50%">
+	    	<p align="center">개발한 API 실행이 되는지 확인 및 테스트할 수 있도록 도와주며, 프런트 및 백이 어디서든지 API 작동여부를 확인할 수 있습니다.</p>
+	    </td>
+    	</tr>	
     </tbody>
 </table>
 
