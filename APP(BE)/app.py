@@ -3,6 +3,8 @@ import diary
 import channels
 import community
 import counselors
+import statistics
+import news
 from flask import Flask, render_template
 from flask_cors import CORS
 import os
@@ -38,6 +40,8 @@ app.register_blueprint(channels.blueprint)
 
 app.register_blueprint(diary.bp)
 
+app.register_blueprint(statistics.bp)
+app.register_blueprint(news.bp)
 app.register_blueprint(counselors.blueprint)
 
 if __name__ == '__main__':

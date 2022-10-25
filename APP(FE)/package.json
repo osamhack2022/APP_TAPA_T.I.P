@@ -42,7 +42,7 @@
 		"react-dom": "18.0.0",
 		"react-error-boundary": "^3.1.4",
 		"react-hook-form": "^7.36.1",
-		"react-native": "0.69.5",
+		"react-native": "0.69.6",
 		"react-native-auto-height-image": "^3.2.4",
 		"react-native-gesture-handler": "~2.5.0",
 		"react-native-global-props": "^1.1.5",
