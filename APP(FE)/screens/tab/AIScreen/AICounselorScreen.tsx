@@ -1,3 +1,4 @@
+import { PredictionType } from '@app-types/AI'
 import AIButton from '@components/AIScreen/AIButton'
 import FocusAwareStatusBar from '@components/FocusAwareStatusBar'
 import Spacer from '@components/Spacer'
@@ -7,6 +8,7 @@ import { QUESTION } from '@constants/AI/question'
 import { COLOR } from '@constants/color'
 import { FONT } from '@constants/font'
 import { css } from '@emotion/native'
+import useAIAxios from '@hooks/AIAxios'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { atom, useAtom } from 'jotai'
@@ -25,6 +27,7 @@ const selectAtom = atom([-1, -1, -1, -1, -1, -1, -1])
 const monthAtom = atom('')
 const AICounselorScreen: React.FC = () => {
 	const navigation = useNavigation<NavigationProp>()
+	const axios = useAIAxios()
 	const [query, setQuery] = useAtom(queryAtom)
 	const [select, setSelect] = useAtom(selectAtom)
 	const [month, setMonth] = useAtom(monthAtom)
@@ -36,12 +39,27 @@ const AICounselorScreen: React.FC = () => {
 			select[2] === 0 ? setQuery(q => q + 3) : setQuery(q => q + 1)
 		}
 	}
-	const onPressResultScreen = () => {
-		// navigation.pop()
-		navigation.navigate('AIResult', { answer: select })
-		// setSelect([-1, -1, -1, -1, -1, -1, -1])
-		// setQuery(0)
-		// setMonth('')
+
+	const onPressResultScreen = async () => {
+		const input = {
+			accident: ANSWER[0][select[0]].value,
+			relation: ANSWER[1][select[1]].value,
+			once: ANSWER[2][select[2]].value,
+			month: select[3] !== -1 ? select[3] : 0,
+			frequency:
+				select[4] !== -1 ? (ANSWER[4][select[4]].value as string) : '0',
+			is_planned: ANSWER[5][select[5]].value,
+			mercy: ANSWER[6][select[6]].value,
+		}
+		const res = await axios.post<PredictionType>('/predict', input)
+		console.log(res)
+		if (res.status === 200) {
+			setSelect([-1, -1, -1, -1, -1, -1, -1])
+			setQuery(0)
+			setMonth('')
+			navigation.navigate('AIResult', { result: res.data })
+		}
+		//input 서버에 보내서 결과값 받기 ->result객체에 저장
 	}
 
 	return (
@@ -67,7 +85,6 @@ const AICounselorScreen: React.FC = () => {
 					>
 						{query + 1} / {QUESTION.length} 단계
 					</Text>
-
 					<Spacer y={20} />
 					<Text
 						style={css`
@@ -78,7 +95,6 @@ const AICounselorScreen: React.FC = () => {
 						{QUESTION[query]}
 					</Text>
 					<Spacer y={20} />
-
 					<View>
 						{query !== 3 ? (
 							<RadioForm formHorizontal={false} animation={false}>

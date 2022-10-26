@@ -1,3 +1,4 @@
+import { PredictionType } from '@app-types/AI'
 import { FONT } from '@constants/font'
 import { css } from '@emotion/native'
 import { Entypo } from '@expo/vector-icons'
@@ -11,7 +12,7 @@ import AIResultScreen from './AIResultScreen'
 export type AINaviParamList = {
 	AIHome: undefined
 	AICounselor: undefined
-	AIResult: { answer: number[] }
+	AIResult: { result: PredictionType }
 }
 
 const Stack = createStackNavigator<AINaviParamList>()
