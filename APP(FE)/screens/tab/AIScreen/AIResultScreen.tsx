@@ -45,12 +45,30 @@ const AIResultScreen: React.FC = () => {
 	}).catch(error=>{
 		console.log(error)
 	})
-	const result = {"chance_of_forced_reloc" : "0.817194", "dangerous_rate" : "0.8698278", "predicted_punishment": "휴가단축 2~4일"}
+	const result = {"chance_of_forced_reloc" : "0.817194", "dangerous_rate" : "0.8698278", "predicted_punishment": "휴가단축 5일 ~ 감봉 1개월"}
+
+
 	const userQuery = useSafeUserQuery()
+
 	const DangerScore = Math.floor(((parseFloat(result.dangerous_rate)*100)/25))
 	const Possibility = (parseFloat(result.chance_of_forced_reloc)*100).toFixed(1)
 	const PunishmentCanSplit = (result.predicted_punishment).includes(" ~ ")
-	
+	const HavePunishmentMax = (result.predicted_punishment).includes("~")
+	let PunishmentMin, PunishmentMax
+	if(PunishmentCanSplit){
+		const splits = (result.predicted_punishment).split(" ~ ")
+		PunishmentMin = splits[0]
+		PunishmentMax = splits[1]
+	}else if(HavePunishmentMax){
+		const position = (result.predicted_punishment).indexOf('~')
+		PunishmentMin = (result.predicted_punishment).slice(0,position) + (result.predicted_punishment).slice(position+2)
+		PunishmentMax =(result.predicted_punishment).slice(0,position-1) + (result.predicted_punishment).slice(position+1)
+	}else{
+		PunishmentMin = result.predicted_punishment
+		PunishmentMax = "-"
+	}
+
+
 	return (
 		<>
 			<View
@@ -176,7 +194,7 @@ const AIResultScreen: React.FC = () => {
 									font-size : 24px;
 									font-family : ${FONT.Pretendard.BOLD};
 									padding : 16px;
-								`}>{result.predicted_punishment}</Text>
+								`}>{PunishmentMin}</Text>
 							</View>
 							<View style = {css`
 								justify-content : center;
@@ -192,7 +210,7 @@ const AIResultScreen: React.FC = () => {
 									font-size : 24px;
 									font-family : ${FONT.Pretendard.BOLD};
 									padding : 16px;
-								`}>{result.predicted_punishment}</Text>
+								`}>{PunishmentMax}</Text>
 							</View>
 						</View>
 					</View>
