@@ -87,6 +87,7 @@ const TabNavigator: React.FC<RootStackScreenProps<'Tab'>> = ({
 			<Tab.Screen
 				name="AI"
 				options={{
+					headerShown: false,
 					title: 'AI 상담',
 					tabBarIcon: ({ color, focused, size }) => (
 						<FontAwesome5 name="robot" {...{ color, size }} />

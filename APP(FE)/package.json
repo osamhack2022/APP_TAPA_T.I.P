@@ -34,6 +34,7 @@
 		"expo-status-bar": "~1.4.0",
 		"expo-updates": "~0.14.6",
 		"firebase": "^9.10.0",
+		"https-proxy-agent": "^5.0.1",
 		"intl": "^1.2.5",
 		"jotai": "^1.8.4",
 		"luxon": "^3.0.3",
