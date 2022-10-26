@@ -1,4 +1,7 @@
-import Icon1 from '@assets/AI/Icon1'
+import Dangerous from '@assets/AI/Dangerous'
+import Normal from '@assets/AI/Normal'
+import Safe from '@assets/AI/Safe'
+import VeryDangerous from '@assets/AI/VeryDangerous'
 import FadingDots from '@components/FadingDots'
 import FocusAwareStatusBar from '@components/FocusAwareStatusBar'
 import {ANSWER} from '@constants/AI/answer'
@@ -24,15 +27,23 @@ type AIResultRouteProp = RouteProp<
 const AIResultScreen: React.FC = () => {
 	const navigation = useNavigation<NavigationProp>()
 	const {params : {answer},} =useRoute<AIResultRouteProp>()
-	const input = [ANSWER[0][answer[0]].value,ANSWER[1][answer[1]].value, ANSWER[2][answer[2]].value,0,"0", ANSWER[5][answer[5]].value, ANSWER[6][answer[6]].value]
-	if(answer[3]!==-1) input[3] = answer[3]
-	if(answer[4]!==-1) input[4] = ANSWER[4][answer[4]].value
+	const input = { "accident": ANSWER[0][answer[0]].value,
+					"realtion" : ANSWER[1][answer[1]].value, 
+					"once" : ANSWER[2][answer[2]].value,
+					"month" : 0,
+					"frequency":"0", 
+					"is_planned" : ANSWER[5][answer[5]].value, 
+					"mercy" : ANSWER[6][answer[6]].value}
+	if(answer[3]!==-1) input.month = answer[3]
+	if(answer[4]!==-1) input.frequency = ANSWER[4][answer[4]].value as string
 	//input 서버에 보내서 결과값 받기 ->result객체에 저장
 
 	const axios = useAxios()
-	const result = {grade : 0, danger : 80.23 , punishment_min : "군기교육 중", punishment_max : "강등", possibility : 82.17}
+	
+	const result = {"chance_of_forced_reloc" : "0.817194", "dangerous_rate" : "0.8698278", "predicted_punishment": "휴가단축 2~4일"}
 	const userQuery = useSafeUserQuery()
-
+	const DangerScore = Math.floor(((parseFloat(result.dangerous_rate)*100)/25))
+	const Possibility = (parseFloat(result.chance_of_forced_reloc)*100).toFixed(1)
 	return (
 		<>
 			<View
@@ -91,7 +102,10 @@ const AIResultScreen: React.FC = () => {
 							padding-top : 0px;
 							
 						`}>
-							<Icon1></Icon1>
+							{DangerScore ===3 ? <VeryDangerous/> :
+							 DangerScore ===2 ? <Dangerous/> :
+							 DangerScore ===1 ? <Normal/> :
+							 <Safe/>}
 						</View>
 						<View style = {css`
 							width : 250px;
@@ -101,16 +115,16 @@ const AIResultScreen: React.FC = () => {
 								
 								font-size : 24px;
 								padding-bottom : 10px;
-								color : red;
+								color : ${RESULT[DangerScore].color};
 								font-family : ${FONT.Pretendard.BOLD};
 
-							`}>{RESULT[result.grade].context}</Text>
+							`}>{RESULT[DangerScore].context}</Text>
 							<Text
 								style = {css`
 									font-size : 16px;
 									padding-bottom : 12px;
 								`}
-							>{RESULT[result.grade].description}</Text>
+							>{RESULT[DangerScore].description}</Text>
 						</View>
 
 					</View>
@@ -155,7 +169,7 @@ const AIResultScreen: React.FC = () => {
 									font-size : 24px;
 									font-family : ${FONT.Pretendard.BOLD};
 									padding : 16px;
-								`}>{result.punishment_min}</Text>
+								`}>{result.predicted_punishment}</Text>
 							</View>
 							<View style = {css`
 								justify-content : center;
@@ -171,7 +185,7 @@ const AIResultScreen: React.FC = () => {
 									font-size : 24px;
 									font-family : ${FONT.Pretendard.BOLD};
 									padding : 16px;
-								`}>{result.punishment_max}</Text>
+								`}>{result.predicted_punishment}</Text>
 							</View>
 						</View>
 					</View>
@@ -196,9 +210,8 @@ const AIResultScreen: React.FC = () => {
 							<Text style = {css`
 								font-size: 24px;
 								font-family : ${FONT.Pretendard.BOLD};
-								color : red;
-
-							`}>{result.possibility}%</Text>
+								color : ${RESULT[DangerScore].color};
+							`}>{Possibility}%</Text>
 						</View>
 					</View>
 					</View>

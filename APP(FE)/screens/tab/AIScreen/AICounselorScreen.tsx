@@ -40,6 +40,7 @@ const AICounselorScreen: React.FC = () => {
 		navigation.navigate('AIResult', {answer : select})
 		setSelect([-1,-1,-1,-1,-1,-1])
 		setQuery(0)
+		setMonth("")
 	}
 	
 	return (
