@@ -6,7 +6,7 @@ import time
 import datetime
 import random
 
-from mySecrets import config
+from config import config
 from users import check_token
 
 firebase = pyrebase.initialize_app(config)
