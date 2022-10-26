@@ -2,7 +2,14 @@ import { COLOR } from '@constants/color'
 import { FONT } from '@constants/font'
 import styled, { css } from '@emotion/native'
 import { useMemo, useRef, useState } from 'react'
-import { Text, TextInput, TextInputProps, View } from 'react-native'
+import {
+	StyleProp,
+	Text,
+	TextInput,
+	TextInputProps,
+	View,
+	ViewStyle,
+} from 'react-native'
 
 import TPNote from './TPNote'
 
@@ -18,6 +25,9 @@ type Props<T = string> = Omit<TextInputProps, 'value'> & {
 
 	value?: T
 	onChangeValue?: (value?: T) => void
+
+	containerStyle?: StyleProp<ViewStyle>
+	clearOnSubmit?: boolean
 }
 
 const TPTextInput = <T extends any = string>({
@@ -29,6 +39,8 @@ const TPTextInput = <T extends any = string>({
 	deserialize,
 	onChangeValue,
 	onChangeText,
+	containerStyle,
+	clearOnSubmit,
 	...passProps
 }: Props<T>): React.ReactElement => {
 	const inputRef = useRef<TextInput>(null)
@@ -57,7 +69,7 @@ const TPTextInput = <T extends any = string>({
 		}, [value, focused, error?.length])
 
 	return (
-		<View>
+		<View style={containerStyle}>
 			{label && (
 				<Text
 					style={css`
@@ -97,6 +109,13 @@ const TPTextInput = <T extends any = string>({
 					passProps.style,
 				]}
 				placeholderTextColor={COLOR.GRAY.NORMAL(5)}
+				onSubmitEditing={evt => {
+					passProps.onSubmitEditing?.(evt)
+					if (clearOnSubmit) {
+						inputRef.current?.clear()
+						setValue(undefined)
+					}
+				}}
 			/>
 			{helper && (
 				<Text
