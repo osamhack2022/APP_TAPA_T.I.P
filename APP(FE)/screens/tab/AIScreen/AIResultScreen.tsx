@@ -37,13 +37,20 @@ const AIResultScreen: React.FC = () => {
 	if(answer[3]!==-1) input.month = answer[3]
 	if(answer[4]!==-1) input.frequency = ANSWER[4][answer[4]].value as string
 	//input 서버에 보내서 결과값 받기 ->result객체에 저장
-
-	const axios = useAxios()
 	
+	const axios = useAxios()
+	axios.post('/predict',input).then(response =>{
+		console.log(response)
+		console.log(response.data)
+	}).catch(error=>{
+		console.log(error)
+	})
 	const result = {"chance_of_forced_reloc" : "0.817194", "dangerous_rate" : "0.8698278", "predicted_punishment": "휴가단축 2~4일"}
 	const userQuery = useSafeUserQuery()
 	const DangerScore = Math.floor(((parseFloat(result.dangerous_rate)*100)/25))
 	const Possibility = (parseFloat(result.chance_of_forced_reloc)*100).toFixed(1)
+	const PunishmentCanSplit = (result.predicted_punishment).includes(" ~ ")
+	
 	return (
 		<>
 			<View
