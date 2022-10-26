@@ -2,6 +2,7 @@ import Dangerous from '@assets/AI/Dangerous'
 import Normal from '@assets/AI/Normal'
 import Safe from '@assets/AI/Safe'
 import VeryDangerous from '@assets/AI/VeryDangerous'
+import AIButton from '@components/AIScreen/AIButton'
 import FadingDots from '@components/FadingDots'
 import FocusAwareStatusBar from '@components/FocusAwareStatusBar'
 import {ANSWER} from '@constants/AI/answer'
@@ -51,7 +52,7 @@ const AIResultScreen: React.FC = () => {
 	const userQuery = useSafeUserQuery()
 
 	const DangerScore = Math.floor(((parseFloat(result.dangerous_rate)*100)/25))
-	const Possibility = (parseFloat(result.chance_of_forced_reloc)*100).toFixed(1)
+	const Possibility = (parseFloat(result.chance_of_forced_reloc)*100).toFixed(2)
 	const PunishmentCanSplit = (result.predicted_punishment).includes(" ~ ")
 	const HavePunishmentMax = (result.predicted_punishment).includes("~")
 	let PunishmentMin, PunishmentMax
@@ -215,33 +216,41 @@ const AIResultScreen: React.FC = () => {
 						</View>
 					</View>
 					<View>
-					<View style = {css`
-						flex-direction : row;
-						width : 90%;
-						
-						padding-bottom : 20px;
-						padding-top : 20px;
-						align-items : center;
-					`}>
-						
-						<View>
-							<Text style = {css`
-								font-size : 20px;
-							`}>분리조치 가능성</Text>
-						</View>
 						<View style = {css`
-							padding-left : 20px;
+							flex-direction : row;
+							width : 90%;
+							
+							padding-bottom : 20px;
+							padding-top : 20px;
+							align-items : center;
 						`}>
-							<Text style = {css`
-								font-size: 24px;
-								font-family : ${FONT.Pretendard.BOLD};
-								color : ${RESULT[DangerScore].color};
-							`}>{Possibility}%</Text>
+							
+							<View>
+								<Text style = {css`
+									font-size : 20px;
+								`}>분리조치 가능성</Text>
+							</View>
+							<View style = {css`
+								padding-left : 20px;
+							`}>
+								<Text style = {css`
+									font-size: 24px;
+									font-family : ${FONT.Pretendard.BOLD};
+									color : ${RESULT[DangerScore].color};
+								`}>{Possibility}%</Text>
+							</View>
 						</View>
-					</View>
 					</View>
 
 				</View>
+				<AIButton style = {css`
+					position : absolute;
+					width : 300px;
+					bottom : 20px;
+				`}
+				variant = 'secondary'
+				onPress={()=>navigation.navigate('AIHome')}
+				>다시하기</AIButton>
 			</View>
 			<FocusAwareStatusBar style="dark" />
 		</>
