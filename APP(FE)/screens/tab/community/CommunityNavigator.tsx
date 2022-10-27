@@ -1,9 +1,11 @@
+import { PostType } from '@app-types/community'
 import { FONT } from '@constants/font'
 import { css } from '@emotion/native'
 import { Entypo } from '@expo/vector-icons'
 import { createStackNavigator } from '@react-navigation/stack'
 import React from 'react'
 
+import CommunityEmotionScreen from './CommunityEmotionScreen'
 import CommunityForumScreen from './CommunityForumScreen'
 import CommunityHomeScreen from './CommunityHomeScreen'
 import CommunityPostScreen from './CommunityPostScreen'
@@ -14,6 +16,7 @@ export type CommunityNavigationParamList = {
 	CommunityForum: undefined
 	CommunityPost: { postId: string }
 	CommunityWrite: undefined
+	CommunityEmotion: { post: PostType }
 }
 
 const Stack = createStackNavigator<CommunityNavigationParamList>()
@@ -52,6 +55,11 @@ const CommunityNavigator: React.FC = () => {
 				name="CommunityPost"
 				component={CommunityPostScreen}
 				options={{ title: '자유게시판' }}
+			/>
+			<Stack.Screen
+				name="CommunityEmotion"
+				component={CommunityEmotionScreen}
+				options={{ title: '감정 분석' }}
 			/>
 			<Stack.Screen
 				name="CommunityWrite"

@@ -58,7 +58,9 @@ const CommentMenuModal: React.FC<Props> = ({ comment, open, setOpen }) => {
 							font-size: 14px;
 						`}
 					>
-						추천
+						{comment.likes && Object.keys(comment.likes).includes(user?.uid)
+							? '추천 취소'
+							: '추천'}
 					</Text>
 				</Pressable>
 				<Pressable

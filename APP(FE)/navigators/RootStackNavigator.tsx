@@ -1,8 +1,11 @@
+import AboutTapaPointScreen from '@screens/AboutTapaPoint'
 import DiaryScreen from '@screens/DiaryScreen'
 import OnBoarding from '@screens/onboarding'
 import ResetPasswordScreen from '@screens/ResetPasswordScreen'
 import SigninScreen from '@screens/SigninScreen'
 import SignupScreen from '@screens/SignupScreen'
+import CommunityPostScreen from '@screens/tab/community/CommunityPostScreen'
+import UserPostListScreen from '@screens/UserPostListScreen'
 
 import { RootStack } from './RootStack'
 import TabNavigator from './TabNavigator'
@@ -63,6 +66,24 @@ const RootStackNavigator: React.FC = () => {
 					name="Diary"
 					component={DiaryScreen}
 					options={{ title: '나의 기록 돌아보기', headerTitle: '' }}
+				/>
+
+				<RootStack.Screen
+					name="UserPostList"
+					component={UserPostListScreen}
+					options={{ title: '나의 게시글', headerTitle: '' }}
+				/>
+
+				<RootStack.Screen
+					name="AboutTapaPoint"
+					component={AboutTapaPointScreen}
+					options={{ title: '타파 포인트', headerTitle: '' }}
+				/>
+
+				<RootStack.Screen
+					name="CommunityPost"
+					component={CommunityPostScreen}
+					options={{ title: '자유게시판' }}
 				/>
 			</RootStack.Group>
 			<RootStack.Group

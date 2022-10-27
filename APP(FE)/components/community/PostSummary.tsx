@@ -9,7 +9,14 @@ import { StackNavigationProp } from '@react-navigation/stack'
 import { CommunityNavigationParamList } from '@screens/tab/community/CommunityNavigator'
 import { DateTime } from 'luxon'
 import React from 'react'
-import { Image, Pressable, Text, View } from 'react-native'
+import {
+	Image,
+	Pressable,
+	StyleProp,
+	Text,
+	View,
+	ViewStyle,
+} from 'react-native'
 
 import PostCountList from './PostCountList'
 import UserProfile from './UserProfile'
@@ -22,9 +29,10 @@ type NavigationProp = StackNavigationProp<
 type Props = {
 	size: 'small' | 'default' | 'large'
 	post: PostType
+	style?: StyleProp<ViewStyle>
 }
 
-const PostSummary: React.FC<Props> = ({ post, size }) => {
+const PostSummary: React.FC<Props> = ({ post, size, style }) => {
 	const navigation = useNavigation<NavigationProp>()
 
 	return (
@@ -34,8 +42,12 @@ const PostSummary: React.FC<Props> = ({ post, size }) => {
 					padding: 8px 20px;
 					background: ${pressed ? COLOR.BRAND.TINT(1) : '#fff'};
 				`,
+				style,
 			]}
-			onPress={() => navigation.navigate('CommunityPost', { postId: post.id })}
+			onPress={() => {
+				console.log(post.id)
+				navigation.navigate('CommunityPost', { postId: post.id })
+			}}
 		>
 			<View>
 				{size === 'large' && (

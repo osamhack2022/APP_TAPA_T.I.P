@@ -110,13 +110,14 @@ const CommunityWriteScreen: React.FC = () => {
 	const onSubmit = useCallback<SubmitHandler<FieldValues>>(
 		async ({ title, tags, content, imageURL }) => {
 			console.log({ title, tags: tags.join(','), content, imageURL })
+
 			const res = await axios.post(
 				'/community/posts/',
 				{
 					title: title,
 					tags: tags.join(','),
 					content: content,
-					pic_url: imageURL,
+					pic_url: imageURL ? imageURL : '',
 				},
 				{
 					headers: { 'Content-Type': `multipart/form-data` },
