@@ -12,6 +12,7 @@ import { css } from '@emotion/native'
 import { useSafeUserQuery } from '@hooks/data/user'
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
+import React, { useEffect } from 'react'
 import { Text, View } from 'react-native'
 
 import { AINaviParamList } from './AINavigator'
@@ -25,7 +26,14 @@ const AIResultScreen: React.FC = () => {
 	} = useRoute<AIResultRouteProp>()
 	const userQuery = useSafeUserQuery()
 
-	const dangerScore = Math.floor((parseFloat(result.dangerous_rate) * 100) / 25)
+	const dangerScore =
+		Number(result.danger_rate) < 0.7
+			? 0
+			: Number(result.danger_rate) < 1
+			? 1
+			: Number(result.danger_rate) < 1.3
+			? 2
+			: 3
 	const possibility = (parseFloat(result.chance_of_forced_reloc) * 100).toFixed(
 		2,
 	)
@@ -49,7 +57,11 @@ const AIResultScreen: React.FC = () => {
 		punishmentMax = '-'
 	}
 
-	// if (loading || !result) return <FadingDots />
+	useEffect(() => {
+		console.log(result, dangerScore, possibility, punishmentMin, punishmentMax)
+	}, [])
+
+	if (!result) return <FadingDots />
 	// else
 	return (
 		<>
@@ -62,7 +74,6 @@ const AIResultScreen: React.FC = () => {
 				<View
 					style={css`
 						margin-top: 20px;
-						border: 1px;
 						border-radius: 20px;
 						border-color: ${COLOR.GRAY.NORMAL(4)};
 					`}
@@ -78,6 +89,7 @@ const AIResultScreen: React.FC = () => {
 							style={css`
 								font-size: 20px;
 								font-family: ${FONT.Pretendard.BOLD};
+								margin-right: 10px;
 							`}
 						>
 							AI 상담 결과
@@ -154,7 +166,6 @@ const AIResultScreen: React.FC = () => {
 				</View>
 				<View
 					style={css`
-						border: 1px;
 						border-radius: 20px;
 						border-color: ${COLOR.GRAY.NORMAL(4)};
 						width: 390px;

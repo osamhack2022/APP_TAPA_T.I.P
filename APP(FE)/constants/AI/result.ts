@@ -1,4 +1,8 @@
-export const RESULT = [
+export const RESULT: {
+	context: string
+	description: string
+	color: string
+}[] = [
 	{
 		context: '보통',
 		description: '신고를 통해 조치가 이루어지기 힘든 사안으로 보입니다.',
