@@ -45,6 +45,15 @@
 
 그리고 이러한 *끔찍한 사고가 다시는 일어나지 않도록* 부조리, 가혹행위를 사전에 예측하여 조치를 취해 병영 사고를 예방하고 싶었습니다.
 
+### :earth_africa: 개발 배경
+시대가 변해도 언제나 병사들의 군생활 **고민 1순위, 스트레스 1순위**는 다름 아닌 <b>"인간 관계"</b>입니다.
+
+2018년 [국방 해커톤 대회](https://osam.kr/hackathon/main) 출범 이후로 수많은 작품이 우리 군을 빛내주었습니다. 저희 팀 또한 오픈소스 해커톤의 취지에 맞게 전년도 수상작들로부터 많이 배우고 또 영감을 받았습니다.
+
+그리고 이 과정에서 대부분의 수상작들이 군 전반의 효율성과 기술을 통한 체계화, 최적화에 포커스를 두고 있는, 일종의 <b>"하드웨어"</b>에 가까운 작품이라는 사실을 확인할 수 있었습니다.
+
+하드웨어의 개선도 좋지만, 저희는 보다 본질적으로 접근하여 병사들의 가장 큰 고민인 인간 관계, 그리고 이로부터 발생하는 상처를 어루만지고 병사들의 목소리를 듣는 <b>"소프트웨어"</b> 적인 앱을 통해 인명 피해를 줄이는 데 조금이나마 기여하고 싶었습니다.
+
 ### :rocket: 우리의 미션 (Mission)
 
 저희 TAPA 프로젝트 및 앱의 미션은
@@ -87,13 +96,33 @@
 	- 군 관계자에게 다양한 통계 데이터 제공
 
 ### 경쟁력
-- 
+
+- **맞춤형 기능 제공**
+	- 도움이 시급한 병사에게는 1분 내외로 결과를 알려주는 AI 예측 서비스를
+	- 비슷한 경험을 한 사람을 찾고 함께 공감을 원하는 병사에게는 커뮤니티 서비스를
+	- 전문적인 상담을 통한 문제 해결이 필요한 병사에게는 상담 및 DM 서비스를
+	- 이를 비롯해 각 필요에 부합하는 기능이 전부 들어있는, 올-인-원 어플리케이션
+	
+- **훌륭한 UI/UX**
+	- 딱딱하고 보기 불편한 UI 대신 각 페이지마다 직관적이고 눈에 띄는 UI 제공
+	- 심리적 안정감을 주는 톤-온-톤 컬러 매치
+	- 어디에서도 볼 수 없는, 게시글의 감정을 분석해주는 독특한 커뮤니티 경험 제공
+
+- **공개SW/오픈소스** 
+	- 개발 문서의 오픈소스를 넘어, Gitbook과 Notion 페이지를 통한 디테일한 작업 과정 공개
+	- API 문서화, DB Diagram, I.A, Prototype 등을 이용한 구체적인 기획 과정 공개
+
+- **확실한 메시지 전달**
+	- 대회 수상 이상의 원대한 목표를 가지고 군의 문제를 풀어보고 싶은 열정 있는 멤버들이 모인 팀
+	- 고(故) 조준우 일병 등 병영 부조리 사고로 인해 꽃다운 나이에 삶을 등진 수많은 국군 장병들의 넋을 기리고 절대 잊지 말자는 의미를 담은 프로젝트
+	- 미션, 비전 설정 이후 이에 부합하도록 기능 개발 및 수정
 
 ### 활용 분야 / 추후 확장
 
-- NLP, AI 모델 오픈소스 활용
-	- ㅇ
-	- 
+- **NLP, AI 모델 오픈소스 활용**
+	- Notion 페이지를 통해 풀 모델 및 코드 제공
+	- Gitbook 페이지를 통해 데이터 수집부터 가공, 전처리 과정 공개
+	
 - **군법 길라잡이 확장**
 	- 프로젝트 초기에 구상했던 과거 유사한 사례와 처벌, 신고된 사례에 대한 군법 안내 서비스 제공
 	- 1303, 마음의 편지 등으로 신고된 부조리 데이터 판례 크롤링 (네이버 지식in 등)
@@ -111,6 +140,7 @@
 
 <h2 id="progress"> :clipboard: 5. 우리 팀의 협업 과정 </h2>
 
+◈ 사진을 클릭하시면 확대된 원본 이미지를, 파란 글씨를 클릭하시면 해당 링크를 보실 수 있습니다.
 <table align="center">
     <tbody>
 	<tr>
@@ -210,17 +240,35 @@
 
 - Pytorch
 - KoBERT
-- Tensorflow (To be Used)
+- Tensorflow 
 
 <h2 id="install"> :hammer_and_wrench: 8. 프로젝트 사용법 (Getting Started) </h2>
 
 ### 다운로드 및 패키지 설치 안내
-```bash
-$ git clone git 주소
-$ yarn or npm install
-$ yarn start or npm run start
+
+### Front-End
 ```
-**To Be Added**
+$ git clone https://github.com/osamhack2022-v2/APP_TAPA_T.I.P.git
+$ cd APP(FE)
+$ yarn or npm install
+$ npx expo start
+```
+### Back-End
+```
+$ git clone https://github.com/osamhack2022-v2/APP_TAPA_T.I.P.git
+$ cd APP(BE)
+$ python3 -m venv env
+$ . env/bin/activate
+$ pip install -r requirements.txt
+
+이후 백엔드 팀과 컨택해서 .env에 들어가는 6 개의 environment variable 값 알아내기. 
+- FIREBASE_API_KEY
+- FIREBASE_AUTH_DOMAIN
+- FIREBASE_DATABASE_URL
+- FIREBASE_STORAGE_BUCKET
+- FLASK_SECRET_KEY
+- CLASSIFIER_SERVER_URL
+```
 
 <h2 id="team"> :family_man_man_girl_boy: 9. 팀 정보 (Team Information) </h2>
 
