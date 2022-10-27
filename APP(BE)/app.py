@@ -2,6 +2,7 @@ import users
 import diary
 import channels
 import community
+import counselors
 import statistics
 import news
 from flask import Flask, render_template
@@ -41,6 +42,7 @@ app.register_blueprint(diary.bp)
 
 app.register_blueprint(statistics.bp)
 app.register_blueprint(news.bp)
+app.register_blueprint(counselors.blueprint)
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=int(os.environ.get('PORT', 8080)))
