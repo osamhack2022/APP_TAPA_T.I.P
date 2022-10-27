@@ -5,6 +5,8 @@ import requests
 import time
 import datetime
 import json
+import collections
+from ai_linker import execute_async, handle_content_task
 
 from config import config
 from users import check_token
@@ -30,16 +32,15 @@ def get_best_list():
         if "likes" in post_val:
             likes.append(len(post_val["likes"]))
         else:
-            likes.append(0)    
+            likes.append(0)
 
-    #prevention of empty data
+    # prevention of empty data
     if (len(post_keys) == 0):
         return {}, 200
 
-    #NOTE: use of zip to create tuple :)
+    # NOTE: use of zip to create tuple :)
     sorted_val = sorted(zip(likes, post_keys), reverse=True)[:3]
 
-    
     for i in sorted_val:
         final_dict[i[1]] = posts_dic[i[1]]
 
@@ -49,7 +50,9 @@ def get_best_list():
 
 @bp.route("/new/", methods=["GET"])
 def get_new_list():
-    return db.child("posts").order_by_child("updated_at").get().val(), 200
+    data = db.child("posts").order_by_child("updated_at").get().val()
+    sorted_data = collections.OrderedDict(reversed(list(data.items())))
+    return sorted_data, 200
 
 # 자유게시판 게시물 목록
 
@@ -58,16 +61,16 @@ def get_new_list():
 def get_post_list():
     if (request.args.get('tags') is not None):
         tag = request.args.get('tags')
-        posts_dic = db.child("posts").get().val()
+        posts_dic = db.child("posts").order_by_child("updated_at").get().val()
         tag_posts = {}
         for post_id, post_val in posts_dic.items():
             tags = post_val["tags"].split(",")
             if tag in tags:
                 tag_posts[post_id] = post_val
-        return json.dumps(tag_posts), 200        
+        return json.dumps(tag_posts), 200
         pass
     else:
-        return db.child("posts").get().val(), 200
+        return db.child("posts").order_by_child("updated_at").get().val(), 200
 
 # 게시물 상세 내용 + comments
 
@@ -122,7 +125,6 @@ def post_a_post():
     u_title = params["title"]
     u_content = params["content"]
     u_tags = params["tags"]
-    u_pic_url = params["pic_url"]
 
     CUR_TIME = int(time.time())
     u_created_at = CUR_TIME
@@ -130,25 +132,40 @@ def post_a_post():
 
     #print("filesize", size)
 
-    res = db.child("posts").push({
+    to_push = {
         "username": username,
         "user_id": user_id,
         "title": u_title,
         "content": u_content,
         "tags": u_tags,
-        "pic_url": u_pic_url,
+        "pic_url": params["pic_url"],
         "created_at": u_created_at,
         "updated_at": u_updated_at,
         "views": 0,
         "comment_num": 0
-    })
+    } if "pic_url" in params else {
+        "username": username,
+        "user_id": user_id,
+        "title": u_title,
+        "content": u_content,
+        "tags": u_tags,
+        "created_at": u_created_at,
+        "updated_at": u_updated_at,
+        "views": 0,
+        "comment_num": 0
+    }
 
-    # print(res)
+    res = db.child("posts").push(to_push)
+
+    post_id = res["name"]
     db.child("users").child(user_id).child("posts").update({
-        res["name"]: u_created_at
+        post_id: u_created_at
     })
-    db.child("posts").child(res["name"]).update({'pic_url': u_pic_url})
-    return {"status": "post success", "post_id": res["name"]}, 200
+    db.child("posts").child(post_id).update({'pic_url': u_pic_url})
+
+    args = (user_id, "post", post_id, u_content)
+    execute_async(handle_content_task, args)
+    return {"status": "post success", "post_id": post_id}, 200
 
 # 게시물 수정, login required.
 
@@ -174,18 +191,24 @@ def update_post(post_id):
     u_title = params["title"]
     u_content = params["content"]
     u_tags = params["tags"]
-    u_pic_url = params["pic_url"]
 
     CUR_TIME = int(time.time())
     u_updated_at = CUR_TIME
 
-    res = db.child("posts").child(post_id).update({
+    to_update = {
         "title": u_title,
         "content": u_content,
         "tags": u_tags,
-        "pic_url": u_pic_url,
+        "pic_url": params["pic_url"],
         "updated_at": u_updated_at,
-    })
+    } if "pic_url" in params else {
+        "title": u_title,
+        "content": u_content,
+        "tags": u_tags,
+        "updated_at": u_updated_at,
+    }
+
+    res = db.child("posts").child(post_id).update(to_update)
 
     return {"status": "put success"}, 200
 
@@ -208,7 +231,7 @@ def delete_post(post_id):
 
     if (user_id != post_user_id):
         return {"status": "Not owner of post"}, 403
-    try: 
+    try:
         associated_comments = db.child("posts").child(
             post_id).child("comments").get().val().keys()
         for comment_id in associated_comments:
@@ -356,7 +379,7 @@ def update_views(post_id):
         "views": past_view
       })"""
     past_view = db.child("posts").child(post_id).child("views").get().val()
-    past_view += 1
+    past_view = 1 if past_view is None else past_view + 1
     db.child("posts").child(post_id).update({
         "views": past_view
     })

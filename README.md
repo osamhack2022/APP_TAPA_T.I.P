@@ -24,16 +24,16 @@
 
 <details open="open">
   <ol>
-    <li><a href="#overview"> ➤ 프로젝트 개요 (Overview)</a></li>
-    <li><a href="#features"> ➤ 기능 스케치 </a></li>
-    <li><a href="#benefits"> ➤ 군, TAPA 전과 후로 나뉘다 </a></li>
-    <li><a href="#userflow"> ➤ 유저 플로우 </a></li>
-    <li><a href="#progress"> ➤ 우리 팀의 협업 과정 </a></li>   
-    <li><a href="#prerequisites"> ➤ 컴퓨터 구성 / 필수 조건 안내 (Prerequisites)</a></li>
-    <li><a href="#stacks"> ➤ 사용한 기술 스택 (Techniques Used) </a></li>
-    <li><a href="#install"> ➤ 프로젝트 사용법 (Getting Started)</a></li>
-    <li><a href="#team"> ➤ 팀 정보 (Team Information)</a></li>
-    <li><a href="#license"> ➤ 저작권 및 사용권 정보 (Copyleft / End User License)</a></li>
+    <li><a href="#overview"> ◈ 프로젝트 개요 (Overview)</a></li>
+    <li><a href="#features"> ◈ 기능 스케치 </a></li>
+    <li><a href="#benefits"> ◈ 군, TAPA 전과 후로 나뉘다 </a></li>
+    <li><a href="#userflow"> ◈ 유저 플로우 </a></li>
+    <li><a href="#progress"> ◈ 우리 팀의 협업 과정 </a></li>   
+    <li><a href="#prerequisites"> ◈ 컴퓨터 구성 / 필수 조건 안내 (Prerequisites)</a></li>
+    <li><a href="#stacks"> ◈ 사용한 기술 스택 (Techniques Used) </a></li>
+    <li><a href="#install"> ◈ 프로젝트 사용법 (Getting Started)</a></li>
+    <li><a href="#team"> ◈ 팀 정보 (Team Information)</a></li>
+    <li><a href="#license"> ◈ 저작권 및 사용권 정보 (Copyleft / End User License)</a></li>
   </ol>
 </details>
 
@@ -41,9 +41,18 @@
 
 >TAPA는 AI 기반 **병영 부조리 사고 예측** 및 예방 솔루션입니다.
 ### 🌻 개발 동기
-3년 전 같은 과 선배가 군대에서 병영 부조리와 과도한 당직 업무 스트레스로 인해 자살로 생을 마감했다는 [뉴스](https://www.joongang.co.kr/article/25077377#home)가 몇 달 전 화제가 되었습니다. 이 사건을 통해 **병영 사고라는 것이 멀리 떨어져 있는 일이 아니라, 정말 가까이에서 벌어질 수 있는 일**이라는 것을 깨달았습니다.
+3년 전 같은 과 선배가 군대에서 병영 부조리와 과도한 당직 업무 스트레스로 인해 [스스로 생을 마감했다는 뉴스](https://www.joongang.co.kr/article/25077377#home)가 몇 달 전 화제가 되었습니다. 이 사건을 통해 **병영 사고라는 것이 멀리 떨어져 있는 일이 아니라, 정말 가까이에서 벌어질 수 있는 일**이라는 것을 깨달았습니다.
 
 그리고 이러한 *끔찍한 사고가 다시는 일어나지 않도록* 부조리, 가혹행위를 사전에 예측하여 조치를 취해 병영 사고를 예방하고 싶었습니다.
+
+### :earth_africa: 개발 배경
+시대가 변해도 언제나 병사들의 군생활 **고민 1순위, 스트레스 1순위**는 다름 아닌 <b>"인간 관계"</b>입니다.
+
+2018년 [국방 해커톤 대회](https://osam.kr/hackathon/main) 출범 이후로 수많은 작품이 우리 군을 빛내주었습니다. 저희 팀 또한 오픈소스 해커톤의 취지에 맞게 전년도 수상작들로부터 많이 배우고 또 영감을 받았습니다.
+
+그리고 이 과정에서 대부분의 수상작들이 군 전반의 효율성과 기술을 통한 체계화, 최적화에 포커스를 두고 있는, 일종의 <b>"하드웨어"</b>에 가까운 작품이라는 사실을 확인할 수 있었습니다.
+
+하드웨어의 개선도 좋지만, 저희는 보다 본질적으로 접근하여 병사들의 가장 큰 고민인 인간 관계, 그리고 이로부터 발생하는 상처를 어루만지고 병사들의 목소리를 듣는 <b>"소프트웨어"</b> 적인 앱을 통해 인명 피해를 줄이는 데 조금이나마 기여하고 싶었습니다.
 
 ### :rocket: 우리의 미션 (Mission)
 
@@ -69,13 +78,59 @@
 <h2 id="benefits"> ⚔️ 3. 군, TAPA 전과 후로 나뉘다 </h2>
 
 ### 기대 효과
-**To Be Added**
+
+- **병영 부조리 예측 및 예방**
+	- AI 기반 위험도 및 예상 징계 수위 예측 서비스를 통해 병사에게 도움 제공
+	- 위험도 높은 게시글 / AI 상담 결과 발생 시 바로 전문가에게 알림 문자 전송
+	- 군법 가이드를 통해 진입장벽이 높은 관련 군법을 병사에게 알기 쉽고 친숙하게 제공
+
+- **군(軍) 내 소통의 증가**
+	- 커뮤니티를 활용한 병 상호 간 경험 공유와 위로, 공감을 통해 유대감 형성
+	- 태그를 활용해 유사한 사례 검색에 용이
+	- 전문가 (상담사, 법무관)과의 1대1 상담으로 따뜻한 소통 분위기 형성
+	- TAPA 포인트 제도를 활용해 활발한 소통에 대한 인센티브 부여
+	
+- **용사 정신 건강 상태 개선 및 모니터링 및 실질적, 정신적 도움받기**
+	- 부조리 관련 AI / 상담 / 커뮤니티 게시글 많은 부대 확인 가능
+	- 무사고 기록 랭킹 등 리더보드 시각화를 통해 부조리 타파에 대한 동기부여
+	- 군 관계자에게 다양한 통계 데이터 제공
 
 ### 경쟁력
-**To Be Added**
 
-### 활용 분야
-**To Be Added**
+- **맞춤형 기능 제공**
+	- 도움이 시급한 병사에게는 1분 내외로 결과를 알려주는 AI 예측 서비스를
+	- 비슷한 경험을 한 사람을 찾고 함께 공감을 원하는 병사에게는 커뮤니티 서비스를
+	- 전문적인 상담을 통한 문제 해결이 필요한 병사에게는 상담 및 DM 서비스를
+	- 이를 비롯해 각 필요에 부합하는 기능이 전부 들어있는, 올-인-원 어플리케이션
+	
+- **훌륭한 UI/UX**
+	- 딱딱하고 보기 불편한 UI 대신 각 페이지마다 직관적이고 눈에 띄는 UI 제공
+	- 심리적 안정감을 주는 톤-온-톤 컬러 매치
+	- 어디에서도 볼 수 없는, 게시글의 감정을 분석해주는 독특한 커뮤니티 경험 제공
+
+- **공개SW/오픈소스** 
+	- 개발 문서의 오픈소스를 넘어, Gitbook과 Notion 페이지를 통한 디테일한 작업 과정 공개
+	- API 문서화, DB Diagram, I.A, Prototype 등을 이용한 구체적인 기획 과정 공개
+
+- **확실한 메시지 전달**
+	- 대회 수상 이상의 원대한 목표를 가지고 군의 문제를 풀어보고 싶은 열정 있는 멤버들이 모인 팀
+	- 고(故) 조준우 일병 등 병영 부조리 사고로 인해 꽃다운 나이에 삶을 등진 수많은 국군 장병들의 넋을 기리고 절대 잊지 말자는 의미를 담은 프로젝트
+	- 미션, 비전 설정 이후 이에 부합하도록 기능 개발 및 수정
+
+### 활용 분야 / 추후 확장
+
+- **NLP, AI 모델 오픈소스 활용**
+	- Notion 페이지를 통해 풀 모델 및 코드 제공
+	- Gitbook 페이지를 통해 데이터 수집부터 가공, 전처리 과정 공개
+	
+- **군법 길라잡이 확장**
+	- 프로젝트 초기에 구상했던 과거 유사한 사례와 처벌, 신고된 사례에 대한 군법 안내 서비스 제공
+	- 1303, 마음의 편지 등으로 신고된 부조리 데이터 판례 크롤링 (네이버 지식in 등)
+
+- **MLOps 분야 추후 확장**
+	- TAPA AI 위험도 견적 분석 서비스 / 실제 결과를 통해 새로운 데이터셋 확보 가능
+	- 확보한 데이터셋을 바탕으로 모델을 재훈련하고 모델 성능을 개선
+	- 알림과 자동화 툴을 생성하여 자동 모델 재훈련
 
 <h2 id="userflow"> :bulb: 4. 유저 플로우 </h2>
 
@@ -85,6 +140,7 @@
 
 <h2 id="progress"> :clipboard: 5. 우리 팀의 협업 과정 </h2>
 
+◈ 사진을 클릭하시면 확대된 원본 이미지를, 파란 글씨를 클릭하시면 해당 링크를 보실 수 있습니다.
 <table align="center">
     <tbody>
 	<tr>
@@ -142,6 +198,24 @@
 	    	<p align="center">프론트-백 간의 원활한 협업을 위해 개발하면서 필요한 API 목록을 Notion API Documentation 페이지를 만들어 구체적으로 기록하였습니다.</p>
 	    </td>
     	</tr>
+	<tr>
+   	    <td width="50%">
+	    	<h4 align="center"><img src="/assets/githubactions.png" width="95%" height="95%">
+		<br><br><a href="https://github.com/osamhack2022/APP_TAPA_T.I.P/actions">서버 배포 자동화</a></h4>
+	    </td>
+   	    <td width="50%">
+	    	<h4 align="center"><img src="/assets/apitest.png" width="95%" height="95%">
+		<br><br><a href="https://www.postman.com/restless-equinox-690545-1/workspace/tapa-tip/request/12977747-a87ac77d-93b4-4e4e-b233-85661eab7f48">API 테스트</a></h4>
+	    </td>
+    	</tr>
+	<tr>
+   	    <td width="50%">
+	    	<p align="center">main.yml을 통해 Github Actions와 Google Cloud를 연계하였습니다. 그 때문에 백엔드 코드를 서버에 수동으로 배포할 필요없이 `server` 브랜치에 push하거나 pull request을 하면 서버에 자동으로 배포하도록 설계했습니다. </p>
+	    </td>
+   	    <td width="50%">
+	    	<p align="center">개발한 API 실행이 되는지 확인 및 테스트할 수 있도록 도와주며, 프런트 및 백이 어디서든지 API 작동여부를 확인할 수 있습니다.</p>
+	    </td>
+    	</tr>	
     </tbody>
 </table>
 
@@ -166,17 +240,35 @@
 
 - Pytorch
 - KoBERT
-- Tensorflow (To be Used)
+- Tensorflow 
 
 <h2 id="install"> :hammer_and_wrench: 8. 프로젝트 사용법 (Getting Started) </h2>
 
 ### 다운로드 및 패키지 설치 안내
-```bash
-$ git clone git 주소
-$ yarn or npm install
-$ yarn start or npm run start
+
+### Front-End
 ```
-**To Be Added**
+$ git clone https://github.com/osamhack2022-v2/APP_TAPA_T.I.P.git
+$ cd APP(FE)
+$ yarn or npm install
+$ npx expo start
+```
+### Back-End
+```
+$ git clone https://github.com/osamhack2022-v2/APP_TAPA_T.I.P.git
+$ cd APP(BE)
+$ python3 -m venv env
+$ . env/bin/activate
+$ pip install -r requirements.txt
+
+이후 백엔드 팀과 컨택해서 .env에 들어가는 6 개의 environment variable 값 알아내기. 
+- FIREBASE_API_KEY
+- FIREBASE_AUTH_DOMAIN
+- FIREBASE_DATABASE_URL
+- FIREBASE_STORAGE_BUCKET
+- FLASK_SECRET_KEY
+- CLASSIFIER_SERVER_URL
+```
 
 <h2 id="team"> :family_man_man_girl_boy: 9. 팀 정보 (Team Information) </h2>
 
@@ -195,3 +287,6 @@ $ yarn start or npm run start
 
 This project is licensed under the terms of the MIT license.
 
+AI(BE) 폴더의 NLP 파트 모델은 https://github.com/SKTBrain/KoBERT 의 KoBERT 모델을 활용했습니다.
+KoBERT는 `Apache-2.0` 라이선스 하에 공개되어 있습니다. 라이선스 전문은 LICENSE 파일에서 확인하실 수 있습니다.
+Copyright (c) 2019 SK T-Brain

@@ -45,7 +45,9 @@ const TPButton: React.FC<Props> = ({
 			disabled={disabled || loading}
 			style={({ pressed }) => [
 				variant === 'inline'
-					? css``
+					? css`
+							opacity: ${pressed ? 0.5 : 1};
+					  `
 					: css`
 							border-radius: ${padding / 2 + 'px'};
 							padding-horizontal: ${padding + 'px'};

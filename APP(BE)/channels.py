@@ -32,6 +32,7 @@ def get_all_channels():
     for key, value in res.items():
         obj = database.child("channels").child(value).get().val()
         obj["user_id"] = key
+        obj["channel_id"] = value
         channels.append(obj)
 
     channels.sort(key=itemgetter('updated_at'), reverse=True)
@@ -135,8 +136,12 @@ def get_all_messages(channel_id):
 
     if channel is None or channel["participants"][self_id] is None:
         return {"status": "channel does not exist"}, 403
+    res = database.child("messages").child(channel_id).get().val()
 
-    return database.child("messages").child(channel_id).get().val(), 200
+    if res is None:
+        return {}, 200
+
+    return res, 200
 
 
 @blueprint.route("/<channel_id>/<message_id>", methods=["GET"])

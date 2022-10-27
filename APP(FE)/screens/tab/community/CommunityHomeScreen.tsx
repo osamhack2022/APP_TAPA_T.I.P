@@ -1,10 +1,12 @@
 import PostSummary from '@components/community/PostSummary'
 import FadingDots from '@components/FadingDots'
 import FocusAwareStatusBar from '@components/FocusAwareStatusBar'
+import SmartRefreshControl from '@components/SmartRefreshControl'
 import Spacer from '@components/Spacer'
 import { COLOR } from '@constants/color'
 import { FONT } from '@constants/font'
 import { css } from '@emotion/native'
+import { Entypo } from '@expo/vector-icons'
 import useAxios from '@hooks/axios'
 import {
 	useBestPostListQuery,
@@ -27,18 +29,76 @@ const CommunityHomeScreen: React.FC = () => {
 	const bestPostListQuery = useBestPostListQuery()
 
 	const navigation = useNavigation<NavigationProp>()
+
 	return (
 		<ScrollView
 			contentInset={{
 				bottom: 24,
 			}}
+			refreshControl={
+				<SmartRefreshControl
+					onRefresh={async () => {
+						await newPostListQuery.refetch()
+						await bestPostListQuery.refetch()
+					}}
+					refreshing={
+						newPostListQuery.isRefetching || bestPostListQuery.isRefetching
+					}
+				/>
+			}
 		>
 			<View
 				style={css`
 					flex: 1;
-					background-color: ${COLOR.GRAY.NORMAL(1)};
 				`}
 			>
+				<Pressable
+					style={({ pressed }) => [
+						css`
+							padding: 40px 20px;
+							flex-direction: row;
+							align-items: center;
+							justify-content: space-between;
+							background: ${COLOR.BRAND.MAIN};
+						`,
+						pressed &&
+							css`
+								background: ${COLOR.BRAND.TINT(3)};
+							`,
+					]}
+					onPress={() => navigation.navigate('CommunityForum')}
+				>
+					<View style={css``}>
+						<Text
+							style={css`
+								font-size: 18px;
+								font-family: ${FONT.Pretendard.BOLD};
+								color: #ffffffcc;
+							`}
+						>
+							도움이 필요한가요?
+						</Text>
+						<Text
+							style={css`
+								font-size: 32px;
+								font-family: ${FONT.Pretendard.BOLD};
+								color: #fff;
+							`}
+						>
+							질문 게시판
+						</Text>
+						<Spacer y={4} />
+						<Text
+							style={css`
+								font-size: 14px;
+								color: #ffffffcc;
+							`}
+						>
+							자신의 경험에 대해 자유롭게 질문하는 공간으로 오세요!
+						</Text>
+					</View>
+					<Entypo name="chevron-right" size={32} color="#FFF" />
+				</Pressable>
 				<View
 					style={css`
 						width: 100%;
@@ -97,32 +157,14 @@ const CommunityHomeScreen: React.FC = () => {
 							<FadingDots />
 						</View>
 					) : (
-						newPostListQuery.data?.map(item => {
-							return <PostSummary size="default" post={item} key={item.id} />
-						})
+						newPostListQuery.data
+							?.slice(-3)
+							.reverse()
+							.map(item => {
+								return <PostSummary size="default" post={item} key={item.id} />
+							})
 					)}
 				</View>
-				<Spacer y={4} />
-				<Pressable onPress={() => navigation.navigate('CommunityForum')}>
-					<View
-						style={css`
-							width: 100%;
-							padding: 10px 20px;
-							background-color: white;
-						`}
-					>
-						<Text
-							style={css`
-								font-size: 16px;
-								font-family: ${FONT.Pretendard.BOLD};
-							`}
-						>
-							질문 게시판
-						</Text>
-						<Spacer y={5} />
-						<Text>자신이 당한 일에 대해 자유롭게 질문하는 공간</Text>
-					</View>
-				</Pressable>
 			</View>
 			<FocusAwareStatusBar style="dark" />
 		</ScrollView>

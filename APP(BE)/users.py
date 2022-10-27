@@ -53,6 +53,35 @@ def get_myself():
     return data, 200
 
 
+@bp.route("/get/myself/detail", methods=["GET"])
+def get_myself_detail():
+    token = request.headers.get("Authorization")
+    decoded = check_token(token)
+    if decoded == "invalid token":
+        return {"status": "Invalid token"}, 200
+    u_id = decoded["localId"]
+    data = db.child("users").child(u_id).get().val()
+
+    if data is None:
+        return {
+            "error": "User not found. Account data possibly corrupted."
+        }, 500
+
+    # fetch user posts
+    user_posts = db.child("posts").order_by_child(
+        "user_id").equal_to(u_id).get().val()
+
+    # fetch user comments
+    user_comments = db.child("comments").order_by_child(
+        "user_id").equal_to(u_id).get().val()
+
+    return {
+        "user": data,
+        "posts": user_posts,
+        "comments": user_comments,
+    }, 200
+
+
 @bp.route("/login", methods=["POST"])
 def login():
     params = request.get_json()

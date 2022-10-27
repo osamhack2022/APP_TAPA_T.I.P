@@ -5,12 +5,12 @@ import PostCountList from '@components/community/PostCountList'
 import UserProfile from '@components/community/UserProfile'
 import FadingDots from '@components/FadingDots'
 import Spacer from '@components/Spacer'
+import TPButton from '@components/TPButton'
 import TPToggleButtonWithValue from '@components/TPToggleButtonWithValue'
 import { COLOR } from '@constants/color'
 import { FONT } from '@constants/font'
 import { css } from '@emotion/native'
 import { MaterialIcons } from '@expo/vector-icons'
-import useAxios from '@hooks/axios'
 import {
 	useLikeMutation,
 	usePostQuery,
@@ -42,7 +42,7 @@ type CommunityPostRouteProp = RouteProp<
 
 const CommunityPostScreen: React.FC = () => {
 	const navigation = useNavigation<NavigationProp>()
-	const axios = useAxios()
+
 	const {
 		params: { postId },
 	} = useRoute<CommunityPostRouteProp>()
@@ -62,19 +62,6 @@ const CommunityPostScreen: React.FC = () => {
 	useEffect(() => {
 		view.mutate()
 	}, [])
-
-	// const onSubmitComment = async (content: string) => {
-	// 	if (content === '') {
-	// 		Alert.alert('댓글을 입력해 주세요!')
-	// 		return
-	// 	}
-	// 	try {
-	// 		const res = await axios.post(`/community/comment/${postId}`, {
-	// 			user_id: user?.uid,
-	// 			content,
-	// 		})
-	// 	} catch (e) {}
-	// }
 
 	if (postQuery.isLoading) {
 		return (
@@ -173,6 +160,7 @@ const CommunityPostScreen: React.FC = () => {
 							>
 								{postQuery.data.post.content}
 							</Text>
+							<Spacer y={20} />
 							<TPToggleButtonWithValue
 								count={
 									postQuery.data.post.likes
@@ -193,11 +181,30 @@ const CommunityPostScreen: React.FC = () => {
 						</View>
 						<View
 							style={css`
-								height: 6px;
-								width: 100%;
+								padding: 10px;
 								background-color: ${COLOR.GRAY.NORMAL(1)};
+								flex-direction: row;
+								align-items: center;
+								justify-content: center;
 							`}
-						/>
+						>
+							<TPButton
+								variant="inline"
+								size="small"
+								onPress={() =>
+									navigation.navigate('CommunityEmotion', {
+										post: postQuery.data.post,
+									})
+								}
+							>
+								이 게시물의 감정분석 결과 보기
+							</TPButton>
+							<MaterialIcons
+								name="chevron-right"
+								size={24}
+								color={COLOR.BRAND.MAIN}
+							/>
+						</View>
 						{commentList.map(comment => {
 							return (
 								<PostComment
