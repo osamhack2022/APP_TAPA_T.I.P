@@ -1,5 +1,9 @@
 runtime: python39
 entrypoint: gunicorn -b :$PORT app:app
+instance_class: B1
+basic_scaling:
+  max_instances: 4
+  idle_timeout: 5m
 
 handlers:
   # This configures Google App Engine to serve the files in the app's static
