@@ -12,6 +12,7 @@ import { css } from '@emotion/native'
 import { useSafeUserQuery } from '@hooks/data/user'
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
+import { useEffect,useState } from 'react'
 import { Text, View } from 'react-native'
 
 import { AINaviParamList } from './AINavigator'
@@ -25,33 +26,42 @@ const AIResultScreen: React.FC = () => {
 	} = useRoute<AIResultRouteProp>()
 	const userQuery = useSafeUserQuery()
 
-	const dangerScore = Math.floor((parseFloat(result.dangerous_rate) * 100) / 25)
-	const possibility = (parseFloat(result.chance_of_forced_reloc) * 100).toFixed(
+	const [dangerScore,setDangerScore] = useState(0)
+	const [possibility,setPossibility] = useState(0)
+
+	const [punishmentCanSplit,setPunishmentCanSplit] = useState(false)
+	const [havePunishmentMax, setHavePunishmentMax] = useState(false)
+	const [punishmentMin, setPunishmentMin] = useState("")
+	const [punishmentMax, setPunishmentMax] = useState("")
+
+
+	useEffect(()=>{	
+	setDangerScore(Math.floor((parseFloat(result.dangerous_rate) * 100) / 25))
+	setPossibility((parseFloat(result.chance_of_forced_reloc) * 100).toFixed(
 		2,
-	)
-	const punishmentCanSplit = result.predicted_punishment.includes(' ~ ')
-	const havePunishmentMax = result.predicted_punishment.includes('~')
-	let punishmentMin, punishmentMax
+	))
+
+	setPunishmentCanSplit(result.predicted_punishment.includes(' ~ '))
+	setHavePunishmentMax(result.predicted_punishment.includes('~'))
 	if (punishmentCanSplit) {
 		const splits = result.predicted_punishment.split(' ~ ')
-		punishmentMin = splits[0]
-		punishmentMax = splits[1]
+		setPunishmentMin(splits[0])
+		setPunishmentMax(splits[1])
 	} else if (havePunishmentMax) {
 		const position = result.predicted_punishment.indexOf('~')
-		punishmentMin =
+		setPunishmentMin(
 			result.predicted_punishment.slice(0, position) +
-			result.predicted_punishment.slice(position + 2)
-		punishmentMax =
+			result.predicted_punishment.slice(position + 2))
+		setPunishmentMax(
 			result.predicted_punishment.slice(0, position - 1) +
-			result.predicted_punishment.slice(position + 1)
+			result.predicted_punishment.slice(position + 1))
 	} else {
-		punishmentMin = result.predicted_punishment
-		punishmentMax = '-'
+		setPunishmentMin(result.predicted_punishment)
+		setPunishmentMax('-')
 	}
-
-	// if (loading || !result) return <FadingDots />
-	// else
-	return (
+	},[result])
+	if (result===undefined) return <FadingDots />
+	else return (
 		<>
 			<View
 				style={css`

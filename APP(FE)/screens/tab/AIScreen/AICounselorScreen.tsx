@@ -47,16 +47,19 @@ const AICounselorScreen: React.FC = () => {
 			once: ANSWER[2][select[2]].value,
 			month: select[3] !== -1 ? select[3] : 0,
 			frequency:
-				select[4] !== -1 ? (ANSWER[4][select[4]].value as string) : '0',
+				select[4] !== -1 ? (ANSWER[4][select[4]].value as string) : "0",
 			is_planned: ANSWER[5][select[5]].value,
 			mercy: ANSWER[6][select[6]].value,
 		}
 		const res = await axios.post<PredictionType>('/predict', input)
 		console.log(res)
+
 		if (res.status === 200) {
 			setSelect([-1, -1, -1, -1, -1, -1, -1])
 			setQuery(0)
 			setMonth('')
+			await setTimeout(()=>console.log("dangerous_rate : "+res.data.dangerous_rate),1000)
+
 			navigation.navigate('AIResult', { result: res.data })
 		}
 		//input 서버에 보내서 결과값 받기 ->result객체에 저장
@@ -117,8 +120,8 @@ const AICounselorScreen: React.FC = () => {
 													? COLOR.BRAND.MAIN
 													: COLOR.GRAY.NORMAL(7)
 											}
-											buttonSize={16}
-											buttonOuterSize={20}
+											buttonSize={15}
+											buttonOuterSize={30}
 											buttonWrapStyle={{ margin: 10 }}
 										/>
 										<RadioButtonLabel
@@ -132,11 +135,12 @@ const AICounselorScreen: React.FC = () => {
 												setSelect(newselect)
 											}}
 											labelStyle={{
-												fontSize: 16,
+												fontSize: 20,
 												color:
 													select[query] === i
 														? COLOR.BRAND.MAIN
 														: COLOR.GRAY.NORMAL(7),
+												paddingTop : 6,
 											}}
 										/>
 									</RadioButton>

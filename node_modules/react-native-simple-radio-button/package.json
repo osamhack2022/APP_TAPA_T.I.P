@@ -1,0 +1,28 @@
+{
+  "name": "react-native-simple-radio-button",
+  "version": "2.7.4",
+  "description": "simple and useful animated radio button component for React Native",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/moschan/react-native-simple-radio-button.git"
+  },
+  "keywords": [
+    "react-component",
+    "react-native",
+    "ios",
+    "android",
+    "form",
+    "button",
+    "radio-button"
+  ],
+  "author": "moschan <kota.frsw＠gmail.com> (http://moschan.com/blog/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/moschan/react-native-simple-radio-button/issues"
+  },
+  "homepage": "https://github.com/moschan/react-native-simple-radio-button#readme"
+}
