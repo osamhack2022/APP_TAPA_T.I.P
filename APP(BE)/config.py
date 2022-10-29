@@ -12,3 +12,5 @@ config = {
 
 app_secret_key = os.environ["FLASK_SECRET_KEY"]
 classifier_server_url = os.environ["CLASSIFIER_SERVER_URL"]
+admin_account_email = os.environ["ADMIN_ACCOUNT_EMAIL"]
+admin_account_password = os.environ["ADMIN_ACCOUNT_PASSWORD"]

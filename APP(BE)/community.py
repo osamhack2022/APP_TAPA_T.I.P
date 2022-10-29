@@ -1,13 +1,11 @@
-from flask import Flask, render_template, Blueprint, request
-import os
-import pyrebase
-import requests
-import time
-import datetime
-import json
 import collections
-from ai_linker import execute_async, handle_content_task
+import json
+import time
 
+import pyrebase
+from flask import Blueprint, request
+
+from ai_linker import execute_async, handle_content_task
 from config import config
 from users import check_token
 
@@ -35,7 +33,7 @@ def get_best_list():
             likes.append(0)
 
     # prevention of empty data
-    if (len(post_keys) == 0):
+    if len(post_keys) == 0:
         return {}, 200
 
     # NOTE: use of zip to create tuple :)
@@ -59,7 +57,7 @@ def get_new_list():
 
 @bp.route("/posts/", methods=["GET"])
 def get_post_list():
-    if (request.args.get('tags') is not None):
+    if request.args.get('tags') is not None:
         tag = request.args.get('tags')
         posts_dic = db.child("posts").order_by_child("updated_at").get().val()
         tag_posts = {}
@@ -163,7 +161,7 @@ def post_a_post():
     })
     db.child("posts").child(post_id).update({'pic_url': u_pic_url})
 
-    args = (user_id, "post", post_id, u_content)
+    args = (user_id, "post", post_id, u_content, request.url_root)
     execute_async(handle_content_task, args)
     return {"status": "post success", "post_id": post_id}, 200
 

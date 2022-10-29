@@ -1,14 +1,11 @@
-from crypt import methods
-from flask import Flask, render_template, Blueprint, request
-import os
+import base64
+import time
+
 import pyrebase
 import requests
-import json
-import time
-import datetime
-import base64
+from flask import Blueprint, request
 
-from config import config
+from config import *
 
 firebase = pyrebase.initialize_app(config)
 auth = firebase.auth()
@@ -17,23 +14,33 @@ storage = firebase.storage()
 
 bp = Blueprint("users", __name__, url_prefix="/users")
 
-# pass
+
+def admin_login():
+    """
+    Attempts to auth with admin account credentials. If successful, the token of login session will be returned.
+
+    :return: A string which is the token of the admin account's login session or "invalid credentials" if login failed
+    """
+    try:
+        res = auth.sign_in_with_email_and_password(admin_account_email, admin_account_password)
+        return res["idToken"]
+    except requests.exceptions.HTTPError:
+        return "invalid credentials"
 
 
-def update_avatar(blob, u_id):
-    with open(u_id + ".jpg", "wb") as fh:
-        fh.write(base64.decodebytes(blob))
+def update_avatar(blob, user_id):
+    with open(user_id + ".jpg", "wb") as file_handler:
+        file_handler.write(base64.decodebytes(blob))
 
-    storage.child("images").child(u_id).child("profile_pic").put(u_id + '.jpg')
-    pic_url = storage.child("images").child(
-        u_id).child("profile_pic").get_url(None)
+    storage.child("images").child(user_id).child("profile_pic").put(user_id + '.jpg')
+    pic_url = storage.child("images").child(user_id).child("profile_pic").get_url(None)
     return pic_url
 
 
 def check_token(token):
     try:
         decoded_token = auth.get_account_info(token)
-        return (decoded_token["users"][0])
+        return decoded_token["users"][0]
     except requests.exceptions.HTTPError:
         return "invalid token"
 

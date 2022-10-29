@@ -51,10 +51,10 @@ def create_channel():
     parameters = request.get_json()
     user_id = parameters["user_id"]
 
-    res = database.child("users").child(self_id).child("channels").child(user_id).shallow().get()
+    res = database.child("users").child(self_id).child("channels").child(user_id).get().val()
 
-    if res.val() is not None:
-        return {"status": "channel already exists"}, 200
+    if res is not None:
+        return {"status": "channel already exists", "id": res}, 200
 
     now = int(time.time())
 
@@ -75,7 +75,7 @@ def create_channel():
         self_id: channel_id
     })
 
-    return {"status": "channel creation success"}, 200
+    return {"status": "channel creation success", "id": channel_id}, 200
 
 
 @blueprint.route("/<channel_id>", methods=["GET"])
@@ -120,7 +120,7 @@ def send_message(channel_id):
     database.child("channels").child(channel_id).child("messages").child(message_id).set(now)
     database.child("channels").child(channel_id).child("last_message_id").set(message_id)
     database.child("channels").child(channel_id).child("updated_at").set(now)
-    return {"status": "message creation success"}, 200
+    return {"status": "message creation success", "id": message_id}, 200
 
 
 @blueprint.route("/<channel_id>/all", methods=["GET"])
