@@ -11,7 +11,6 @@ import { COLOR } from '@constants/color'
 import { FONT } from '@constants/font'
 import { css } from '@emotion/native'
 import { MaterialIcons } from '@expo/vector-icons'
-import useAxios from '@hooks/axios'
 import {
 	useLikeMutation,
 	usePostQuery,
@@ -43,7 +42,7 @@ type CommunityPostRouteProp = RouteProp<
 
 const CommunityPostScreen: React.FC = () => {
 	const navigation = useNavigation<NavigationProp>()
-	const axios = useAxios()
+
 	const {
 		params: { postId },
 	} = useRoute<CommunityPostRouteProp>()

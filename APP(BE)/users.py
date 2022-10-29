@@ -71,9 +71,14 @@ def get_myself_detail():
     user_posts = db.child("posts").order_by_child(
         "user_id").equal_to(u_id).get().val()
 
+    # fetch user comments
+    user_comments = db.child("comments").order_by_child(
+        "user_id").equal_to(u_id).get().val()
+
     return {
         "user": data,
-        "posts": user_posts
+        "posts": user_posts,
+        "comments": user_comments,
     }, 200
 
 

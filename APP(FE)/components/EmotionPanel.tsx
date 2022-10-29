@@ -17,7 +17,9 @@ type Props = {
 	emotionData: EmotionData
 }
 
-const EMOTION_LABEL: Record<keyof EmotionData, string> = {
+export type EmotionKey = keyof EmotionData
+
+export const EMOTION_LABEL: Record<keyof EmotionData, string> = {
 	happiness: '행복',
 	sadness: '슬픔',
 	anger: '분노',
@@ -26,7 +28,7 @@ const EMOTION_LABEL: Record<keyof EmotionData, string> = {
 	hurt: '상처',
 }
 
-const EMOTION_COLORS: Record<keyof EmotionData, string> = {
+export const EMOTION_COLORS: Record<keyof EmotionData, string> = {
 	happiness: '#f15bb5',
 	sadness: '#0096c7',
 	anger: '#ef233c',

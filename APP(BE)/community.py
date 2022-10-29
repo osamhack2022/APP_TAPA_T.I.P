@@ -6,6 +6,7 @@ import time
 import datetime
 import json
 import collections
+from ai_linker import execute_async, handle_content_task
 
 from config import config
 from users import check_token
@@ -156,12 +157,15 @@ def post_a_post():
 
     res = db.child("posts").push(to_push)
 
-    # print(res)
+    post_id = res["name"]
     db.child("users").child(user_id).child("posts").update({
-        res["name"]: u_created_at
+        post_id: u_created_at
     })
-    db.child("posts").child(res["name"]).update({'pic_url': u_pic_url})
-    return {"status": "post success", "post_id": res["name"]}, 200
+    db.child("posts").child(post_id).update({'pic_url': u_pic_url})
+
+    args = (user_id, "post", post_id, u_content)
+    execute_async(handle_content_task, args)
+    return {"status": "post success", "post_id": post_id}, 200
 
 # 게시물 수정, login required.
 
@@ -375,7 +379,7 @@ def update_views(post_id):
         "views": past_view
       })"""
     past_view = db.child("posts").child(post_id).child("views").get().val()
-    past_view += 1
+    past_view = 1 if past_view is None else past_view + 1
     db.child("posts").child(post_id).update({
         "views": past_view
     })
