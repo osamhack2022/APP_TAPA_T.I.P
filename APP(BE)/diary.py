@@ -1,11 +1,9 @@
-from flask import Flask, render_template, Blueprint, request
-import os
-import pyrebase
-import requests
 import time
-import datetime
-from ai_linker import execute_async, handle_content_task
 
+import pyrebase
+from flask import Blueprint, request
+
+from ai_linker import execute_async, handle_content_task
 from config import config
 from users import check_token
 
@@ -81,7 +79,7 @@ def post_diary():
         diary_id: u_created_at
     })
 
-    args = (user_id, "diary", diary_id, u_content)
+    args = (user_id, "diary", diary_id, u_content, request.url_root)
     execute_async(handle_content_task, args)
 
     return {"status": "post success", "diary_id": diary_id}, 200

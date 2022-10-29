@@ -1,13 +1,7 @@
-from flask import Flask, render_template, Blueprint, request
-import os
 import pyrebase
-import requests
-import time
-import datetime
-import random
+from flask import Blueprint
 
 from config import config
-from users import check_token
 
 firebase = pyrebase.initialize_app(config)
 auth = firebase.auth()
@@ -18,9 +12,9 @@ bp = Blueprint("news", __name__, url_prefix="/news")
 
 
 @bp.route("/list", methods=["GET"])
-def get_diary_list():
-
+def get_all_news():
     news = db.child("news").get().val()
+
     if news is None:
         return {}, 500
 
