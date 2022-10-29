@@ -5,7 +5,7 @@ import { ReactNode } from 'react'
 import { Pressable, PressableProps, Text } from 'react-native'
 import tinycolor from 'tinycolor2'
 
-import Spinner from './Spinner'
+import Spinner from '../Spinner'
 
 type Props = Omit<PressableProps, 'disabled' | 'children'> & {
 	variant?: 'primary' | 'secondary' | 'inline'
@@ -15,7 +15,7 @@ type Props = Omit<PressableProps, 'disabled' | 'children'> & {
 	size?: 'small' | 'medium' | 'large'
 }
 
-const TPButton: React.FC<Props> = ({
+const AIButton: React.FC<Props> = ({
 	children,
 	disabled,
 	loading,
@@ -25,10 +25,10 @@ const TPButton: React.FC<Props> = ({
 	...passProps
 }) => {
 	const color = disabled
-		? COLOR.GRAY.NORMAL(5)
+		? tinycolor(COLOR.BRAND.MAIN).lighten(20).toHexString()
 		: variant === 'primary'
 		? COLOR.BRAND.MAIN
-		: COLOR.BLACK(4)
+		: COLOR.GRAY.NORMAL(3)
 	const pressedColor = tinycolor(color).darken(10).toHexString()
 	const [padding, fontSize] =
 		size === 'small'
@@ -71,7 +71,7 @@ const TPButton: React.FC<Props> = ({
 									font-size: ${fontSize + 4 + 'px'};
 							  `
 							: css`
-									color: #fff;
+									color: ${variant === 'primary' ? '#fff' : COLOR.BLACK(2)} 
 							  `,
 						css`
 							font-size: ${fontSize + 'px'};
@@ -88,4 +88,4 @@ const TPButton: React.FC<Props> = ({
 	)
 }
 
-export default TPButton
+export default AIButton
