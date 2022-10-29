@@ -84,6 +84,17 @@ def get_specific_post(post_id):
         comments = {}
     return {"post": post, "comments": comments}, 200
 
+
+@bp.route("/posts/<post_id>", methods=["GET"])
+def get_diary_emotion(post_id):
+    data = db.child("emotion_data").order_by_child(
+        "content_id").equal_to(post_id).get().val()
+    print(data)
+    if data is None:
+        return {}, 500
+    return data
+
+
 # 게시물 좋아요 / 좋아요 삭제
 
 
