@@ -3,7 +3,7 @@ import { FontAwesome5 } from '@expo/vector-icons'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { getFocusedRouteNameFromRoute } from '@react-navigation/core'
 import { RouteProp } from '@react-navigation/native'
-import AIScreen from '@screens/tab/AIScreen'
+import AINavigator from '@screens/tab/AIScreen/AINavigator'
 import CommunityNavigator from '@screens/tab/community/CommunityNavigator'
 import ConsultNavigator from '@screens/tab/consult/ConsultNavigator'
 import HomeScreen from '@screens/tab/HomeScreen'
@@ -87,12 +87,13 @@ const TabNavigator: React.FC<RootStackScreenProps<'Tab'>> = ({
 			<Tab.Screen
 				name="AI"
 				options={{
+					headerShown: false,
 					title: 'AI 상담',
 					tabBarIcon: ({ color, focused, size }) => (
 						<FontAwesome5 name="robot" {...{ color, size }} />
 					),
 				}}
-				component={AIScreen}
+				component={AINavigator}
 			/>
 			<Tab.Screen
 				name="User"

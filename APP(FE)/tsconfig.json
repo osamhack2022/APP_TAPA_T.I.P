@@ -13,6 +13,7 @@
 			"@navigators/*": ["./navigators/*"],
 			"@app-types/*": ["./types/*"],
 			"@api/*": ["./types/*"],
+			"@assets/*" : ["./assets/*"],
 			"@/*": ["./*"]
 		}
 	}

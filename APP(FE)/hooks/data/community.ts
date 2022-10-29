@@ -31,7 +31,7 @@ export const useNewPostListQuery = () => {
 			.map<PostType>((key, _) => {
 				return { id: key, ...res.data[key] }
 			})
-			.sort((a, b) => b.created_at - a.created_at)
+			.sort((a, b) => a.created_at - b.created_at)
 		return data
 	})
 	useFocusEffect(
