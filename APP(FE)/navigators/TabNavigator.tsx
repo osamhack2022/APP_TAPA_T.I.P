@@ -5,7 +5,7 @@ import { getFocusedRouteNameFromRoute } from '@react-navigation/core'
 import { RouteProp } from '@react-navigation/native'
 import AIScreen from '@screens/tab/AIScreen'
 import CommunityNavigator from '@screens/tab/community/CommunityNavigator'
-import ExpertScreen from '@screens/tab/ExpertScreen'
+import ConsultNavigator from '@screens/tab/consult/ConsultNavigator'
 import HomeScreen from '@screens/tab/HomeScreen'
 import UserScreen from '@screens/tab/UserScreen'
 
@@ -13,7 +13,7 @@ import { RootStackScreenProps } from './RootStack'
 
 export type TabParamList = {
 	Home: undefined
-	Expert: undefined
+	Consult: undefined
 	Community: undefined
 	AI: undefined
 	User: undefined
@@ -25,9 +25,16 @@ const TabNavigator: React.FC<RootStackScreenProps<'Tab'>> = ({
 	navigation,
 	route,
 }) => {
-	const getTabBarVisibility = (route: RouteProp<TabParamList, 'Community'>) => {
+	const getTabBarVisibility = (
+		route: RouteProp<TabParamList, 'Community' | 'Consult'>,
+	) => {
 		const routeName = getFocusedRouteNameFromRoute(route)
-		const hideOnScreens = ['CommunityWrite', 'CommunityForum', 'CommunityPost']
+		const hideOnScreens = [
+			'CommunityWrite',
+			'CommunityForum',
+			'CommunityPost',
+			'ConsultDM',
+		]
 		return routeName ? hideOnScreens.indexOf(routeName) <= -1 : true
 	}
 	return (
@@ -50,14 +57,18 @@ const TabNavigator: React.FC<RootStackScreenProps<'Tab'>> = ({
 				component={HomeScreen}
 			/>
 			<Tab.Screen
-				name="Expert"
-				options={{
-					title: '전문가',
+				name="Consult"
+				options={({ route, navigation }) => ({
+					title: '전문 상담',
+					headerShown: false,
 					tabBarIcon: ({ color, focused, size }) => (
 						<FontAwesome5 name="user-tie" {...{ color, size }} />
 					),
-				}}
-				component={ExpertScreen}
+					tabBarStyle: {
+						display: getTabBarVisibility(route) ? 'flex' : 'none',
+					},
+				})}
+				component={ConsultNavigator}
 			/>
 			<Tab.Screen
 				name="Community"
