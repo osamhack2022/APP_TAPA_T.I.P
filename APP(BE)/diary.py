@@ -15,6 +15,16 @@ storage = firebase.storage()
 bp = Blueprint("diary", __name__, url_prefix="/diary")
 
 
+@bp.route("/emotion/<diary_id>", methods=["GET"])
+def get_diary_emotion(diary_id):
+    data = db.child("emotion_data").order_by_child(
+        "content_id").equal_to(diary_id).get().val()
+    print(data)
+    if data is None:
+        return {}, 500
+    return data
+
+
 @bp.route("/list", methods=["GET"])
 def get_diary_list():
     token = request.headers.get("Authorization")
