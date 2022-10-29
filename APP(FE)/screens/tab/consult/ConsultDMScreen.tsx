@@ -47,6 +47,7 @@ const ConsultDMScreen: React.FC = () => {
 							font-family: ${FONT.Pretendard.BOLD};
 						`}
 					>
+						{/* 위험도 감지 알림 채널입니다. */}
 						{consultant?.name} {consultant?.position}님과의 1:1 상담방입니다.
 					</Text>
 				</View>
