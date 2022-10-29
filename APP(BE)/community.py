@@ -16,15 +16,19 @@ storage = firebase.storage()
 
 bp = Blueprint("community", __name__, url_prefix="/community")
 
-# best 게시물 목록
-
 
 @bp.route("/best/", methods=["GET"])
 def get_best_list():
+    """
+    Returns the top 3 most liked posts.
+
+    :return: top 3 most liked posts
+    """
     posts_dic = db.child("posts").get().val()
     likes = []
     post_keys = []
     final_dict = {}
+
     for post_key, post_val in posts_dic.items():
         post_keys.append(post_key)
         if "likes" in post_val:
@@ -43,86 +47,112 @@ def get_best_list():
         final_dict[i[1]] = posts_dic[i[1]]
 
     return json.dumps(final_dict), 200
-# new 게시물 목록
 
 
 @bp.route("/new/", methods=["GET"])
 def get_new_list():
+    """
+    Returns posts ordered by their last update time.
+
+    :return: posts ordered by their last update time.
+    """
     data = db.child("posts").order_by_child("updated_at").get().val()
     sorted_data = collections.OrderedDict(reversed(list(data.items())))
     return sorted_data, 200
 
-# 자유게시판 게시물 목록
-
 
 @bp.route("/posts/", methods=["GET"])
 def get_post_list():
-    if request.args.get('tags') is not None:
+    """
+    Returns the list of all posts ordered by their last update time.
+    Optionally, a tags list can be passed to filter the posts.
+
+    :return: list of all posts optionally filtered by tags
+    """
+    if request.args.get('tags'):
         tag = request.args.get('tags')
         posts_dic = db.child("posts").order_by_child("updated_at").get().val()
         tag_posts = {}
+
         for post_id, post_val in posts_dic.items():
             tags = post_val["tags"].split(",")
             if tag in tags:
                 tag_posts[post_id] = post_val
         return json.dumps(tag_posts), 200
-        pass
     else:
         return db.child("posts").order_by_child("updated_at").get().val(), 200
-
-# 게시물 상세 내용 + comments
 
 
 @bp.route("/posts/<post_id>", methods=["GET"])
 def get_specific_post(post_id):
+    """
+    Returns the post instance associated with post_id.
+
+    :param post_id: the id of the post to get info
+    :return: the post instance and comments linked to post
+    """
     post = db.child("posts").child(post_id).get().val()
-    comments = db.child("comments").order_by_child(
-        "post_id").equal_to(post_id).get().val()
-    if comments == []:
+
+    if not post:
+        return {"status": "post does not exist"}, 403
+
+    comments = db.child("comments").order_by_child("post_id").equal_to(post_id).get().val()
+
+    if not comments:
         comments = {}
+
     return {"post": post, "comments": comments}, 200
 
 
 @bp.route("/posts/<post_id>", methods=["GET"])
-def get_diary_emotion(post_id):
-    data = db.child("emotion_data").order_by_child(
-        "content_id").equal_to(post_id).get().val()
-    print(data)
-    if data is None:
-        return {}, 500
-    return data
+def get_emotion(post_id):
+    """
+    Gets the emotion data associated with the post.
 
-
-# 게시물 좋아요 / 좋아요 삭제
+    :param post_id: id of the post to get emotion data
+    :return: emotion data instance or {} if not exists
+    """
+    data = db.child("emotion_data").order_by_child("content_id").equal_to(post_id).get().val()
+    return data if data is not None else {}, 200
 
 
 @bp.route("/posts/<post_id>/like", methods=["POST"])
-def like_this_post(post_id):
+def like_post(post_id):
+    """
+    Adds or removes a like to the post.
+
+    :param post_id: id of the post to add/remove like
+    :return: status message indicating that adding/removing like was successful
+    """
     token = request.headers.get("Authorization")
     decoded = check_token(token)
+
     if decoded == "invalid token":
         return {"status": "Invalid token, requires login again"}, 403
 
     user_id = decoded["localId"]
+    like = db.child("users").child(user_id).child("likes").child(post_id).get().val()
 
-    like = db.child("users").child(user_id).child(
-        "likes").child(post_id).get().val()
     if like is None:
         db.child("users").child(user_id).child("likes").child(post_id).set(1)
         db.child("posts").child(post_id).child("likes").child(user_id).set(1)
     else:
         db.child("users").child(user_id).child("likes").child(post_id).remove()
         db.child("posts").child(post_id).child("likes").child(user_id).remove()
-    return {"status": "like success"}, 200
 
-# 게시물 작성, login required.
+    return {"status": "like success"}, 200
 
 
 @bp.route("/posts/", methods=["POST"])
-def post_a_post():
+def create_post():
+    """
+    Creates a new post.
+
+    :return: a status message indicating that post was created and the newly created post's id
+    """
     token = request.headers.get("Authorization")
     decoded = check_token(token)
-    print(decoded)
+
     if decoded == "invalid token":
         return {"status": "Invalid token, requires login again"}, 403
 
@@ -135,11 +165,9 @@ def post_a_post():
     u_content = params["content"]
     u_tags = params["tags"]
 
-    CUR_TIME = int(time.time())
-    u_created_at = CUR_TIME
-    u_updated_at = CUR_TIME
-
-    #print("filesize", size)
+    now = int(time.time())
+    u_created_at = now
+    u_updated_at = now
 
     to_push = {
         "username": username,
@@ -147,22 +175,14 @@ def post_a_post():
         "title": u_title,
         "content": u_content,
         "tags": u_tags,
-        "pic_url": params["pic_url"],
-        "created_at": u_created_at,
-        "updated_at": u_updated_at,
-        "views": 0,
-        "comment_num": 0
-    } if "pic_url" in params else {
-        "username": username,
-        "user_id": user_id,
-        "title": u_title,
-        "content": u_content,
-        "tags": u_tags,
         "created_at": u_created_at,
         "updated_at": u_updated_at,
         "views": 0,
         "comment_num": 0
     }
+
+    if "pic_url" in params:
+        to_push["pic_url"] = params["pic_url"]
 
     res = db.child("posts").push(to_push)
 
@@ -170,17 +190,19 @@ def post_a_post():
     db.child("users").child(user_id).child("posts").update({
         post_id: u_created_at
     })
-    db.child("posts").child(post_id).update({'pic_url': u_pic_url})
 
     args = (user_id, "post", post_id, u_content, request.url_root)
     execute_async(handle_content_task, args)
     return {"status": "post success", "post_id": post_id}, 200
 
-# 게시물 수정, login required.
-
 
 @bp.route("/posts/<post_id>", methods=["PUT"])
 def update_post(post_id):
+    """
+    Updates a new post.
+
+    :return: a status message indicating that post was updated
+    """
     token = request.headers.get("Authorization")
     decoded = check_token(token)
     if decoded == "invalid token":
@@ -191,9 +213,9 @@ def update_post(post_id):
     try:
         post_user_id = db.child("posts").child(post_id).get().val()["user_id"]
     except:
-        return {"status": "Post ID is wrong"}, 403
+        return {"status": "Post does not exist"}, 403
 
-    if (user_id != post_user_id):
+    if user_id != post_user_id:
         return {"status": "Not owner of post"}, 403
 
     params = request.get_json()
@@ -201,33 +223,34 @@ def update_post(post_id):
     u_content = params["content"]
     u_tags = params["tags"]
 
-    CUR_TIME = int(time.time())
-    u_updated_at = CUR_TIME
+    now = int(time.time())
+    u_updated_at = now
 
     to_update = {
-        "title": u_title,
-        "content": u_content,
-        "tags": u_tags,
-        "pic_url": params["pic_url"],
-        "updated_at": u_updated_at,
-    } if "pic_url" in params else {
         "title": u_title,
         "content": u_content,
         "tags": u_tags,
         "updated_at": u_updated_at,
     }
 
-    res = db.child("posts").child(post_id).update(to_update)
+    if "pic_url" in params:
+        to_update["pic_url"] = params["pic_url"]
 
+    db.child("posts").child(post_id).update(to_update)
     return {"status": "put success"}, 200
-
-# 게시물 삭제, login required.
 
 
 @bp.route("/posts/<post_id>", methods=["DELETE"])
 def delete_post(post_id):
+    """
+    Deletes a post.
+
+    :param post_id: id of the post to delete
+    :return: a status message indicating that post was deleted
+    """
     token = request.headers.get("Authorization")
     decoded = check_token(token)
+
     if decoded == "invalid token":
         return {"status": "Invalid token, requires login again"}, 403
 
@@ -236,19 +259,18 @@ def delete_post(post_id):
     try:
         post_user_id = db.child("posts").child(post_id).get().val()["user_id"]
     except:
-        return {"status": "Post ID is wrong"}, 403
+        return {"status": "Post does not exist"}, 403
 
-    if (user_id != post_user_id):
+    if user_id != post_user_id:
         return {"status": "Not owner of post"}, 403
+
     try:
-        associated_comments = db.child("posts").child(
-            post_id).child("comments").get().val().keys()
+        associated_comments = db.child("posts").child(post_id).child("comments").get().val().keys()
+
         for comment_id in associated_comments:
-            c_user_id = db.child("comments").child(
-                comment_id).child("user_id").get().val()
+            c_user_id = db.child("comments").child(comment_id).child("user_id").get().val()
             db.child("comments").child(comment_id).remove()
-            db.child("users").child(c_user_id).child(
-                "comments").child(comment_id).remove()
+            db.child("users").child(c_user_id).child("comments").child(comment_id).remove()
     except:
         pass
 
@@ -256,17 +278,20 @@ def delete_post(post_id):
     db.child("users").child(user_id).child("posts").child(post_id).remove()
     return {"status": "delete success"}, 200
 
-# 댓글 작성, login required.
-
 
 @bp.route("/comment/<post_id>", methods=["POST"])
-def post_a_comment(post_id):
+def create_comment(post_id):
+    """
+    Adds a comment to a post.
+
+    :param post_id: id of the post to add comment
+    :return: a status message indicating that comment was added and the newly created comment's id
+    """
     token = request.headers.get("Authorization")
     decoded = check_token(token)
 
     if decoded == "invalid token":
         return {"status": "Invalid token, requires login again"}, 403
-    # print(decoded)
 
     # fields
     user_id = decoded["localId"]
@@ -275,8 +300,8 @@ def post_a_comment(post_id):
     params = request.get_json()
     u_content = params["content"]
 
-    CUR_TIME = int(time.time())
-    u_created_at = CUR_TIME
+    now = int(time.time())
+    u_created_at = now
 
     res = db.child("comments").push({
         "username": username,
@@ -295,10 +320,9 @@ def post_a_comment(post_id):
     })
 
     len_comments = 0
-    # print(db.child("comments").order_by_child("post_id").equal_to(post_id).get().val())
+
     try:
-        len_comments = len(db.child("comments").order_by_child(
-            "post_id").equal_to(post_id).get().val())
+        len_comments = len(db.child("comments").order_by_child("post_id").equal_to(post_id).get().val())
     except:
         pass
 
@@ -309,9 +333,14 @@ def post_a_comment(post_id):
     return {"status": "comment post success", "comment_id": res["name"]}, 200
 
 
-# 댓글 삭제, login required.
 @bp.route("/comment/<comment_id>", methods=["DELETE"])
 def delete_comment(comment_id):
+    """
+    Deletes a comment from a post.
+
+    :param comment_id: id of the comment to delete
+    :return: a status message indicating that comment was deleted
+    """
     token = request.headers.get("Authorization")
     decoded = check_token(token)
     if decoded == "invalid token":
@@ -326,20 +355,19 @@ def delete_comment(comment_id):
     except:
         return {"status": "Comment ID is wrong"}, 403
 
-    if (user_id != c_user_id):
+    if user_id != c_user_id:
         return {"status": "Not owner of post"}, 403
 
     db.child("comments").child(comment_id).remove()
-    db.child("users").child(user_id).child(
-        "comments").child(comment_id).remove()
-    db.child("posts").child(c_post_id).child(
-        "comments").child(comment_id).remove()
+    db.child("users").child(user_id).child("comments").child(comment_id).remove()
+    db.child("posts").child(c_post_id).child("comments").child(comment_id).remove()
     len_comments = 0
+
     try:
-        len_comments = len(db.child("comments").order_by_child(
-            "post_id").equal_to(c_post_id).get().val())
+        len_comments = len(db.child("comments").order_by_child("post_id").equal_to(c_post_id).get().val())
     except:
         pass
+
     db.child("posts").child(c_post_id).update({
         "comment_num": len_comments
     })
@@ -347,46 +375,39 @@ def delete_comment(comment_id):
 
 
 @bp.route("/comment/<comment_id>/like", methods=["POST"])
-def like_this_comment(comment_id):
+def like_comment(comment_id):
+    """
+    Adds or removes a like to the comment.
+
+    :param comment_id: id of the comment to add/remove like
+    :return: status message indicating that adding/removing like was successful
+    """
     token = request.headers.get("Authorization")
     decoded = check_token(token)
+
     if decoded == "invalid token":
         return {"status": "Invalid token, requires login again"}, 403
 
     user_id = decoded["localId"]
+    like = db.child("users").child(user_id).child("likes").child(comment_id).get().val()
 
-    like = db.child("users").child(user_id).child(
-        "likes").child(comment_id).get().val()
     if like is None:
-        db.child("users").child(user_id).child(
-            "likes").child(comment_id).set(1)
-        db.child("comments").child(comment_id).child(
-            "likes").child(user_id).set(1)
+        db.child("users").child(user_id).child("likes").child(comment_id).set(1)
+        db.child("comments").child(comment_id).child("likes").child(user_id).set(1)
     else:
-        db.child("users").child(user_id).child(
-            "likes").child(comment_id).remove()
-        db.child("comments").child(comment_id).child(
-            "likes").child(user_id).remove()
+        db.child("users").child(user_id).child("likes").child(comment_id).remove()
+        db.child("comments").child(comment_id).child("likes").child(user_id).remove()
     return {"status": "like success"}, 200
 
 
 @bp.route("/posts/<post_id>/views", methods=["POST"])
-def update_views(post_id):
-    """remote_addr = request.remote_addr
-    timestamp = int(time.time())
-    try:
-      is_there_view = db.child("views").child(post_id).order_by_key().get().val().keys()
-      if remote_addr.replace(".", " ") not in is_there_view:
-        raise Exception("remote addr not in view!")
-    except: 
-      db.child("views").child(post_id).update({
-        remote_addr.replace(".", " "): timestamp
-      })
-      past_view = db.child("posts").child(post_id).child("views").get().val()
-      past_view += 1
-      db.child("posts").child(post_id).update({
-        "views": past_view
-      })"""
+def update_view_count(post_id):
+    """
+    Updates the view count of the post.
+
+    :param post_id: id of the post to update the view count
+    :return: status message indicating that the update was successful
+    """
     past_view = db.child("posts").child(post_id).child("views").get().val()
     past_view = 1 if past_view is None else past_view + 1
     db.child("posts").child(post_id).update({
