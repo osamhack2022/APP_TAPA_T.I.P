@@ -39,6 +39,7 @@ const ConsultantDetailScreen: React.FC = () => {
 			consultant: consultant,
 		})
 	}
+	console.log(consultant)
 
 	return (
 		<View

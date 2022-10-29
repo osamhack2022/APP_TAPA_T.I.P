@@ -89,6 +89,7 @@ const ConsultDMInput: React.FC<Props> = ({
 						`}
 						clearTextOnFocus
 						blurOnSubmit={false}
+						multiline
 					/>
 				)}
 			/>
