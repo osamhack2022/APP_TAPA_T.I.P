@@ -13,16 +13,19 @@ import { userAtom } from '@store/atoms'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import extra from '@utils/extra'
 import { sanitizeKey } from '@utils/firebase'
+import { scheduleLocalNotification } from '@utils/notification'
 import { useFonts } from 'expo-font'
 import * as SecureStore from 'expo-secure-store'
 import { Provider as JotaiProvider, useAtomValue } from 'jotai'
-import { PropsWithChildren, useEffect, useState } from 'react'
-import { Platform, UIManager, View } from 'react-native'
+import { PropsWithChildren, useEffect, useRef, useState } from 'react'
+import { LogBox, Platform, UIManager, View } from 'react-native'
 import { setCustomText, setCustomTextInput } from 'react-native-global-props'
 
 import 'react-native-gesture-handler'
 import 'intl'
 import 'intl/locale-data/jsonp/en'
+
+LogBox.ignoreAllLogs()
 
 if (
 	Platform.OS === 'android' &&
@@ -117,6 +120,8 @@ const App: React.FC = () => {
 		PretendardBold: require('./assets/fonts/Pretendard/PretendardStd-Bold.otf'),
 	})
 
+	const didSendNotification = useRef(false)
+
 	useEffect(() => {
 		if (fontsLoaded) {
 			setCustomText({
@@ -131,6 +136,19 @@ const App: React.FC = () => {
 			})
 		}
 	}, [fontsLoaded])
+
+	useEffect(() => {
+		if (false && !didSendNotification.current) {
+			didSendNotification.current = true
+			const count = Math.floor(Math.random() * 2) + 1
+			scheduleLocalNotification({
+				title: '타파 리포트',
+				message: `소속 부대 내 위험도가 높은 게시글 ${count}건이 발견되었어요`,
+			}).then(() => {
+				console.log('did trigger notification')
+			})
+		}
+	}, [])
 
 	if (!fontsLoaded) {
 		return <Splash />
