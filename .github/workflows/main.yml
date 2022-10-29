@@ -34,6 +34,8 @@ jobs:
         envkey_FIREBASE_STORAGE_BUCKET: ${{ secrets.FIREBASE_STORAGE_BUCKET }}
         envkey_FLASK_SECRET_KEY: ${{ secrets.FLASK_SECRET_KEY }}
         envkey_CLASSIFIER_SERVER_URL: ${{ secrets.CLASSIFIER_SERVER_URL }}
+        envkey_ADMIN_ACCOUNT_EMAIL: ${{ secrets.ADMIN_ACCOUNT_EMAIL }}
+        envkey_ADMIN_ACCOUNT_PASSWORD: ${{ secrets.ADMIN_ACCOUNT_PASSWORD }}
         directory: './APP(BE)'
         fail_on_empty: false
 
