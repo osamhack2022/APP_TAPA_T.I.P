@@ -49,12 +49,12 @@
 그리고 이러한 *끔찍한 사고가 다시는 일어나지 않도록* 부조리, 가혹행위를 사전에 예측하여 조치를 취해 병영 사고를 예방하고 싶었습니다.
 
 <p align="center">
-	<img src="/assets/motive_develop.jpg" width="100%"/>
+	<img src="/assets/motive_develop.JPG" width="100%"/>
 </p>
 
 ### :earth_africa: 개발 배경
 <p align="center">
-	<img src="/assets/reason_develop.jpg" width="100%"/>
+	<img src="/assets/reason_develop.JPG" width="100%"/>
 </p>
 
 ### :rocket: 우리의 미션 (Mission)
