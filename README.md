@@ -288,28 +288,46 @@
 
 ### 다운로드 및 패키지 설치 안내
 
-### Front-End
+### Environment Variables (환경변수들)
 ```
+FIREBASE_API_KEY=<firebase api key>
+FIREBASE_AUTH_DOMAIN=<firebase auth domain>
+FIREBASE_DATABASE_URL=<firebase db url>
+FIREBASE_STORAGE_BUCKET=<firebase storage bucket url>
+FLASK_SECRET_KEY=<secret key for flask sessions>
+CLASSIFIER_SERVER_URL=<AI Backend server url>
+ADMIN_ACCOUNT_EMAIL=<email for an account created for administrative purposes>
+ADMIN_ACCOUNT_PASSWORD=<password for admin account>
+```
+
+### APP Frontend
+```console
 $ git clone https://github.com/osamhack2022-v2/APP_TAPA_T.I.P.git
 $ cd APP(FE)
 $ yarn or npm install
+$ touch .env
+$ vim .env # 위에 서술된 환경변수들 저장
 $ npx expo start
 ```
-### Back-End
-```
+### APP Backend
+```console
 $ git clone https://github.com/osamhack2022-v2/APP_TAPA_T.I.P.git
+$ vim ~/.bashrc # 위에 서술뒨 환경변수들 추가. rc파일의 이름은 사용자의 쉘에 따라 다를 수 있음.
 $ cd APP(BE)
 $ python3 -m venv env
 $ . env/bin/activate
 $ pip install -r requirements.txt
-
-이후 백엔드 팀과 컨택해서 .env에 들어가는 6 개의 environment variable 값 알아내기. 
-- FIREBASE_API_KEY
-- FIREBASE_AUTH_DOMAIN
-- FIREBASE_DATABASE_URL
-- FIREBASE_STORAGE_BUCKET
-- FLASK_SECRET_KEY
-- CLASSIFIER_SERVER_URL
+$ python app.py
+```
+### AI Backend
+```console
+$ git clone https://github.com/osamhack2022-v2/APP_TAPA_T.I.P.git
+$ vim ~/.bashrc # 위에 서술뒨 환경변수들 추가. rc파일의 이름은 사용자의 쉘에 따라 다를 수 있음.
+$ cd AI(BE)
+$ python3 -m venv env
+$ . env/bin/activate
+$ pip install -r requirements.txt
+$ python app.py
 ```
 
 <h2 id="team"> :family_man_man_girl_boy: 9. 팀 정보 (Team Information) </h2>
