@@ -7,6 +7,8 @@ import { FontAwesome5 } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { ConsultNavigationParamList } from '@screens/tab/consult/ConsultNavigator'
+import { userAtom } from '@store/atoms'
+import { useAtomValue } from 'jotai'
 import { DateTime } from 'luxon'
 import React from 'react'
 import { Image, Pressable, Text, View } from 'react-native'
@@ -24,6 +26,7 @@ type Props = {
 
 const ConsultHistoryBox: React.FC<Props> = ({ channel, consultant }) => {
 	const navigation = useNavigation<NavigationProp>()
+	const user = useAtomValue(userAtom)
 	if (!consultant) return null
 	return (
 		<Pressable
@@ -42,11 +45,14 @@ const ConsultHistoryBox: React.FC<Props> = ({ channel, consultant }) => {
 				})
 			}
 		>
-			<Image
-				source={images.consultantProfile[consultant.name]}
-				style={{ width: 40, height: 40 }}
-			/>
+			{!user?.email?.includes('counselor') && (
+				<Image
+					source={images.consultantProfile[consultant.name]}
+					style={{ width: 40, height: 40 }}
+				/>
+			)}
 			<Spacer x={10} />
+
 			<View
 				style={css`
 					flex-direction: column;
@@ -59,7 +65,12 @@ const ConsultHistoryBox: React.FC<Props> = ({ channel, consultant }) => {
 						font-size: 16px;
 					`}
 				>
-					{consultant.name} {consultant.position}
+					{user?.email?.includes('counselor')
+						? Object.keys(channel.participants)[0] ===
+						  'caU3GxzaocVukcgVGrajwkGqxjk2'
+							? 'TAPA 공지 채널'
+							: '익명 TAPA 이용 장병'
+						: `${consultant.name}  ${consultant.position}`}
 				</Text>
 				<Spacer y={10} />
 				<Text

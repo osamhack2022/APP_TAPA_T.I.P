@@ -23,7 +23,7 @@ export const EMOTION_LABEL: Record<keyof EmotionData, string> = {
 	happiness: '행복',
 	sadness: '슬픔',
 	anger: '분노',
-	surprise: '당항',
+	surprise: '당황',
 	anxious: '불안',
 	hurt: '상처',
 }

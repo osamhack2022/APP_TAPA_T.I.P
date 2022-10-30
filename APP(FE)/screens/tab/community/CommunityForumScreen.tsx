@@ -55,7 +55,17 @@ const Tag: React.FC<{
 const CommunityForumScreen: React.FC = () => {
 	const [tag, setTag] = useState<string | undefined>(undefined)
 	const navigation = useNavigation<NavigationProp>()
-	const tags = ['부조리', '전입/전출', '군법', '성군기']
+	const tags = [
+		'부조리',
+		'전입/전출',
+		'폭언/욕설',
+		'성희롱/성폭행',
+		'모욕',
+		'따돌림',
+		'얼차려',
+		'협박/강요',
+		'금품갈취',
+	]
 	const postListQuery = usePostListQuery(tag)
 	const refetch = (force?: boolean) => {
 		if (force || postListQuery.data) postListQuery.refetch()
@@ -71,24 +81,26 @@ const CommunityForumScreen: React.FC = () => {
 				flex: 1;
 			`}
 		>
-			<View
-				style={css`
-					flex-direction: row;
-					padding: 10px;
-				`}
-			>
-				{tags.map(item => {
-					return (
-						<Tag
-							value={item}
-							key={item}
-							selected={tag === item}
-							onPress={() => {
-								setTag(tag === item ? undefined : item)
-							}}
-						/>
-					)
-				})}
+			<View>
+				<ScrollView
+					horizontal
+					contentContainerStyle={{
+						padding: 10,
+					}}
+				>
+					{tags.map(item => {
+						return (
+							<Tag
+								value={item}
+								key={item}
+								selected={tag === item}
+								onPress={() => {
+									setTag(tag === item ? undefined : item)
+								}}
+							/>
+						)
+					})}
+				</ScrollView>
 			</View>
 			<PostWriteButton />
 			<ScrollView

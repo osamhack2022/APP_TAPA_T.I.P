@@ -58,7 +58,7 @@ const PostSummary: React.FC<Props> = ({ post, size, style }) => {
 							margin-bottom: 4px;
 						`}
 					>
-						<UserProfile userName={post.username} size="small" />
+						<UserProfile userName={post.username || '닉네임'} size="small" />
 						<Text
 							style={css`
 								font-size: 10px;

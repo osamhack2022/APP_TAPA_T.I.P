@@ -51,7 +51,7 @@ const PostMenuModal: React.FC<Props> = ({ post, open, setOpen }) => {
 				`}
 			>
 				<Spacer y={10} />
-				<Pressable
+				{/* <Pressable
 					style={css`
 						padding: 16px 20px;
 					`}
@@ -63,7 +63,7 @@ const PostMenuModal: React.FC<Props> = ({ post, open, setOpen }) => {
 					>
 						메세지 보내기
 					</Text>
-				</Pressable>
+				</Pressable> */}
 				{post.user_id == user?.uid && (
 					<Pressable
 						style={css`

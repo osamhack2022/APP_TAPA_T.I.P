@@ -63,7 +63,7 @@ const CommentMenuModal: React.FC<Props> = ({ comment, open, setOpen }) => {
 							: '추천'}
 					</Text>
 				</Pressable>
-				<Pressable
+				{/* <Pressable
 					style={css`
 						padding: 16px 20px;
 					`}
@@ -75,7 +75,7 @@ const CommentMenuModal: React.FC<Props> = ({ comment, open, setOpen }) => {
 					>
 						메세지 보내기
 					</Text>
-				</Pressable>
+				</Pressable> */}
 				{comment.user_id == user?.uid && (
 					<Pressable
 						style={css`
