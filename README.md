@@ -220,6 +220,24 @@
    	    <td width="50%">
 	    	<p align="center">개발한 API 실행이 되는지 확인 및 테스트할 수 있도록 도와주며, 프런트 및 백이 어디서든지 API 작동여부를 확인할 수 있습니다.</p>
 	    </td>
+    	</tr>
+	<tr>
+   	    <td width="50%">
+	    	<h4 align="center"><img src="/assets/expo-pr.png" width="95%" height="95%">
+		<br><br><a href="https://github.com/osamhack2022/APP_TAPA_T.I.P/actions">EXPO Build 자동화</a></h4>
+	    </td>
+   	    <td width="50%">
+	    	<h4 align="center"><img src="/assets/lint.png" width="95%" height="95%">
+		<br><br><a href="https://github.com/osamhack2022/APP_TAPA_T.I.P/actions">ESLint 자동화</a></h4>
+	    </td>
+    	</tr>
+	<tr>
+   	    <td width="50%">
+	    	<p align="center">Github Actions를 활용하여 Expo 빌드 커맨드를 자동으로 실행하여 CI/CD 빌드를 구현했습니다. 모든 PR에 대해서 자동으로 빌드하여 Expo Go Client를 통해 가장 최신 혹은 PR에서 보여주고 싶은 버전의 frontend를 데모로 보여줄 수 있게 했습니다.</p>
+	    </td>
+   	    <td width="50%">
+	    	<p align="center">코드 스타일 통일을 용이하게 하기 위해 ESLint를 CI/CD 과정에 포함시켰습니다.</p>
+	    </td>
     	</tr>	
     </tbody>
 </table>
