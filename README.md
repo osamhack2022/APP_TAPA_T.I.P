@@ -346,7 +346,3 @@ $ python app.py
 - [MIT](https://github.com/osam2020-WEB/Sample-ProjectName-TeamName/blob/master/license.md)
 
 This project is licensed under the terms of the MIT license.
-
-AI(BE) 폴더의 NLP 파트 모델은 https://github.com/SKTBrain/KoBERT 의 KoBERT 모델을 활용했습니다.
-KoBERT는 `Apache-2.0` 라이선스 하에 공개되어 있습니다. 라이선스 전문은 LICENSE 파일에서 확인하실 수 있습니다.
-Copyright (c) 2019 SK T-Brain
