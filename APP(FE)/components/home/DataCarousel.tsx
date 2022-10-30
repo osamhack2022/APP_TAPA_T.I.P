@@ -96,6 +96,17 @@ const DataCarousel: React.FC<{
 	// const DATA = ['ACCIDENT-STREAK', 'EMOTIONS', 'ISSUES']
 	const DATA = ['EMOTIONS-1', 'EMOTIONS-2']
 
+	const {
+		emotions = {
+			anger: 0,
+			anxious: 0,
+			happiness: 0,
+			hurt: 0,
+			sadness: 0,
+			surprise: 0,
+		},
+	} = data ?? {}
+
 	return (
 		<>
 			<View
@@ -243,7 +254,7 @@ const DataCarousel: React.FC<{
 									<EmotionPanel
 										emotionData={
 											Object.fromEntries(
-												Object.entries(data.emotions).slice(0, 3),
+												Object.entries(emotions).slice(0, 3),
 											) as EmotionData
 										}
 									/>
@@ -281,7 +292,7 @@ const DataCarousel: React.FC<{
 									<EmotionPanel
 										emotionData={
 											Object.fromEntries(
-												Object.entries(data.emotions).slice(3, 6),
+												Object.entries(emotions).slice(3, 6),
 											) as EmotionData
 										}
 									/>
