@@ -1,4 +1,6 @@
 import time
+from datetime import datetime
+
 import pyrebase
 import requests
 from threading import Thread
@@ -23,7 +25,7 @@ def execute_async(task, args):
 
 SINGLE_SCORE_DANGER_THRESHOLD = -0.99
 NUMBER_OF_ENTRIES = 10
-AVG_SCORE_DANGER_THRESHOLD = -0.7
+AVG_SCORE_DANGER_THRESHOLD = -0.5
 WARNING_MESSAGE = '{}({})님의 감정 지수({:.2f})가 위험 단계에 도달했습니다.'
 
 
@@ -45,6 +47,8 @@ def handle_content_task(args):
     res = requests.post(classifier_server_url, json={'content': content}).json()
     top_emotion = res["emotion"]
     weighted_emotion_score = res["overall_score"]
+    user = database.child("users").child(user_id).get().val()
+    unit = user["affiliated_unit"]
     now = int(time.time())
 
     # Pushes the new emotion data into 'emotion_data/all'.
@@ -54,6 +58,7 @@ def handle_content_task(args):
         "user_id": user_id,
         "content_type": content_type,
         "content_id": content_id,
+        "unit": unit,
         "created_at": now
     })
 
@@ -62,8 +67,6 @@ def handle_content_task(args):
     database.child("users").child(user_id).child("emotion_data").child(emotion_id).set(now)
 
     # Adds the new emotion data to unit.emotion_data.
-    user = database.child("users").child(user_id).get().val()
-    unit = user["affiliated_unit"]
     database.child("units").child(unit).child("emotion_data").child(emotion_id).set(now)
 
     """
@@ -78,6 +81,8 @@ def handle_content_task(args):
     alert_counselors = False
     score = weighted_emotion_score
 
+    print("single_score=" + str(score))
+
     if score <= SINGLE_SCORE_DANGER_THRESHOLD:
         alert_counselors = True
     # Only go to second assessment process if first passes.
@@ -87,12 +92,20 @@ def handle_content_task(args):
         all_data = all_data[:NUMBER_OF_ENTRIES]
         score = sum(map(lambda entry: entry[1]["weighted_emotion_score"], all_data)) / NUMBER_OF_ENTRIES
 
+        print("avg_score=" + str(score))
         if score <= AVG_SCORE_DANGER_THRESHOLD:
             alert_counselors = True
 
     if alert_counselors:
-        message = WARNING_MESSAGE.format(user["name"], user["username"], score)
+        # Increment Daily Statistics count
+        today = datetime.now().strftime("%Y-%m-%d")
+        count = database.child("statistics").child("daily").child(today).child("counselor_alert_count").get().val()
+        count = 1 if count is None else count + 1
+        database.child("statistics").child("daily").child(today).update({
+            "counselor_alert_count": count
+        })
 
+        message = WARNING_MESSAGE.format(user["name"], user["username"], score)
         token = admin_login()
         headers = {'Authorization': token}
         counselors = database.child("counselors").shallow().get().val()

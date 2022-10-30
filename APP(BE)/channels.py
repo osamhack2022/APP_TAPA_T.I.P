@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from flask import Blueprint, request
 import pyrebase
 import time
@@ -48,8 +50,20 @@ def create_channel():
         return {"status": "Invalid token, requires login again"}, 403
 
     self_id = decoded["localId"]
+    self = database.child("users").child(self_id).get().val()
     parameters = request.get_json()
     user_id = parameters["user_id"]
+    user = database.child("users").child(user_id).get().val()
+
+    if self.get("username") != "admin" and user.get("position") == "상담사":
+
+        # Increment Daily Statistics count
+        today = datetime.now().strftime("%Y-%m-%d")
+        count = database.child("statistics").child("daily").child(today).child("counseling_request_count").get().val()
+        count = 1 if count is None else count + 1
+        database.child("statistics").child("daily").child(today).update({
+            "counseling_request_count": count
+        })
 
     res = database.child("users").child(self_id).child("channels").child(user_id).get().val()
 
