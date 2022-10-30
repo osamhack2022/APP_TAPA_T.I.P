@@ -323,10 +323,14 @@
 
 ### Front-end
 
-<img src="https://img.shields.io/badge/React--Native-0.69.6-61DAFB.svg?style=for-the-badge&logo=react&logoColor=white">
+<img src="https://img.shields.io/badge/React Native-0.69.6-61DAFB.svg?style=for-the-badge&logo=react&logoColor=white">
+<img src="https://img.shields.io/badge/React Navigation-6.4.0-ffffff.svg?style=for-the-badge&logoColor=white">
+<img src="https://img.shields.io/badge/React Query-4.12.0-FF4154.svg?style=for-the-badge&logo=react-query&logoColor=white">
 <img src="https://img.shields.io/badge/Expo-46.0.9-000020.svg?style=for-the-badge&logo=expo&logoColor=white">
-<img src="https://img.shields.io/badge/React--Query-4.12.0-FF4154.svg?style=for-the-badge&logo=react-query&logoColor=white">
-<img src="https://img.shields.io/badge/.ENV-16.0.2-ECD53F.svg?style=for-the-badge&logo=.env&logoColor=white">
+<img src="https://img.shields.io/badge/Dotenv-16.0.2-ECD53F.svg?style=for-the-badge&logo=.env&logoColor=white">
+<img src="https://img.shields.io/badge/Axios-0.27.2-5A29E4.svg?style=for-the-badge&logo=axios&logoColor=white">
+<img src="https://img.shields.io/badge/Jotai-1.8.4-ffffff.svg?style=for-the-badge&logoColor=white">
+<img src="https://img.shields.io/badge/Emotion-11.10.4-ffffff.svg?style=for-the-badge&logoColor=white">
 <img src="https://img.shields.io/badge/Firebase-9.10.0-FFCA28.svg?style=for-the-badge&logo=firebase&logoColor=white">
 
 <br/>
@@ -338,6 +342,7 @@
 <img src="https://img.shields.io/badge/Gunicorn-499848?style=for-the-badge&logo=Gunicorn&logoColor=white"/> Gunicorn을 활용해 제공된 VM 서버로 AI 코드를 배포했습니다. 서버 URL은 http://20.214.182.219:8080 입니다.
 
 <img src="https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white"/>
+<img src="https://img.shields.io/badge/Github Actions-2088FF?style=for-the-badge&logo=githubactions&logoColor=white"/>
 
 <br/>
 
@@ -348,13 +353,21 @@
 <img src="https://img.shields.io/badge/Keras-%23D00000.svg?style=for-the-badge&logo=Keras&logoColor=white">
 <img src="https://img.shields.io/badge/KOBERT-%23150458.svg?style=for-the-badge">
 
+<br/>
+
+### Co-working Tools
+
+<img src="https://img.shields.io/badge/Github-181717?style=for-the-badge&logo=github&logoColor=white">
+<img src="https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=notion&logoColor=white">
+<img src="https://img.shields.io/badge/Slack-4A154B?style=for-the-badge&logo=slack&logoColor=white">
+<img src="https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white">
+
+
 <br/><br/>
 
 <h1 id="install"> :hammer_and_wrench: 8. 프로젝트 사용법 (Getting Started) </h1>
 
 ### 다운로드 및 패키지 설치 안내
-
-<br/>
 
 ### Environment Variables (환경변수들)
 
