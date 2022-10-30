@@ -69,7 +69,7 @@
 **TAPA**의 모든 기능은 다음 세 가지 목표 중 한 가지 이상을 달성하기 위해 설계되었습니다.
 
 >**첫째**, 부조리, 가혹행위 등 부당한 일을 당한 병사를 도와주어 *부조리에 효과적으로 대처*하는 것,
-- [또래 장병 커뮤니티 소통 기능](https://tapa-1.gitbook.io/tapa-./features/undefined)
+- [또래 장병 커뮤니티 소통 기능](https://tapa-1.gitbook.io/tapa-./features/undefined-1)
 - [전문가 상담 및 매칭, DM 기능](https://tapa-1.gitbook.io/tapa-./features/dm)
 
 >**둘째**, 모인 데이터를 바탕으로 *병영 사고를 예측하고 예방*하는 것,
@@ -77,8 +77,8 @@
 - [NLP 활용 다중 감정 분석 서비스](https://tapa-1.gitbook.io/tapa-./features/nlp)
 
 >**셋째**, 군 차원에서 *병사들의 정신 건강 상태를 관리*하고 앱 사용을 장려하는 것 입니다.
-- [통계 및 리더보드 시각화 서비스](https://tapa-1.gitbook.io/tapa-./features/undefined-1)
-- [앱 사용 인센티브 부여 기능](https://tapa-1.gitbook.io/tapa-./features/undefined-2)
+- [통계 및 리더보드 시각화 서비스](https://tapa-1.gitbook.io/tapa-./features/undefined-2)
+- [앱 사용 인센티브 부여 기능](https://tapa-1.gitbook.io/tapa-./features/point)
 
 <h2 id="benefits"> ⚔️ 3. 군, TAPA 전과 후로 나뉘다 </h2>
 
