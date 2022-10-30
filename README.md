@@ -233,13 +233,19 @@
 
 ### Front-end
 
-- Expo
+<img src="https://img.shields.io/badge/React--Native-0.69.6-61DAFB.svg?style=for-the-badge&logo=react&logoColor=white">
+<img src="https://img.shields.io/badge/Expo-46.0.9-000020.svg?style=for-the-badge&logo=expo&logoColor=white">
+<img src="https://img.shields.io/badge/React--Query-4.12.0-FF4154.svg?style=for-the-badge&logo=react-query&logoColor=white">
+<img src="https://img.shields.io/badge/.ENV-16.0.2-ECD53F.svg?style=for-the-badge&logo=.env&logoColor=white">
+<img src="https://img.shields.io/badge/Firebase-9.10.0-FFCA28.svg?style=for-the-badge&logo=firebase&logoColor=white">
 
-### Server(back-end)
+### Server(Back-end)
 
-<img src="https://img.shields.io/badge/Google Cloud-4285F4??style=for-the-badge&logo=Google Cloud&logoColor=white"/> 내 App Engine을 활용해 API 서버를 배포했습니다. 서버 URL은 https://tapa-tip.du.r.appspot.com/ 입니다.
+<img src="https://img.shields.io/badge/Google Cloud-4285F4?style=for-the-badge&logo=Google Cloud&logoColor=white"/>  Google Cloud 내 App Engine을 활용해 API 서버를 배포했습니다. 서버 URL은 https://tapa-tip.du.r.appspot.com/ 입니다.   
 
-<img src="https://img.shields.io/badge/Gunicorn-499848??style=for-the-badge&logo=Gunicorn&logoColor=white"/> 을 활용해 제공된 VM 서버로 AI 코드를 배포했습니다. 서버 URL은 http://20.214.182.219:8080 입니다. 
+<img src="https://img.shields.io/badge/Gunicorn-499848?style=for-the-badge&logo=Gunicorn&logoColor=white"/>  Gunicorn을 활용해 제공된 VM 서버로 AI 코드를 배포했습니다. 서버 URL은 http://20.214.182.219:8080 입니다.   
+
+<img src="https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white"/>
 
 ### ML
 
