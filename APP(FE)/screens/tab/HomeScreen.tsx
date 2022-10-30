@@ -47,7 +47,9 @@ const DiarySection: React.FC = () => {
 			const res = await axios.post('/diary/new', {
 				content,
 			})
-			console.log(res)
+			form.reset({
+				content: '',
+			})
 		},
 		[],
 	)
@@ -354,13 +356,8 @@ const HomeScreen: React.FC = () => {
 	const axios = useAxios()
 	const dataQuery = useQuery(['tapa', 'statistics:all'], async () => {
 		const res = await axios.get('/statistics/all')
-		const {
-			today,
-			issues,
-			emotions,
-			accident_streaks: accidentStreaks,
-		} = res.data
-		return { today, issues, emotions, accidentStreaks }
+		const { today, emotions } = res.data
+		return { today, emotions }
 	})
 
 	const newsQuery = useQuery(['tapa', 'news:list'], async () => {
