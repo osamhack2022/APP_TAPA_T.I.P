@@ -1,10 +1,8 @@
-from flask import Flask, render_template, Blueprint, request
-import os
-import pyrebase
-import requests
-import time
-import datetime
 import random
+from datetime import datetime
+
+import pyrebase
+from flask import Blueprint, request
 
 from config import config
 from users import check_token
@@ -17,21 +15,40 @@ storage = firebase.storage()
 bp = Blueprint("statistics", __name__, url_prefix="/statistics")
 
 
+@bp.route("/unit_emotion", methods=["GET"])
+def get_unit_emotion():
+    token = request.headers.get("Authorization")
+    decoded = check_token(token)
+
+    if decoded == "invalid token":
+        return {"status": "Invalid token, requires login again"}, 403
+
+    user_id = decoded["localId"]
+    user = db.child("users").child(user_id).get().val()
+    unit = user["affiliated_unit"]
+    all_data = db.child("emotion_data").order_by_child("unit").equal_to(unit).get().val()
+
+    count = {
+        "happiness": 0,
+        "anxious": 0,
+        "surprise": 0,
+        "anger": 0,
+        "hurt": 0,
+        "sadness": 0
+    }
+
+    total = 0
+
+    for key in all_data:
+        data = all_data[key]
+        count[data["top_emotion"]] += 1
+        total += 1
+
+    return {"count": count, "total": total}, 200
+
+
 @bp.route("/all", methods=["GET"])
-def get_diary_list():
-
-    today = db.child("statistics").child("today").get().val()
-    data = db.child("statistics").child("latest").get().val()
-    if data is None:
-        return {}, 500
-
-    accident_streaks = random.choice(data['accident-streaks'])
-    issues = random.choice(data['issues'])
-    emotions = random.choice(data['emotions'])
-
-    return {
-        "today": today,
-        "accident_streaks": accident_streaks,
-        "issues": issues,
-        "emotions": emotions
-    }, 200
+def get_general_statistics():
+    today = datetime.now().strftime("%Y-%m-%d")
+    data = db.child("statistics").child("daily").child(today).get().val()
+    return data if data is not None else {}, 200

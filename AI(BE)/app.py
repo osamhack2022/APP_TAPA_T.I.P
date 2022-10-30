@@ -1,9 +1,25 @@
+from datetime import datetime
+from config import config
+import pyrebase
 from flask import Flask, request, jsonify
 import os
 from emotions_classifier import predict_text, get_top_emotion_from, calculate_weighted_score
 from punishment_predictor import predict
 
 app = Flask(__name__)
+
+firebase = pyrebase.initialize_app(config)
+database = firebase.database()
+
+
+def increment_statistics(type):
+    # Increment Daily Statistics count
+    today = datetime.now().strftime("%Y-%m-%d")
+    count = database.child("statistics").child("daily").child(today).child(type).get().val()
+    count = 1 if count is None else count + 1
+    database.child("statistics").child("daily").child(today).update({
+        type: count
+    })
 
 
 @app.route('/classify', methods=['POST'])
@@ -16,6 +32,7 @@ def classify_emotion():
         "avg_scores": avg_scores.tolist(),
         "overall_score": calculate_weighted_score(avg_scores)
     }
+    increment_statistics("emotion_detection_count")
     return jsonify(resp)
 
 
@@ -37,6 +54,7 @@ def predict_punishment():
         "predicted_punishment": predicted_punishment,
         "chance_of_forced_reloc": chance_of_forced_reloc
     }
+    increment_statistics("punishment_prediction_count")
     return jsonify(resp)
 
 
