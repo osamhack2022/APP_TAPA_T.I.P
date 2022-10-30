@@ -366,10 +366,7 @@ const HomeScreen: React.FC = () => {
 		} = todayRes.data
 
 		const generalRes = await axios.get('/statistics/general')
-		const {
-			issues,
-			accident_streaks: accidentStreaks,
-		} = generalRes.data
+		const { issues, accident_streaks: accidentStreaks } = generalRes.data
 
 		const { count, total = 1 } = emotionRes.data
 

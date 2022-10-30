@@ -108,6 +108,7 @@ const DataCarousel: React.FC<{
 		},
 	} = data ?? {}
 
+	if (!data) return null
 	return (
 		<>
 			<View
@@ -208,19 +209,20 @@ const DataCarousel: React.FC<{
 											align-items: flex-end;
 										`}
 									>
-										{data.accidentStreaks
-											.filter((_, i) => i < 3)
-											.map((data, idx) => (
-												<ChartBar
-													key={String(idx)}
-													index={idx}
-													color={tinycolor(COLOR.BRAND.MAIN)
-														.setAlpha([1, 0.75, 0.6][idx])
-														.toHex8String()}
-													data={`${data.value}일`}
-													label={data.name}
-												/>
-											))}
+										{data.accidentStreaks &&
+											data.accidentStreaks
+												.filter((_, i) => i < 3)
+												.map((data, idx) => (
+													<ChartBar
+														key={String(idx)}
+														index={idx}
+														color={tinycolor(COLOR.BRAND.MAIN)
+															.setAlpha([1, 0.75, 0.6][idx])
+															.toHex8String()}
+														data={`${data.value}일`}
+														label={data.name}
+													/>
+												))}
 									</View>
 								</View>
 							)
@@ -254,7 +256,9 @@ const DataCarousel: React.FC<{
 									</View>
 									<EmotionPanel
 										emotionData={
-											Object.fromEntries(Object.entries(emotions)) as EmotionData
+											Object.fromEntries(
+												Object.entries(emotions),
+											) as EmotionData
 										}
 									/>
 									<Spacer />
@@ -320,11 +324,12 @@ const DataCarousel: React.FC<{
 													align-self: stretch;
 												`}
 											>
-												{data.issues.most
-													.filter((_, i) => i < 3)
-													.map((entry, idx) => (
-														<RankingEntry key={idx} data={entry} />
-													))}
+												{data.issues &&
+													data.issues.most
+														.filter((_, i) => i < 3)
+														.map((entry, idx) => (
+															<RankingEntry key={idx} data={entry} />
+														))}
 											</View>
 										</View>
 										<Spacer x={8} />
@@ -356,11 +361,12 @@ const DataCarousel: React.FC<{
 													align-self: stretch;
 												`}
 											>
-												{data.issues.least
-													.filter((_, i) => i < 3)
-													.map((entry, idx) => (
-														<RankingEntry key={idx} data={entry} />
-													))}
+												{data.issues &&
+													data.issues.least
+														.filter((_, i) => i < 3)
+														.map((entry, idx) => (
+															<RankingEntry key={idx} data={entry} />
+														))}
 											</View>
 										</View>
 									</View>
