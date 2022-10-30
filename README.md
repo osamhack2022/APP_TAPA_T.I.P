@@ -71,6 +71,7 @@
 
 ### 메인 기능
 **TAPA**의 모든 기능은 다음 세 가지 목표 중 한 가지 이상을 달성하기 위해 설계되었습니다.
+◈ 스크롤을 내리면 UI/UX 스케치를, 파란 글씨(링크)를 클릭하시면 Gitbook에서 상세 설명을 보실 수 있습니다.
 
 >**첫째**, 부조리, 가혹행위 등 부당한 일을 당한 병사를 도와주어 *부조리에 효과적으로 대처*하는 것,
 - [또래 장병 커뮤니티 소통 기능](https://tapa-1.gitbook.io/tapa-./features/undefined-1)
@@ -273,9 +274,10 @@
 
 ### ML
 
-- Pytorch
-- KoBERT
-- Tensorflow 
+<img src="https://img.shields.io/badge/PyTorch-%23EE4C2C.svg?style=for-the-badge&logo=PyTorch&logoColor=white">
+<img src="https://img.shields.io/badge/TensorFlow-%23FF6F00.svg?style=for-the-badge&logo=TensorFlow&logoColor=white">
+<img src="https://img.shields.io/badge/Keras-%23D00000.svg?style=for-the-badge&logo=Keras&logoColor=white">
+<img src="https://img.shields.io/badge/KOBERT-%23150458.svg?style=for-the-badge">
 
 <h2 id="install"> :hammer_and_wrench: 8. 프로젝트 사용법 (Getting Started) </h2>
 
