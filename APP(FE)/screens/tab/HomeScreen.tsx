@@ -160,16 +160,16 @@ const TodaySection: React.FC<{ data?: number[] }> = ({ data }) => {
 						{
 							name: '상담 요청',
 							value: `${data[0]}건`,
-							color: COLOR.ERROR,
-						},
-						{
-							name: '상담가 매칭',
-							value: `${data[1]}건`,
 							color: COLOR.BRAND.BLUE,
 						},
 						{
 							name: '위험감정 감지',
-							value: `${data[2]}명`,
+							value: `${data[1]}명`,
+							color: COLOR.ERROR,
+						},
+						{
+							name: '감정 평가',
+							value: `${data[2]}건`,
 						},
 						{
 							name: '처벌 예측',
