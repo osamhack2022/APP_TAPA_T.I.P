@@ -1,8 +1,11 @@
 <h1 align="center">TAPA</h1>
 
+<br />
+
 <p align="center">
     <img src="assets/TAPAexplain.gif" width="70%" />
 </p>
+
 <p align="center">
 	<a href="https://tapa-1.gitbook.io/tapa-./">
 		<img src="/assets/GITBOOK Button.png" width="220" height="45"/>
@@ -11,6 +14,7 @@
 		<img src="/assets/NOTION Button.png" width="220" height="45"/>
 	</a>
 </p>
+
 <p align="center">
 	<a href="https://github.com/osamhack2022-v2/APP_TAPA_T.I.P/search?l=TSX&type=code"><img alt="GitHub language count" src="https://img.shields.io/github/languages/count/osamhack2022-v2/APP_TAPA_T.I.P"></a>
 	<a href="https://github.com/osamhack2022-v2/APP_TAPA_T.I.P/graphs/contributors"><img alt="GitHub contributors" src="https://img.shields.io/github/contributors/osamhack2022-v2/APP_TAPA_T.I.P"></a>
@@ -43,9 +47,12 @@
 <h1 id="overview"> :monocle_face: 1. 프로젝트 개요 (Overview) </h1>
 
 >TAPA는 AI 기반 **병영 부조리 사고 예측** 및 예방 솔루션입니다.
+
 <p align="center">
 	<img src="/assets/Mockup.png" width="100%"/>
 </p>
+
+<br/>
 
 ### 🌻 개발 동기
 3년 전 같은 과 선배가 군대에서 병영 부조리와 과도한 당직 업무 스트레스로 인해 [스스로 생을 마감했다는 뉴스](https://www.joongang.co.kr/article/25077377#home)가 몇 달 전 화제가 되었습니다. 이 사건을 통해 **병영 사고라는 것이 멀리 떨어져 있는 일이 아니라, 정말 가까이에서 벌어질 수 있는 일**이라는 것을 깨달았습니다.
