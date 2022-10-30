@@ -46,7 +46,7 @@
 
 <h1 id="overview"> :monocle_face: 1. 프로젝트 개요 (Overview) </h1>
 
->TAPA는 AI 기반 **병영 부조리 사고 예측** 및 예방 솔루션입니다.
+> TAPA는 AI 기반 **병영 부조리 사고 예측** 및 예방 솔루션입니다.
 
 <p align="center">
 	<img src="/assets/Mockup.png" width="100%"/>
@@ -55,9 +55,10 @@
 <br/>
 
 ### 🌻 개발 동기
+
 3년 전 같은 과 선배가 군대에서 병영 부조리와 과도한 당직 업무 스트레스로 인해 [스스로 생을 마감했다는 뉴스](https://www.joongang.co.kr/article/25077377#home)가 몇 달 전 화제가 되었습니다. 이 사건을 통해 **병영 사고라는 것이 멀리 떨어져 있는 일이 아니라, 정말 가까이에서 벌어질 수 있는 일**이라는 것을 깨달았습니다.
 
-그리고 이러한 *끔찍한 사고가 다시는 일어나지 않도록* 부조리, 가혹행위를 사전에 예측하여 조치를 취해 병영 사고를 예방하고 싶었습니다.
+그리고 이러한 _끔찍한 사고가 다시는 일어나지 않도록_ 부조리, 가혹행위를 사전에 예측하여 조치를 취해 병영 사고를 예방하고 싶었습니다.
 
 <p align="center">
 	<img src="/assets/reason_develop.JPG" width="100%"/>
@@ -66,6 +67,7 @@
 <br/>
 
 ### :earth_africa: 개발 배경
+
 <p align="center">
 	<img src="/assets/motive_develop.JPG" width="100%"/>
 </p>
@@ -82,25 +84,30 @@
 <h1 id="features"> :iphone: 2. 기능 스케치 </h1>
 
 ### 회원가입
+
 - 이름 / 닉네임 / 이메일 / 비밀번호 / 군번 / 계급 / 보직 / 소속부대 / 입대일 / 전역일 을 입력합니다.
-<img src="assets/signup.gif" width="80%" />
+  <img src="assets/signup.gif" width="80%" />
 
 <br/>
 
 ### 메인 기능
+
 **TAPA**의 모든 기능은 다음 세 가지 목표 중 한 가지 이상을 달성하기 위해 설계되었습니다.
 
 ◈ 스크롤을 내리면 대략적인 UI/UX 스케치를, 파란 글씨(링크)를 클릭하시면 Gitbook에서 상세 설명을 보실 수 있습니다.
 
->**첫째**, 부조리, 가혹행위 등 부당한 일을 당한 병사를 도와주어 *부조리에 효과적으로 대처*하는 것,
+> **첫째**, 부조리, 가혹행위 등 부당한 일을 당한 병사를 도와주어 *부조리에 효과적으로 대처*하는 것,
+
 - [또래 장병 커뮤니티 소통 기능](https://tapa-1.gitbook.io/tapa-./features/undefined-1)
 - [전문가 상담 및 매칭, DM 기능](https://tapa-1.gitbook.io/tapa-./features/dm)
 
->**둘째**, 모인 데이터를 바탕으로 *병영 사고를 예측하고 예방*하는 것,
+> **둘째**, 모인 데이터를 바탕으로 *병영 사고를 예측하고 예방*하는 것,
+
 - [AI 기반 처벌 수위 예측 서비스](https://tapa-1.gitbook.io/tapa-./features/ai)
 - [NLP 활용 다중 감정 분석 서비스](https://tapa-1.gitbook.io/tapa-./features/nlp)
 
->**셋째**, 군 차원에서 *병사들의 정신 건강 상태를 관리*하고 앱 사용을 장려하는 것 입니다.
+> **셋째**, 군 차원에서 *병사들의 정신 건강 상태를 관리*하고 앱 사용을 장려하는 것 입니다.
+
 - [통계 및 리더보드 시각화 서비스](https://tapa-1.gitbook.io/tapa-./features/undefined-2)
 - [앱 사용 인센티브 부여 기능](https://tapa-1.gitbook.io/tapa-./features/point)
 
@@ -121,59 +128,54 @@
 ### 기대 효과
 
 - **병영 부조리 예측 및 예방**
-	- AI 기반 위험도 및 예상 징계 수위 예측 서비스를 통해 병사에게 도움 제공
-	- 위험도 높은 게시글 / AI 상담 결과 발생 시 바로 전문가에게 알림 문자 전송
-	- 군법 가이드를 통해 진입장벽이 높은 관련 군법을 병사에게 알기 쉽고 친숙하게 제공
+
+  - AI 기반 위험도 및 예상 징계 수위 예측 서비스를 통해 병사에게 도움 제공
+  - 위험도 높은 게시글 / AI 상담 결과 발생 시 바로 전문가에게 알림 문자 전송
+  - 군법 가이드를 통해 진입장벽이 높은 관련 군법을 병사에게 알기 쉽고 친숙하게 제공
 
 - **군(軍) 내 소통의 증가**
-	- 커뮤니티를 활용한 병 상호 간 경험 공유와 위로, 공감을 통해 유대감 형성
-	- 태그를 활용해 유사한 사례 검색에 용이
-	- 전문가 (상담사, 법무관)과의 1대1 상담으로 따뜻한 소통 분위기 형성
-	- TAPA 포인트 제도를 활용해 활발한 소통에 대한 인센티브 부여
-	
-- **용사 정신 건강 상태 개선 및 모니터링 및 실질적, 정신적 도움받기**
-	- 부조리 관련 AI / 상담 / 커뮤니티 게시글 많은 부대 확인 가능
-	- 무사고 기록 랭킹 등 리더보드 시각화를 통해 부조리 타파에 대한 동기부여
-	- 군 관계자에게 다양한 통계 데이터 제공
-<br/>
+  - 커뮤니티를 활용한 병 상호 간 경험 공유와 위로, 공감을 통해 유대감 형성
+  - 태그를 활용해 유사한 사례 검색에 용이
+  - 전문가 (상담사, 법무관)과의 1대1 상담으로 따뜻한 소통 분위기 형성
+  - TAPA 포인트 제도를 활용해 활발한 소통에 대한 인센티브 부여
+- **용사 정신 건강 상태 개선 및 모니터링 및 실질적, 정신적 도움받기** - 부조리 관련 AI / 상담 / 커뮤니티 게시글 많은 부대 확인 가능 - 무사고 기록 랭킹 등 리더보드 시각화를 통해 부조리 타파에 대한 동기부여 - 군 관계자에게 다양한 통계 데이터 제공
+  <br/>
 
 ### 경쟁력
 
 - **맞춤형 기능 제공**
-	- 도움이 시급한 병사에게는 1분 내외로 결과를 알려주는 AI 예측 서비스를
-	- 비슷한 경험을 한 사람을 찾고 함께 공감을 원하는 병사에게는 커뮤니티 서비스를
-	- 전문적인 상담을 통한 문제 해결이 필요한 병사에게는 상담 및 DM 서비스를
-	- 이를 비롯해 각 필요에 부합하는 기능이 전부 들어있는, 올-인-원 어플리케이션
-	
+  - 도움이 시급한 병사에게는 1분 내외로 결과를 알려주는 AI 예측 서비스를
+  - 비슷한 경험을 한 사람을 찾고 함께 공감을 원하는 병사에게는 커뮤니티 서비스를
+  - 전문적인 상담을 통한 문제 해결이 필요한 병사에게는 상담 및 DM 서비스를
+  - 이를 비롯해 각 필요에 부합하는 기능이 전부 들어있는, 올-인-원 어플리케이션
 - **훌륭한 UI/UX**
-	- 딱딱하고 보기 불편한 UI 대신 각 페이지마다 직관적이고 눈에 띄는 UI 제공
-	- 심리적 안정감을 주는 톤-온-톤 컬러 매치
-	- 어디에서도 볼 수 없는, 게시글의 감정을 분석해주는 독특한 커뮤니티 경험 제공
 
-- **공개SW/오픈소스** 
-	- 개발 문서의 오픈소스를 넘어, Gitbook과 Notion 페이지를 통한 디테일한 작업 과정 공개
-	- API 문서화, DB Diagram, I.A, Prototype 등을 이용한 구체적인 기획 과정 공개
+  - 딱딱하고 보기 불편한 UI 대신 각 페이지마다 직관적이고 눈에 띄는 UI 제공
+  - 심리적 안정감을 주는 톤-온-톤 컬러 매치
+  - 어디에서도 볼 수 없는, 게시글의 감정을 분석해주는 독특한 커뮤니티 경험 제공
 
-- **확실한 메시지 전달**
-	- 대회 수상 이상의 원대한 목표를 가지고 군의 문제를 풀어보고 싶은 열정 있는 멤버들이 모인 팀
-	- 고(故) 조준우 일병 등 병영 부조리 사고로 인해 꽃다운 나이에 삶을 등진 수많은 국군 장병들의 넋을 기리고 절대 잊지 말자는 의미를 담은 프로젝트
-	- 미션, 비전 설정 이후 이에 부합하도록 기능 개발 및 수정
-<br/>
+- **공개SW/오픈소스**
+
+  - 개발 문서의 오픈소스를 넘어, Gitbook과 Notion 페이지를 통한 디테일한 작업 과정 공개
+  - API 문서화, DB Diagram, I.A, Prototype 등을 이용한 구체적인 기획 과정 공개
+
+- **확실한 메시지 전달** - 대회 수상 이상의 원대한 목표를 가지고 군의 문제를 풀어보고 싶은 열정 있는 멤버들이 모인 팀 - 고(故) 조준우 일병 등 병영 부조리 사고로 인해 꽃다운 나이에 삶을 등진 수많은 국군 장병들의 넋을 기리고 절대 잊지 말자는 의미를 담은 프로젝트 - 미션, 비전 설정 이후 이에 부합하도록 기능 개발 및 수정
+  <br/>
 
 ### 활용 분야 / 추후 확장
 
 - **NLP, AI 모델 오픈소스 활용**
-	- Notion 페이지를 통해 풀 모델 및 코드 제공
-	- Gitbook 페이지를 통해 데이터 수집부터 가공, 전처리 과정 공개
-	
+  - Notion 페이지를 통해 풀 모델 및 코드 제공
+  - Gitbook 페이지를 통해 데이터 수집부터 가공, 전처리 과정 공개
 - **군법 길라잡이 확장**
-	- 프로젝트 초기에 구상했던 과거 유사한 사례와 처벌, 신고된 사례에 대한 군법 안내 서비스 제공
-	- 1303, 마음의 편지 등으로 신고된 부조리 데이터 판례 크롤링 (네이버 지식in 등)
+
+  - 프로젝트 초기에 구상했던 과거 유사한 사례와 처벌, 신고된 사례에 대한 군법 안내 서비스 제공
+  - 1303, 마음의 편지 등으로 신고된 부조리 데이터 판례 크롤링 (네이버 지식in 등)
 
 - **MLOps 분야 추후 확장**
-	- TAPA AI 위험도 견적 분석 서비스 / 실제 결과를 통해 새로운 데이터셋 확보 가능
-	- 확보한 데이터셋을 바탕으로 모델을 재훈련하고 모델 성능을 개선
-	- 알림과 자동화 툴을 생성하여 자동 모델 재훈련
+  - TAPA AI 위험도 견적 분석 서비스 / 실제 결과를 통해 새로운 데이터셋 확보 가능
+  - 확보한 데이터셋을 바탕으로 모델을 재훈련하고 모델 성능을 개선
+  - 알림과 자동화 툴을 생성하여 자동 모델 재훈련
 
 <br/><br/>
 
@@ -192,6 +194,7 @@
 <h1 id="progress"> :clipboard: 5. 우리 팀의 협업 과정 </h1>
 
 ◈ 사진을 클릭하시면 확대된 원본 이미지를, 파란 글씨를 클릭하시면 해당 링크를 보실 수 있습니다.
+
 <table align="center">
     <tbody>
 	<tr>
@@ -299,6 +302,10 @@
 
 <h1 id="stacks"> :octocat: 7. 사용한 기술 스택 (Techniques Used) </h1>
 
+<br />
+<img src="/assets/TechStacks.png" width="100%"/>
+<br />
+
 ### Front-end
 
 <img src="https://img.shields.io/badge/React--Native-0.69.6-61DAFB.svg?style=for-the-badge&logo=react&logoColor=white">
@@ -311,9 +318,9 @@
 
 ### Server(Back-end)
 
-<img src="https://img.shields.io/badge/Google Cloud-4285F4?style=for-the-badge&logo=Google Cloud&logoColor=white"/>  Google Cloud 내 App Engine을 활용해 API 서버를 배포했습니다. 서버 URL은 https://tapa-tip.du.r.appspot.com/ 입니다.   
+<img src="https://img.shields.io/badge/Google Cloud-4285F4?style=for-the-badge&logo=Google Cloud&logoColor=white"/> Google Cloud 내 App Engine을 활용해 API 서버를 배포했습니다. 서버 URL은 https://tapa-tip.du.r.appspot.com/ 입니다.
 
-<img src="https://img.shields.io/badge/Gunicorn-499848?style=for-the-badge&logo=Gunicorn&logoColor=white"/>  Gunicorn을 활용해 제공된 VM 서버로 AI 코드를 배포했습니다. 서버 URL은 http://20.214.182.219:8080 입니다.   
+<img src="https://img.shields.io/badge/Gunicorn-499848?style=for-the-badge&logo=Gunicorn&logoColor=white"/> Gunicorn을 활용해 제공된 VM 서버로 AI 코드를 배포했습니다. 서버 URL은 http://20.214.182.219:8080 입니다.
 
 <img src="https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white"/>
 
@@ -335,6 +342,7 @@
 <br/>
 
 ### Environment Variables (환경변수들)
+
 ```
 FIREBASE_API_KEY=<firebase api key>
 FIREBASE_AUTH_DOMAIN=<firebase auth domain>
@@ -349,6 +357,7 @@ ADMIN_ACCOUNT_PASSWORD=<password for admin account>
 <br/>
 
 ### APP Frontend
+
 ```console
 $ git clone https://github.com/osamhack2022-v2/APP_TAPA_T.I.P.git
 $ cd APP(FE)
@@ -357,9 +366,11 @@ $ touch .env
 $ vim .env # 위에 서술된 환경변수들 저장
 $ npx expo start
 ```
+
 <br/>
 
 ### APP Backend
+
 ```console
 $ git clone https://github.com/osamhack2022-v2/APP_TAPA_T.I.P.git
 $ vim ~/.bashrc # 위에 서술뒨 환경변수들 추가. rc파일의 이름은 사용자의 쉘에 따라 다를 수 있음.
@@ -369,9 +380,11 @@ $ . env/bin/activate
 $ pip install -r requirements.txt
 $ python app.py
 ```
+
 <br/>
 
 ### AI Backend
+
 ```console
 $ git clone https://github.com/osamhack2022-v2/APP_TAPA_T.I.P.git
 $ vim ~/.bashrc # 위에 서술뒨 환경변수들 추가. rc파일의 이름은 사용자의 쉘에 따라 다를 수 있음.
@@ -388,14 +401,14 @@ $ python app.py
 <br/>
 
 |  팀원  |         소속          |     역할     |     GitHub     |         Email         |
-| :----: | :-------------------: | :------------: | :------------: | :-------------------: |
-| 이재훈 |  국군지휘통신사령부   | PM, ML | jaehoonlee0829 |    xrong@naver.com    |
-| 오승석 | 주한미8군한국군지원단 | Frontend |  oxcarxierra   | oxcarxierra@gmail.com |
+| :----: | :-------------------: | :----------: | :------------: | :-------------------: |
+| 이재훈 |  국군지휘통신사령부   |    PM, ML    | jaehoonlee0829 |    xrong@naver.com    |
+| 오승석 | 주한미8군한국군지원단 |   Frontend   |  oxcarxierra   | oxcarxierra@gmail.com |
 | 최용훈 |      공군 2여단       | UI/UX Design |    ygr4789     | yonghunjoe@gmail.com  |
-| 민거홍 | 주한미8군한국군지원단 | Backend |  placidmoon1   | placidmoon1@gmail.com |
-| 임정우 |      육군 15사단      | Backend |   realizedd    | themcman12@gmail.com  |
-| 신은수 |  육군 제2작전사령부   | Frontend |     esinx      |     me@esinx.net      |
-| 이민석 |    공군 작전사령부    | Frontend |    mscwrd02    | ehdtodvodl@naver.com  |
+| 민거홍 | 주한미8군한국군지원단 |   Backend    |  placidmoon1   | placidmoon1@gmail.com |
+| 임정우 |      육군 15사단      |   Backend    |   realizedd    | themcman12@gmail.com  |
+| 신은수 |  육군 제2작전사령부   |   Frontend   |     esinx      |     me@esinx.net      |
+| 이민석 |    공군 작전사령부    |   Frontend   |    mscwrd02    | ehdtodvodl@naver.com  |
 
 <br/><br/>
 
