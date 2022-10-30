@@ -1,3 +1,4 @@
+import { EmotionData } from '@components/EmotionPanel'
 import FadingDots from '@components/FadingDots'
 import FocusAwareStatusBar from '@components/FocusAwareStatusBar'
 import DataCarousel from '@components/home/DataCarousel'
@@ -157,17 +158,17 @@ const TodaySection: React.FC<{ data?: number[] }> = ({ data }) => {
 				{data &&
 					[
 						{
-							name: '부조리 신고',
+							name: '상담 요청',
 							value: `${data[0]}건`,
 							color: COLOR.ERROR,
 						},
 						{
-							name: '부조리 해결',
+							name: '상담가 매칭',
 							value: `${data[1]}건`,
 							color: COLOR.BRAND.BLUE,
 						},
 						{
-							name: '상담가 매칭',
+							name: '위험감정 감지',
 							value: `${data[2]}명`,
 						},
 						{
@@ -354,10 +355,32 @@ const StatisticsSection: React.FC<
 const HomeScreen: React.FC = () => {
 	const userQuery = useSafeUserQuery()
 	const axios = useAxios()
-	const dataQuery = useQuery(['tapa', 'statistics:all'], async () => {
-		const res = await axios.get('/statistics/all')
-		const { today, emotions } = res.data
-		return { today, emotions }
+	const dataQuery = useQuery(['tapa', 'statistics'], async () => {
+		const todayRes = await axios.get('/statistics/today')
+		const emotionRes = await axios.get('/statistics/unit_emotion')
+		const {
+			counseling_request_count,
+			counselor_alert_count,
+			emotion_detection_count,
+			punishment_prediction_count,
+		} = todayRes.data
+
+		const { count, total } = emotionRes.data
+
+		return {
+			today: [
+				counseling_request_count,
+				counselor_alert_count,
+				emotion_detection_count,
+				punishment_prediction_count,
+			],
+			emotions: Object.fromEntries(
+				Object.entries(count).map(([key, value]) => [
+					key,
+					(value as number) / total,
+				]),
+			),
+		}
 	})
 
 	const newsQuery = useQuery(['tapa', 'news:list'], async () => {
@@ -438,7 +461,11 @@ const HomeScreen: React.FC = () => {
 						<TodaySection data={dataQuery.data?.today} />
 					</View>
 					<Spacer y={24} />
-					<StatisticsSection data={dataQuery.data} />
+					<StatisticsSection
+						data={{
+							emotions: dataQuery.data?.emotions as EmotionData,
+						}}
+					/>
 					<Spacer y={24} />
 					<View
 						style={css`
