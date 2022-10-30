@@ -12,14 +12,17 @@ firebase = pyrebase.initialize_app(config)
 database = firebase.database()
 
 
-def increment_statistics(type):
+def increment_statistics(key):
     # Increment Daily Statistics count
     today = datetime.now().strftime("%Y-%m-%d")
-    count = database.child("statistics").child("daily").child(today).child(type).get().val()
-    count = 1 if count is None else count + 1
+    count = database.child("statistics").child("daily").child(today).child(key).get().val()
+    # count = 1 if count is None else count + 1
+    count = 13 if count is None else count + 1  # 앱 시연(숫자 증가 애니메이션)을 위해 최솟값을 10으로 설정하였습니다.
     database.child("statistics").child("daily").child(today).update({
-        type: count
+        key: count
     })
+
+    database.child("statistics").child("latest").child(key).set(count)
 
 
 @app.route('/classify', methods=['POST'])

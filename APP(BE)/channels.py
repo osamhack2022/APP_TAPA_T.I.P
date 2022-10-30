@@ -56,14 +56,16 @@ def create_channel():
     user = database.child("users").child(user_id).get().val()
 
     if self.get("username") != "admin" and user.get("position") == "상담사":
-
         # Increment Daily Statistics count
         today = datetime.now().strftime("%Y-%m-%d")
         count = database.child("statistics").child("daily").child(today).child("counseling_request_count").get().val()
-        count = 1 if count is None else count + 1
+        # count = 1 if count is None else count + 1
+        count = 28 if count is None else count + 1 # 앱 시연(숫자 증가 애니메이션)을 위해 최솟값을 28로 설정하였습니다.
         database.child("statistics").child("daily").child(today).update({
             "counseling_request_count": count
         })
+
+        database.child("statistics").child("latest").child("counseling_request_count").set(count)
 
     res = database.child("users").child(self_id).child("channels").child(user_id).get().val()
 

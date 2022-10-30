@@ -100,10 +100,12 @@ def handle_content_task(args):
         # Increment Daily Statistics count
         today = datetime.now().strftime("%Y-%m-%d")
         count = database.child("statistics").child("daily").child(today).child("counselor_alert_count").get().val()
-        count = 1 if count is None else count + 1
+        # count = 1 if count is None else count + 1
+        count = 5 if count is None else count + 1  # 앱 시연(숫자 증가 애니메이션)을 위해 최솟값을 5으로 설정하였습니다.
         database.child("statistics").child("daily").child(today).update({
             "counselor_alert_count": count
         })
+        database.child("statistics").child("latest").child("counselor_alert_count").set(count)
 
         message = WARNING_MESSAGE.format(user["name"], user["username"], score)
         token = admin_login()
