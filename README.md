@@ -19,7 +19,9 @@
 	<a href="https://github.com/osamhack2022-v2/APP_TAPA_T.I.P/blob/master/LICENSE"><img alt="GitHub license" src="https://img.shields.io/github/license/osamhack2022-v2/APP_TAPA_T.I.P"></a>
 </p>
 
-## 목차
+<br/><br/>
+
+# 목차
 
 <details open="open">
   <ol>
@@ -36,7 +38,9 @@
   </ol>
 </details>
 
-<h2 id="overview"> :monocle_face: 1. 프로젝트 개요 (Overview) </h2>
+<br/><br/>
+
+<h1 id="overview"> :monocle_face: 1. 프로젝트 개요 (Overview) </h1>
 
 >TAPA는 AI 기반 **병영 부조리 사고 예측** 및 예방 솔루션입니다.
 <p align="center">
@@ -52,21 +56,29 @@
 	<img src="/assets/reason_develop.JPG" width="100%"/>
 </p>
 
+<br/>
+
 ### :earth_africa: 개발 배경
 <p align="center">
 	<img src="/assets/motive_develop.JPG" width="100%"/>
 </p>
+
+<br/>
 
 ### :rocket: 우리의 미션 (Mission)
 
 저희 TAPA 프로젝트 및 앱의 미션은
 **“병사들의 안위와 건강을 위협하는 병영 부조리(가혹행위)의 효율적인 예방 및 대처를 통한 인명 피해 감소”** 입니다.
 
-<h2 id="features"> :iphone: 2. 기능 스케치 </h2>
+<br/><br/>
+
+<h1 id="features"> :iphone: 2. 기능 스케치 </h1>
 
 ### 회원가입
 - 이름 / 닉네임 / 이메일 / 비밀번호 / 군번 / 계급 / 보직 / 소속부대 / 입대일 / 전역일 을 입력합니다.
 <img src="assets/signup.gif" width="80%" />
+
+<br/>
 
 ### 메인 기능
 **TAPA**의 모든 기능은 다음 세 가지 목표 중 한 가지 이상을 달성하기 위해 설계되었습니다.
@@ -85,12 +97,19 @@
 - [통계 및 리더보드 시각화 서비스](https://tapa-1.gitbook.io/tapa-./features/undefined-2)
 - [앱 사용 인센티브 부여 기능](https://tapa-1.gitbook.io/tapa-./features/point)
 
+<br/>
+
 <img src="assets/interface1.png" width="90%" />
+<br/>
 <img src="assets/interface2.png" width="90%" />
+<br/>
 <img src="assets/interface3.png" width="90%" />
+<br/>
 <img src="assets/interface4.png" width="90%" />
 
-<h2 id="benefits"> ⚔️ 3. 군, TAPA 전과 후로 나뉘다 </h2>
+<br/><br/>
+
+<h1 id="benefits"> ⚔️ 3. 군, TAPA 전과 후로 나뉘다 </h1>
 
 ### 기대 효과
 
@@ -109,6 +128,7 @@
 	- 부조리 관련 AI / 상담 / 커뮤니티 게시글 많은 부대 확인 가능
 	- 무사고 기록 랭킹 등 리더보드 시각화를 통해 부조리 타파에 대한 동기부여
 	- 군 관계자에게 다양한 통계 데이터 제공
+<br/>
 
 ### 경쟁력
 
@@ -131,6 +151,7 @@
 	- 대회 수상 이상의 원대한 목표를 가지고 군의 문제를 풀어보고 싶은 열정 있는 멤버들이 모인 팀
 	- 고(故) 조준우 일병 등 병영 부조리 사고로 인해 꽃다운 나이에 삶을 등진 수많은 국군 장병들의 넋을 기리고 절대 잊지 말자는 의미를 담은 프로젝트
 	- 미션, 비전 설정 이후 이에 부합하도록 기능 개발 및 수정
+<br/>
 
 ### 활용 분야 / 추후 확장
 
@@ -147,15 +168,21 @@
 	- 확보한 데이터셋을 바탕으로 모델을 재훈련하고 모델 성능을 개선
 	- 알림과 자동화 툴을 생성하여 자동 모델 재훈련
 
-<h2 id="userflow"> :bulb: 4. 유저 플로우 </h2>
+<br/><br/>
+
+<h1 id="userflow"> :bulb: 4. 유저 플로우 </h1>
 
 ### 유저 플로우 차트
+
+<br/>
 
 <p align="center">
 	<img src="/assets/UserMap.jpg" width="100%"/>
 </p>
 
-<h2 id="progress"> :clipboard: 5. 우리 팀의 협업 과정 </h2>
+<br/><br/>
+
+<h1 id="progress"> :clipboard: 5. 우리 팀의 협업 과정 </h1>
 
 ◈ 사진을 클릭하시면 확대된 원본 이미지를, 파란 글씨를 클릭하시면 해당 링크를 보실 수 있습니다.
 <table align="center">
@@ -254,12 +281,16 @@
     </tbody>
 </table>
 
-<h2 id="prerequisites"> :desktop_computer: 6. 컴퓨터 구성 / 필수 조건 안내 (Prerequisites) </h2>
+<br/><br/>
+
+<h1 id="prerequisites"> :desktop_computer: 6. 컴퓨터 구성 / 필수 조건 안내 (Prerequisites) </h1>
 
 - ECMAScript 6 지원 브라우저 사용
 - 권장: Google Chrome 버젼 77 이상
 
-<h2 id="stacks"> :octocat: 7. 사용한 기술 스택 (Techniques Used) </h2>
+<br/><br/>
+
+<h1 id="stacks"> :octocat: 7. 사용한 기술 스택 (Techniques Used) </h1>
 
 ### Front-end
 
@@ -269,6 +300,8 @@
 <img src="https://img.shields.io/badge/.ENV-16.0.2-ECD53F.svg?style=for-the-badge&logo=.env&logoColor=white">
 <img src="https://img.shields.io/badge/Firebase-9.10.0-FFCA28.svg?style=for-the-badge&logo=firebase&logoColor=white">
 
+<br/>
+
 ### Server(Back-end)
 
 <img src="https://img.shields.io/badge/Google Cloud-4285F4?style=for-the-badge&logo=Google Cloud&logoColor=white"/>  Google Cloud 내 App Engine을 활용해 API 서버를 배포했습니다. 서버 URL은 https://tapa-tip.du.r.appspot.com/ 입니다.   
@@ -277,6 +310,8 @@
 
 <img src="https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white"/>
 
+<br/>
+
 ### ML
 
 <img src="https://img.shields.io/badge/PyTorch-%23EE4C2C.svg?style=for-the-badge&logo=PyTorch&logoColor=white">
@@ -284,9 +319,13 @@
 <img src="https://img.shields.io/badge/Keras-%23D00000.svg?style=for-the-badge&logo=Keras&logoColor=white">
 <img src="https://img.shields.io/badge/KOBERT-%23150458.svg?style=for-the-badge">
 
-<h2 id="install"> :hammer_and_wrench: 8. 프로젝트 사용법 (Getting Started) </h2>
+<br/><br/>
+
+<h1 id="install"> :hammer_and_wrench: 8. 프로젝트 사용법 (Getting Started) </h1>
 
 ### 다운로드 및 패키지 설치 안내
+
+<br/>
 
 ### Environment Variables (환경변수들)
 ```
@@ -300,6 +339,8 @@ ADMIN_ACCOUNT_EMAIL=<email for an account created for administrative purposes>
 ADMIN_ACCOUNT_PASSWORD=<password for admin account>
 ```
 
+<br/>
+
 ### APP Frontend
 ```console
 $ git clone https://github.com/osamhack2022-v2/APP_TAPA_T.I.P.git
@@ -309,6 +350,8 @@ $ touch .env
 $ vim .env # 위에 서술된 환경변수들 저장
 $ npx expo start
 ```
+<br/>
+
 ### APP Backend
 ```console
 $ git clone https://github.com/osamhack2022-v2/APP_TAPA_T.I.P.git
@@ -319,6 +362,8 @@ $ . env/bin/activate
 $ pip install -r requirements.txt
 $ python app.py
 ```
+<br/>
+
 ### AI Backend
 ```console
 $ git clone https://github.com/osamhack2022-v2/APP_TAPA_T.I.P.git
@@ -330,7 +375,10 @@ $ pip install -r requirements.txt
 $ python app.py
 ```
 
-<h2 id="team"> :family_man_man_girl_boy: 9. 팀 정보 (Team Information) </h2>
+<br/><br/>
+
+<h1 id="team"> :family_man_man_girl_boy: 9. 팀 정보 (Team Information) </h1>
+<br/>
 
 |  팀원  |         소속          |     역할     |     GitHub     |         Email         |
 | :----: | :-------------------: | :------------: | :------------: | :-------------------: |
@@ -342,7 +390,13 @@ $ python app.py
 | 신은수 |  육군 제2작전사령부   | Frontend |     esinx      |     me@esinx.net      |
 | 이민석 |    공군 작전사령부    | Frontend |    mscwrd02    | ehdtodvodl@naver.com  |
 
-<h2 id="license"> :scroll: 10. 저작권 및 사용권 정보 (Copyleft / End User License) </h2>
+<br/><br/>
+
+<h1 id="license"> :scroll: 10. 저작권 및 사용권 정보 (Copyleft / End User License) </h1>
 - [MIT](https://github.com/osam2020-WEB/Sample-ProjectName-TeamName/blob/master/license.md)
 
 This project is licensed under the terms of the MIT license.
+
+AI(BE) 폴더의 NLP 파트 모델은 https://github.com/SKTBrain/KoBERT 의 KoBERT 모델을 활용했습니다.
+KoBERT는 `Apache-2.0` 라이선스 하에 공개되어 있습니다. 라이선스 전문은 LICENSE 파일에서 확인하실 수 있습니다.
+Copyright (c) 2019 SK T-Brain
