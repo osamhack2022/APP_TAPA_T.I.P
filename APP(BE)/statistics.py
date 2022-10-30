@@ -51,7 +51,17 @@ def get_unit_emotion():
 def get_daily_statistics():
     today = datetime.now().strftime("%Y-%m-%d")
     data = db.child("statistics").child("daily").child(today).get().val()
-    return data if data is not None else {}, 200
+
+    if data is None:
+        data = db.child("statistics").child("latest").get().val()
+
+    # Return default only if not even latest contains any data
+    return data if data is not None else {
+        "counseling_request_count": 0,
+        "counselor_alert_count": 0,
+        "emotion_detection_count": 0,
+        "punishment_prediction_count": 0
+    }, 200
 
 
 # NOTE: Deprecated.
