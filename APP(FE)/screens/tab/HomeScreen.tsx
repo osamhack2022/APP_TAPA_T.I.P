@@ -365,6 +365,12 @@ const HomeScreen: React.FC = () => {
 			punishment_prediction_count,
 		} = todayRes.data
 
+		const generalRes = await axios.get('/statistics/general')
+		const {
+			issues,
+			accident_streaks: accidentStreaks,
+		} = generalRes.data
+
 		const { count, total = 1 } = emotionRes.data
 
 		return {
@@ -380,6 +386,8 @@ const HomeScreen: React.FC = () => {
 					(value as number) / total,
 				]),
 			),
+			issues,
+			accident_streaks: accidentStreaks,
 		}
 	})
 
@@ -463,6 +471,8 @@ const HomeScreen: React.FC = () => {
 					<Spacer y={24} />
 					<StatisticsSection
 						data={{
+							issues: dataQuery.data?.issues,
+							accidentStreaks: dataQuery.data?.accident_streaks,
 							emotions: dataQuery.data?.emotions as EmotionData,
 						}}
 					/>
