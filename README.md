@@ -11,7 +11,6 @@
 		<img src="/assets/NOTION Button.png" width="220" height="45"/>
 	</a>
 </p>
-
 <p align="center">
 	<a href="https://github.com/osamhack2022-v2/APP_TAPA_T.I.P/search?l=TSX&type=code"><img alt="GitHub language count" src="https://img.shields.io/github/languages/count/osamhack2022-v2/APP_TAPA_T.I.P"></a>
 	<a href="https://github.com/osamhack2022-v2/APP_TAPA_T.I.P/graphs/contributors"><img alt="GitHub contributors" src="https://img.shields.io/github/contributors/osamhack2022-v2/APP_TAPA_T.I.P"></a>
@@ -71,7 +70,8 @@
 
 ### 메인 기능
 **TAPA**의 모든 기능은 다음 세 가지 목표 중 한 가지 이상을 달성하기 위해 설계되었습니다.
-◈ 스크롤을 내리면 UI/UX 스케치를, 파란 글씨(링크)를 클릭하시면 Gitbook에서 상세 설명을 보실 수 있습니다.
+
+◈ 스크롤을 내리면 대략적인 UI/UX 스케치를, 파란 글씨(링크)를 클릭하시면 Gitbook에서 상세 설명을 보실 수 있습니다.
 
 >**첫째**, 부조리, 가혹행위 등 부당한 일을 당한 병사를 도와주어 *부조리에 효과적으로 대처*하는 것,
 - [또래 장병 커뮤니티 소통 기능](https://tapa-1.gitbook.io/tapa-./features/undefined-1)
@@ -84,6 +84,11 @@
 >**셋째**, 군 차원에서 *병사들의 정신 건강 상태를 관리*하고 앱 사용을 장려하는 것 입니다.
 - [통계 및 리더보드 시각화 서비스](https://tapa-1.gitbook.io/tapa-./features/undefined-2)
 - [앱 사용 인센티브 부여 기능](https://tapa-1.gitbook.io/tapa-./features/point)
+
+<img src="assets/interface1.png" width="90%" />
+<img src="assets/interface2.png" width="90%" />
+<img src="assets/interface3.png" width="90%" />
+<img src="assets/interface4.png" width="90%" />
 
 <h2 id="benefits"> ⚔️ 3. 군, TAPA 전과 후로 나뉘다 </h2>
 
