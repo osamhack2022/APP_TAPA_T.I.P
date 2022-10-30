@@ -365,7 +365,7 @@ const HomeScreen: React.FC = () => {
 			punishment_prediction_count,
 		} = todayRes.data
 
-		const { count, total } = emotionRes.data
+		const { count, total = 1 } = emotionRes.data
 
 		return {
 			today: [
