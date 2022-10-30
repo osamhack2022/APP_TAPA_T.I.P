@@ -441,6 +441,6 @@ $ python app.py
 <br/><br/>
 
 <h1 id="license"> :scroll: 10. 저작권 및 사용권 정보 (Copyleft / End User License) </h1>
-- [MIT](https://github.com/osam2020-WEB/Sample-ProjectName-TeamName/blob/master/license.md)
+- [MIT](https://github.com/osamhack2022/APP_TAPA_T.I.P/blob/main/LICENSE)
 
 This project is licensed under the terms of the MIT license.
