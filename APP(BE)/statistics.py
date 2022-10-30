@@ -47,8 +47,28 @@ def get_unit_emotion():
     return {"count": count, "total": total}, 200
 
 
-@bp.route("/all", methods=["GET"])
-def get_general_statistics():
+@bp.route("/today", methods=["GET"])
+def get_daily_statistics():
     today = datetime.now().strftime("%Y-%m-%d")
     data = db.child("statistics").child("daily").child(today).get().val()
     return data if data is not None else {}, 200
+
+
+# NOTE: Deprecated.
+@bp.route("/all", methods=["GET"])
+def get_general_statistics():
+    today = db.child("statistics").child("today").get().val()
+    data = db.child("statistics").child("latest").get().val()
+    if data is None:
+        return {}, 500
+
+    accident_streaks = random.choice(data['accident-streaks'])
+    issues = random.choice(data['issues'])
+    emotions = random.choice(data['emotions'])
+
+    return {
+               "today": today,
+               "accident_streaks": accident_streaks,
+               "issues": issues,
+               "emotions": emotions
+           }, 200
