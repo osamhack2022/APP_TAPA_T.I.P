@@ -152,7 +152,7 @@
 ### 유저 플로우 차트
 
 <p align="center">
-	<img src="/assets/UserFrame.png" width="100%"/>
+	<img src="/assets/UserMap.png" width="100%"/>
 </p>
 
 <h2 id="progress"> :clipboard: 5. 우리 팀의 협업 과정 </h2>
